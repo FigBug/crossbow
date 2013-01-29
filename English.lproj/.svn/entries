@@ -1,0 +1,41 @@
+8
+
+dir
+2
+https://cross-bow.googlecode.com/svn/trunk/English.lproj
+https://cross-bow.googlecode.com/svn
+
+
+
+2009-07-09T13:45:52.762470Z
+2
+figbug
+
+
+svn:special svn:externals svn:needs-lock
+
+InfoPlist.strings
+file
+
+
+
+
+2009-05-20T13:45:27.000000Z
+51ef59b60e5b41b91519cc662a9fe886
+2009-07-09T13:45:52.762470Z
+2
+figbug
+has-props
+
+MainMenu.xib
+file
+
+
+
+
+2009-05-20T13:45:27.000000Z
+c890f31cc915ef2988c1b1f5d3b7c80c
+2009-07-09T13:45:52.762470Z
+2
+figbug
+
