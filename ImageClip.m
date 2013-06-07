@@ -40,13 +40,6 @@
     return self;
 }
 
-- (void)dealloc
-{
-	self.lastScroll = nil;
-	[document retain];
-	
-	[super dealloc];
-}
 
 - (void)setDelegate:(id)del
 {
@@ -60,9 +53,8 @@
 
 - (void)setDocument:(NSView*)view
 {
-	[document release];
 	
-	document = [view retain];
+	document = view;
 	
 	[self setSubviews:[NSArray arrayWithObject:document]];
 }

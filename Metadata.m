@@ -20,6 +20,7 @@
 
 
 #import "Metadata.h"
+#import "DirEntry.h"
 
 
 @implementation Metadata
@@ -32,14 +33,6 @@
 	return self;
 }
 
-- (void)dealloc
-{
-	[de release];
-	[metadata release];
-	
-	[super dealloc];
-}
-
 - (void)awakeFromNib
 {
 }
@@ -49,16 +42,14 @@
 	if (de == de_)
 		return;
 	
-	[de release];
-	de = [de_ retain];
+	de = de_;
 	
-	[metadata release];
 	metadata = nil;
 	if (de)
-		metadata = [[de metadata] retain];
+		metadata = [de metadata];
 	
-	[metadataList reloadData];
-	[metadataList expandItem:nil expandChildren:YES];
+	//[metadataList reloadData];
+	//[metadataList expandItem:nil expandChildren:YES];
 }
 
 - (id)outlineView:(NSOutlineView *)outlineView child:(NSInteger)index ofItem:(id)item

@@ -33,7 +33,6 @@
 		787752C30F0D459500BAD9E2 /* ImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 787752C20F0D459500BAD9E2 /* ImageCache.m */; };
 		7893714D0F073E5F001D48A0 /* TBCw.png in Resources */ = {isa = PBXBuildFile; fileRef = 7893714B0F073E5F001D48A0 /* TBCw.png */; };
 		7893714E0F073E5F001D48A0 /* TBCcw.png in Resources */ = {isa = PBXBuildFile; fileRef = 7893714C0F073E5F001D48A0 /* TBCcw.png */; };
-		789373480F07E3D4001D48A0 /* Metadata.xib in Resources */ = {isa = PBXBuildFile; fileRef = 789373470F07E3D4001D48A0 /* Metadata.xib */; };
 		7893734B0F07E409001D48A0 /* Metadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 7893734A0F07E409001D48A0 /* Metadata.m */; };
 		78948BCB0EF8963600356919 /* SCEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 78948BC70EF8963600356919 /* SCEvent.m */; };
 		78948BCC0EF8963600356919 /* SCEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 78948BCA0EF8963600356919 /* SCEvents.m */; };
@@ -41,12 +40,8 @@
 		78948D410EF94CB000356919 /* FileListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 78948D400EF94CB000356919 /* FileListItem.m */; };
 		78AAFEB50FC4463C005FC339 /* ImageProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 78AAFEB30FC4463C005FC339 /* ImageProcessor.m */; };
 		78AB4DB30EF2B237004ABF79 /* History.m in Sources */ = {isa = PBXBuildFile; fileRef = 78AB4DB20EF2B237004ABF79 /* History.m */; };
-		78B348CD0F08168D00A83402 /* BGHUDAppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78B348CC0F08168D00A83402 /* BGHUDAppKit.framework */; };
-		78B34AA80F0816A700A83402 /* BGHUDAppKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 78B348CC0F08168D00A83402 /* BGHUDAppKit.framework */; };
 		78B728B50F069309000CD71E /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78B728B40F069309000CD71E /* Carbon.framework */; };
 		78B728BF0F06933A000CD71E /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78B728BE0F06933A000CD71E /* IOKit.framework */; };
-		78CDC4570EF55BCB00EC2A16 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78CDC4560EF55BCB00EC2A16 /* Sparkle.framework */; };
-		78CDC4BE0EF55C2E00EC2A16 /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 78CDC4560EF55BCB00EC2A16 /* Sparkle.framework */; };
 		78CDC4C20EF55E8500EC2A16 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 78CDC4C10EF55E8500EC2A16 /* dsa_pub.pem */; };
 		78CDC4EF0EF5756A00EC2A16 /* DBPrefsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78CDC4EE0EF5756A00EC2A16 /* DBPrefsWindowController.m */; };
 		78CDC4F20EF5759400EC2A16 /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78CDC4F10EF5759400EC2A16 /* PreferencesController.m */; };
@@ -82,8 +77,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				78B34AA80F0816A700A83402 /* BGHUDAppKit.framework in Copy Frameworks */,
-				78CDC4BE0EF55C2E00EC2A16 /* Sparkle.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -136,6 +129,8 @@
 		7830412E0EF40AB200A3BC6D /* Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Util.m; sourceTree = "<group>"; };
 		783B7E750EFFE75600AF19FC /* ImagePreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagePreview.h; sourceTree = "<group>"; };
 		783B7E760EFFE75600AF19FC /* ImagePreview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagePreview.m; sourceTree = "<group>"; };
+		784E0710176251A200C243C6 /* Crossbow.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Crossbow.entitlements; sourceTree = "<group>"; };
+		784E071517625EB500C243C6 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = ../../../../System/Library/Frameworks/Sparkle.framework; sourceTree = "<group>"; };
 		786283F80EF320DF0056FEAD /* Preferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Preferences.h; sourceTree = "<group>"; };
 		786283F90EF320DF0056FEAD /* Preferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Preferences.m; sourceTree = "<group>"; };
 		78774EB30F0BB9A000BAD9E2 /* ImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageView.h; sourceTree = "<group>"; };
@@ -146,7 +141,6 @@
 		787752C20F0D459500BAD9E2 /* ImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCache.m; sourceTree = "<group>"; };
 		7893714B0F073E5F001D48A0 /* TBCw.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TBCw.png; sourceTree = "<group>"; };
 		7893714C0F073E5F001D48A0 /* TBCcw.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TBCcw.png; sourceTree = "<group>"; };
-		789373470F07E3D4001D48A0 /* Metadata.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Metadata.xib; sourceTree = "<group>"; };
 		789373490F07E409001D48A0 /* Metadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Metadata.h; sourceTree = "<group>"; };
 		7893734A0F07E409001D48A0 /* Metadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Metadata.m; sourceTree = "<group>"; };
 		78948BC60EF8963600356919 /* SCEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCEvent.h; sourceTree = "<group>"; };
@@ -161,10 +155,8 @@
 		78AAFEB40FC4463C005FC339 /* ImageProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageProcessor.h; sourceTree = "<group>"; };
 		78AB4DB10EF2B237004ABF79 /* History.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = History.h; sourceTree = "<group>"; };
 		78AB4DB20EF2B237004ABF79 /* History.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = History.m; sourceTree = "<group>"; };
-		78B348CC0F08168D00A83402 /* BGHUDAppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BGHUDAppKit.framework; path = ../../BGHUDAppKit/trunk/build/Release/BGHUDAppKit.framework; sourceTree = SOURCE_ROOT; };
 		78B728B40F069309000CD71E /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		78B728BE0F06933A000CD71E /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = /System/Library/Frameworks/IOKit.framework; sourceTree = "<absolute>"; };
-		78CDC4560EF55BCB00EC2A16 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		78CDC4C10EF55E8500EC2A16 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		78CDC4ED0EF5756A00EC2A16 /* DBPrefsWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBPrefsWindowController.h; sourceTree = "<group>"; };
 		78CDC4EE0EF5756A00EC2A16 /* DBPrefsWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBPrefsWindowController.m; sourceTree = "<group>"; };
@@ -209,11 +201,9 @@
 			files = (
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				78E389450EF0726D00703EA0 /* Quartz.framework in Frameworks */,
-				78CDC4570EF55BCB00EC2A16 /* Sparkle.framework in Frameworks */,
 				78948BDD0EF91C5E00356919 /* libcrypto.dylib in Frameworks */,
 				78B728B50F069309000CD71E /* Carbon.framework in Frameworks */,
 				78B728BF0F06933A000CD71E /* IOKit.framework in Frameworks */,
-				78B348CD0F08168D00A83402 /* BGHUDAppKit.framework in Frameworks */,
 				78FF25580F13A37600B825F1 /* libz.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -239,14 +229,12 @@
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				78FF25570F13A37600B825F1 /* libz.dylib */,
-				78B348CC0F08168D00A83402 /* BGHUDAppKit.framework */,
-				78B728BE0F06933A000CD71E /* IOKit.framework */,
 				78B728B40F069309000CD71E /* Carbon.framework */,
-				78948BDC0EF91C5E00356919 /* libcrypto.dylib */,
-				78CDC4560EF55BCB00EC2A16 /* Sparkle.framework */,
-				78E389440EF0726D00703EA0 /* Quartz.framework */,
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
+				78B728BE0F06933A000CD71E /* IOKit.framework */,
+				78948BDC0EF91C5E00356919 /* libcrypto.dylib */,
+				78FF25570F13A37600B825F1 /* libz.dylib */,
+				78E389440EF0726D00703EA0 /* Quartz.framework */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
@@ -272,6 +260,8 @@
 		29B97314FDCFA39411CA2CEA /* Crossbow */ = {
 			isa = PBXGroup;
 			children = (
+				784E071517625EB500C243C6 /* Sparkle.framework */,
+				784E0710176251A200C243C6 /* Crossbow.entitlements */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -408,7 +398,6 @@
 				780C180E0F34CFBB00FE29C4 /* ProgressSheet.xib */,
 				7800B6C20EF16DCF00882915 /* Browser.xib */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
-				789373470F07E3D4001D48A0 /* Metadata.xib */,
 				78CDC52D0EF57AE000EC2A16 /* Preferences.xib */,
 				781538270F0DA2CA00EE7C17 /* ThumbnailBuilder.xib */,
 				7800B83F0EF1E8EF00882915 /* Viewer.xib */,
@@ -518,7 +507,11 @@
 			isa = PBXProject;
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Crossbow" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				en,
+			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Crossbow */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -549,7 +542,6 @@
 				78D5BA020EFA9C130020A6F7 /* TBGoUp.png in Resources */,
 				7893714D0F073E5F001D48A0 /* TBCw.png in Resources */,
 				7893714E0F073E5F001D48A0 /* TBCcw.png in Resources */,
-				789373480F07E3D4001D48A0 /* Metadata.xib in Resources */,
 				78EAD0220F09A618002D2588 /* App.icns in Resources */,
 				78EAD0230F09A618002D2588 /* Doc.icns in Resources */,
 				781538280F0DA2CA00EE7C17 /* ThumbnailBuilder.xib in Resources */,
@@ -628,12 +620,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
-					"\"$(SRCROOT)/../../BGHUDAppKit/trunk/build/Release\"",
-					"\"$(SRCROOT)/Frameworks\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -643,7 +636,9 @@
 				GCC_PREFIX_HEADER = Crossbow_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = Crossbow;
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -651,19 +646,22 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
-					"\"$(SRCROOT)/../../BGHUDAppKit/trunk/build/Release\"",
-					"\"$(SRCROOT)/Frameworks\"",
 				);
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Crossbow_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = Crossbow;
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};

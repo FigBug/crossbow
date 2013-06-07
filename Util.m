@@ -36,7 +36,7 @@ NSString* md5(NSString* str)
 		for (int i = 0; i < MD5_DIGEST_LENGTH; i++)
 			[ms appendFormat: @"%02x", (int)(bytes[i])];
 
-		return [[ms copy] autorelease];		
+		return [ms copy];		
 	}
 	return @"";
 }
@@ -46,7 +46,7 @@ BOOL isVisiblePath(NSString* path)
 	NSFileManager* fm = [NSFileManager defaultManager];
 	
 	LSItemInfoRecord infoRec;
-	OSStatus status = LSCopyItemInfoForURL((CFURLRef)[NSURL fileURLWithPath:path], kLSRequestBasicFlagsOnly, &infoRec);
+	OSStatus status = LSCopyItemInfoForURL((__bridge CFURLRef)[NSURL fileURLWithPath:path], kLSRequestBasicFlagsOnly, &infoRec);
 	
 	if (status != noErr)
 		return NO;
@@ -67,7 +67,7 @@ BOOL isVisiblePath(NSString* path)
 		do
 		{
 			LSItemInfoRecord infoRec2;
-			OSStatus status2 = LSCopyItemInfoForURL((CFURLRef)[NSURL fileURLWithPath:actualPath], kLSRequestBasicFlagsOnly, &infoRec2);
+			OSStatus status2 = LSCopyItemInfoForURL((__bridge CFURLRef)[NSURL fileURLWithPath:actualPath], kLSRequestBasicFlagsOnly, &infoRec2);
 			if (status2 != noErr)
 				return NO;			
 			
@@ -196,7 +196,7 @@ void addAppsToMenu(NSURL* file, NSMenu* menu, SEL sel, BOOL edit)
 	while ([menu numberOfItems] > 0)
 		[menu removeItemAtIndex:0];
 	
-	NSArray* apps = (NSArray*)LSCopyApplicationURLsForURL((CFURLRef)file, edit ? kLSRolesEditor : kLSRolesViewer);
+	NSArray* apps = (NSArray*)CFBridgingRelease(LSCopyApplicationURLsForURL((__bridge CFURLRef)file, edit ? kLSRolesEditor : kLSRolesViewer));
 	if (apps)
 	{
 		int i = 0;
@@ -213,17 +213,15 @@ void addAppsToMenu(NSURL* file, NSMenu* menu, SEL sel, BOOL edit)
 			
 			[item setImage: icon];				
 		}
-		[apps release];
 	}
 }
 
 void openWithApp(NSURL* file, int idx, BOOL edit)
 {
-	NSArray* apps = (NSArray*)LSCopyApplicationURLsForURL((CFURLRef)file, edit ? kLSRolesEditor : kLSRolesViewer);
+	NSArray* apps = (NSArray*)CFBridgingRelease(LSCopyApplicationURLsForURL((__bridge CFURLRef)file, edit ? kLSRolesEditor : kLSRolesViewer));
 	if (apps)
 	{
 		[[NSWorkspace sharedWorkspace] openFile:[file path] withApplication:[[apps objectAtIndex:idx] path]];
-		[apps release];
 	}
 }
 

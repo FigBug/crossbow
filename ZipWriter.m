@@ -57,45 +57,43 @@
 
 - (void)threadProc:(id)param
 {
-	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+	@autoreleasepool {
 	
-	DirEntry* location = [param objectAtIndex:0];
-	NSArray*  files    = [param objectAtIndex:1];
-	id sheet           = [param objectAtIndex:2];
-	
-	NSString* path = [location path];
-	
-	int i = 0;
-	for (DirEntry* de in files)
-	{
-		if ([de isFile])
+		DirEntry* location = [param objectAtIndex:0];
+		NSArray*  files    = [param objectAtIndex:1];
+		id sheet           = [param objectAtIndex:2];
+		
+		NSString* path = [location path];
+		
+		int i = 0;
+		for (DirEntry* de in files)
 		{
-			NSString* name = [[de path] substringFromIndex:[path length] + 1];
+			if ([de isFile])
+			{
+				NSString* name = [[de path] substringFromIndex:[path length] + 1];
+				
+				[self addFile:[de path] withName:name];
+			}	
+			i++;
+			[sheet performSelectorOnMainThread:@selector(setProgress:) withObject:[NSNumber numberWithDouble: i / (double)[files count]] waitUntilDone:NO];
 			
-			[self addFile:[de path] withName:name];
-		}	
-		i++;
-		[sheet performSelectorOnMainThread:@selector(setProgress:) withObject:[NSNumber numberWithDouble: i / (double)[files count]] waitUntilDone:NO];
+			if ([[NSThread currentThread] isCancelled])
+				break;
+		}
+			
+		[self close];
 		
 		if ([[NSThread currentThread] isCancelled])
-			break;
-	}
-		
-	[self close];
+		{
+			[[NSFileManager defaultManager] removeItemAtPath:zipFilePath error:nil];
+		}
+		else
+		{
+			[[NSWorkspace sharedWorkspace] selectFile:zipFilePath inFileViewerRootedAtPath:path];
+			[sheet performSelectorOnMainThread:@selector(cancel:) withObject:[NSThread currentThread] waitUntilDone:NO];
+		}
 	
-	if ([[NSThread currentThread] isCancelled])
-	{
-		[[NSFileManager defaultManager] removeItemAtPath:zipFilePath error:nil];
 	}
-	else
-	{
-		[[NSWorkspace sharedWorkspace] selectFile:zipFilePath inFileViewerRootedAtPath:path];
-		[sheet performSelectorOnMainThread:@selector(cancel:) withObject:[NSThread currentThread] waitUntilDone:NO];
-	}
-	
-	[[NSThread currentThread] autorelease];
-	
-	[pool release];
 }
 
 + (bool)createZipIn:(DirEntry*)location with:(NSArray*)files
@@ -124,7 +122,7 @@
 
 + (id)zipWriterWithPath:(NSString*)path
 {
-	return [[[ZipWriter alloc] initWithPath:path] autorelease];
+	return [[ZipWriter alloc] initWithPath:path];
 }
 
 - (id)initWithPath:(NSString*)path
@@ -135,19 +133,12 @@
 		zipHandle = zipOpen([path fileSystemRepresentation], APPEND_STATUS_CREATE);
 		if (!zipHandle)
 		{
-			[self autorelease];
 			return nil;
 		}
 	}
 	return self;
 }
 
-- (void)dealloc
-{
-	[zipFilePath release];
-	
-	[super dealloc];
-}
 
 - (BOOL)addFile:(NSString*)path withName:(NSString*)name
 {
@@ -155,57 +146,57 @@
 	if (!src)
 		return NO;
 	
-	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+	@autoreleasepool {
 	
-	NSDictionary* attr = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:nil];
-	
-	zip_fileinfo zipInfo;
-	
-	NSDate* date = [attr objectForKey:NSFileModificationDate];
-	NSDateComponents* comp = [[NSCalendar currentCalendar] components: NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit fromDate:date];
-	
-	zipInfo.tmz_date.tm_sec  = [comp second];
-	zipInfo.tmz_date.tm_min  = [comp minute];
-	zipInfo.tmz_date.tm_hour = [comp hour];
-	zipInfo.tmz_date.tm_mday = [comp day];
-	zipInfo.tmz_date.tm_mon  = [comp month];
-	zipInfo.tmz_date.tm_year = [comp year];
-	
-	zipInfo.dosDate = 0;
-	
-	zipInfo.internal_fa = 0;
-	zipInfo.external_fa = 0;
-	
-	if (zipOpenNewFileInZip(zipHandle, 
+		NSDictionary* attr = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:nil];
+		
+		zip_fileinfo zipInfo;
+		
+		NSDate* date = [attr objectForKey:NSFileModificationDate];
+		NSDateComponents* comp = [[NSCalendar currentCalendar] components: NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit fromDate:date];
+		
+		zipInfo.tmz_date.tm_sec  = [comp second];
+		zipInfo.tmz_date.tm_min  = [comp minute];
+		zipInfo.tmz_date.tm_hour = [comp hour];
+		zipInfo.tmz_date.tm_mday = [comp day];
+		zipInfo.tmz_date.tm_mon  = [comp month];
+		zipInfo.tmz_date.tm_year = [comp year];
+		
+		zipInfo.dosDate = 0;
+		
+		zipInfo.internal_fa = 0;
+		zipInfo.external_fa = 0;
+		
+		if (zipOpenNewFileInZip(zipHandle, 
                         [name fileSystemRepresentation], 
-	                    &zipInfo, 
-	                    NULL, 0,
-	                    NULL, 0,
-	                    NULL,
-	                    Z_DEFLATED,
-	                    Z_DEFAULT_COMPRESSION) == ZIP_OK)
-	{
-		NSData* data = nil;
-		int len = 0;
-		do
+		                    &zipInfo, 
+		                    NULL, 0,
+		                    NULL, 0,
+		                    NULL,
+		                    Z_DEFLATED,
+		                    Z_DEFAULT_COMPRESSION) == ZIP_OK)
 		{
-			NSAutoreleasePool* subpool = [[NSAutoreleasePool alloc] init];
+			NSData* data = nil;
+			int len = 0;
+			do
+			{
+				@autoreleasepool {
 
-			data = [src readDataOfLength:10 * 1024];
-			len = [data length];
+					data = [src readDataOfLength:10 * 1024];
+					len = [data length];
+					
+					if (len > 0)
+						zipWriteInFileInZip(zipHandle, [data bytes], [data length]);
+				
+				}
+			}
+			while (len > 0);
 			
-			if (len > 0)
-				zipWriteInFileInZip(zipHandle, [data bytes], [data length]);
+			[src closeFile];
 			
-			[subpool release];
+			zipCloseFileInZip(zipHandle);
 		}
-		while (len > 0);
-		
-		[src closeFile];
-		
-		zipCloseFileInZip(zipHandle);
 	}
-	[pool release];
 	return YES;
 }
 

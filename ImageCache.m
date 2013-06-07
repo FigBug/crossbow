@@ -20,6 +20,7 @@
 
 
 #import "ImageCache.h"
+#import "DirEntry.h"
 
 
 @implementation ImageCache
@@ -35,10 +36,8 @@
 
 - (void)dealloc
 {
-	[cache release];
 	[self cancelThread];
 	
-	[super dealloc];
 }
 
 - (NSImage*)imageForDirEntry:(DirEntry*)de
@@ -54,8 +53,6 @@
 			if (img)
 				[cache setObject:img forKey:[de path]];
 		}
-		if (img)
-			[[img retain] autorelease];
 	}
 	return img;
 }
@@ -65,7 +62,6 @@
 	if (decodeThread)
 	{
 		[decodeThread cancel];
-		[decodeThread release];
 		decodeThread = nil;
 	}
 }
@@ -87,7 +83,6 @@
 			else
 				[todo addObject:de];
 		}
-		[cache release];
 		cache = newCache;
 	}
 	decodeThread = [[NSThread alloc] initWithTarget:self selector:@selector(decodeProc:) object:todo];
@@ -96,28 +91,28 @@
 
 - (void)decodeProc:(id)todo
 {
-	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+	@autoreleasepool {
 	
-	for (DirEntry* de in todo)
-	{
-		if ([[NSThread currentThread] isCancelled])
-			return;
-		
-		NSAutoreleasePool* subpool = [[NSAutoreleasePool alloc] init];
-		
-		NSImage* img = [de image];
-		if (img)
+		for (DirEntry* de in todo)
 		{
-			[img isValid];
+			if ([[NSThread currentThread] isCancelled])
+				return;
 			
-			@synchronized (self)
-			{
-				[cache setObject:img forKey:[de path]];
+			@autoreleasepool {
+			
+				NSImage* img = [de image];
+				if (img)
+				{
+					[img isValid];
+					
+					@synchronized (self)
+					{
+						[cache setObject:img forKey:[de path]];
+					}
+				}
 			}
 		}
-		[subpool release];
 	}
-	[pool release];
 }
 
 @end

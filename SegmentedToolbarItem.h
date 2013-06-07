@@ -5,7 +5,7 @@
 	NSSegmentedControl *control;
 	NSMenu *menu;
 	SEL *actions;
-	id* targets;
+	id targets;
 }
 
 + (SegmentedToolbarItem*)itemWithIdentifier:(NSString*)identifier label:(NSString*)label paletteLabel:(NSString*)pallabel segments:(int)segments;

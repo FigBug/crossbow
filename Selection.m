@@ -27,7 +27,7 @@
 
 + (Selection*)selectionWith:(NSArray*)list
 {
-	Selection* s = [[[Selection alloc] initWith:list] autorelease];
+	Selection* s = [[Selection alloc] initWith:list];
 	
 	return s;
 }
@@ -36,7 +36,7 @@
 {
 	if (self = [super init])
 	{
-		selectedItems = [list retain];
+		selectedItems = list;
 		
 		NSMutableArray* files   = [NSMutableArray arrayWithCapacity: 10];
 		NSMutableArray* folders = [NSMutableArray arrayWithCapacity: 10];
@@ -55,13 +55,6 @@
 	return self;
 }
 
-- (void)dealloc
-{
-	[selectedFiles release];
-	[selectedFolders release];
-	
-	[super dealloc];
-}
 
 - (int)count
 {

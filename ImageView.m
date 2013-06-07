@@ -74,9 +74,8 @@
 
 - (void)setImage:(NSImage*)img rotationAngle:(int)angle_
 {
-	[image release];
 	
-	image = [img retain];
+	image = img;
 	originalSize = [image sizeLargestRepresentation];
 	
 	angle = angle_;

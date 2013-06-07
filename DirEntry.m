@@ -45,7 +45,7 @@ NSArray* imageTypes = nil;
 	NSValue* dew = [dirEntryCache objectForKey: [url_ path]];
 	if (!dew)
 	{
-		DirEntry* de = [[[DirEntry alloc] initWithURL: url_] autorelease];
+		DirEntry* de = [[DirEntry alloc] initWithURL: url_];
 		if (de)
 		{
 			dew = [NSValue valueWithNonretainedObject: de];
@@ -86,7 +86,6 @@ NSArray* imageTypes = nil;
 		}
 		else
 		{
-			[self autorelease];
 			return nil;
 		}		
 	}
@@ -95,15 +94,10 @@ NSArray* imageTypes = nil;
 
 - (void)dealloc
 {
-	[creationDate release];
-	[modificationDate release];
 	
 	[dirEntryCache removeObjectForKey: [url path]];
 	
-	[url release];
-	[displayName release];
 	
-	[super dealloc];
 }
 
 - (NSString*)description
@@ -183,14 +177,11 @@ NSArray* imageTypes = nil;
 
 		@synchronized (self)
 		{
-			[displayName release];
-			displayName = [[fm displayNameAtPath: [url path]] retain];
+			displayName = [fm displayNameAtPath: [url path]];
 					
-			[creationDate release];
-			[modificationDate release];
 			
-			creationDate       = [[attr objectForKey: NSFileCreationDate] retain];
-			modificationDate   = [[attr objectForKey: NSFileModificationDate] retain];
+			creationDate       = [attr objectForKey: NSFileCreationDate];
+			modificationDate   = [attr objectForKey: NSFileModificationDate];
 			fileSize           = folder ? 0 : [[attr objectForKey: NSFileSize] longLongValue];
 			link               = [[attr valueForKey:NSFileType] isEqual:NSFileTypeSymbolicLink];	
 			invalid            = NO;
@@ -209,7 +200,7 @@ NSArray* imageTypes = nil;
 
 - (NSImage*)image
 {
-	NSImage* img = [[[NSImage alloc] initByReferencingURL: [self url]] autorelease];
+	NSImage* img = [[NSImage alloc] initByReferencingURL: [self url]];
 	[img setCacheMode:NSImageCacheNever];
 	return img;
 }
@@ -255,7 +246,7 @@ NSArray* imageTypes = nil;
 	}
 	else
 	{
-		NSImage* orig = [[[NSImage alloc] initByReferencingURL: url] autorelease];
+		NSImage* orig = [[NSImage alloc] initByReferencingURL: url];
 		if (!orig)
 			return nil;
 		
@@ -287,7 +278,7 @@ NSArray* imageTypes = nil;
 
 	NSDictionary* dict = [NSKeyedUnarchiver unarchiveObjectWithFile:[self thumbnailPath]];
 	if (dict)
-		return [[[NSImage alloc] initWithData: [dict objectForKey:@"thumbnail"]] autorelease];
+		return [[NSImage alloc] initWithData: [dict objectForKey:@"thumbnail"]];
 	else
 		return nil;
 }
@@ -314,12 +305,11 @@ NSArray* imageTypes = nil;
 		
 		[dict setObject:file forKey:@"{File}"];
 		
-		CGImageSourceRef source = CGImageSourceCreateWithURL((CFURLRef)url, NULL);
+		CGImageSourceRef source = CGImageSourceCreateWithURL((__bridge CFURLRef)url, NULL);
 		
 		if (source)
 		{
-			NSDictionary* properties = (NSDictionary*)CGImageSourceCopyPropertiesAtIndex(source, 0, NULL);
-			[properties autorelease];
+			NSDictionary* properties = (NSDictionary*)CFBridgingRelease(CGImageSourceCopyPropertiesAtIndex(source, 0, NULL));
 			
 			[dict addEntriesFromDictionary:properties];		
 		}
@@ -348,7 +338,7 @@ NSArray* imageTypes = nil;
 	NSDate* res = nil;
 	@synchronized (self)
 	{
-		res = [[creationDate retain] autorelease];
+		res = creationDate;
 	}
 	return res;
 }
@@ -358,7 +348,7 @@ NSArray* imageTypes = nil;
 	NSDate* res = nil;
 	@synchronized (self)
 	{
-		res = [[modificationDate retain] autorelease];
+		res = modificationDate;
 	}
 	return res;
 }
@@ -447,7 +437,7 @@ NSArray* imageTypes = nil;
 	NSString* res = nil;
 	@synchronized (self)
 	{
-		res = [[displayName retain] autorelease];
+		res = displayName;
 	}
 	return res;
 }

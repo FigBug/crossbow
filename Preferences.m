@@ -80,10 +80,6 @@ void prefsSet(NSString* key, id val)
 	return self;
 }
 
-- (void)dealloc
-{
-	[super dealloc];
-}
 
 - (id)get:(NSString*)key
 {

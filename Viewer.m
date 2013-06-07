@@ -76,16 +76,6 @@ int nextImg(int idx, int max)
 	return self;
 }
 
-- (void)dealloc
-{
-	self.images = nil;
-	
-	[imageCache release];
-	[toolbaritems release];
-	[toolbaridentifiers release];		
-	
-	[super dealloc];
-}
 
 - (void)windowWillClose:(NSNotification *)notification
 {
@@ -98,7 +88,6 @@ int nextImg(int idx, int max)
 		[slideshowTimer invalidate];
 		slideshowTimer = nil;
 	}	
-	[self autorelease];
 }
 
 - (void)windowDidLoad
@@ -116,11 +105,11 @@ int nextImg(int idx, int max)
 - (void)awakeFromNib
 {
 	// set up image view
-	imageView = [[[ImageView alloc] initWithFrame:[imageClip frame]] autorelease];
+	imageView = [[ImageView alloc] initWithFrame:[imageClip frame]];
 	[imageClip setDocument:imageView];
 	
 	// setup toolbar
-	NSToolbar *toolbar= [[[NSToolbar alloc] initWithIdentifier:@"ViewerToolbar"] autorelease];
+	NSToolbar *toolbar= [[NSToolbar alloc] initWithIdentifier:@"ViewerToolbar"];
 	[toolbar setDelegate:self];
 	[toolbar setDisplayMode:NSToolbarDisplayModeIconOnly];
 	[toolbar setAllowsUserCustomization:YES];
@@ -260,8 +249,6 @@ int nextImg(int idx, int max)
 	NSEnumerator *enumerator;
 	NSToolbarItem *item;
 	
-	[toolbaritems release];
-	[toolbaridentifiers release];
 	
 	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:[items count]];
 	enumerator = [items objectEnumerator];
@@ -269,7 +256,7 @@ int nextImg(int idx, int max)
 	while (item=[enumerator nextObject]) 
 		[dict setObject:item forKey:[item itemIdentifier]];
 	
-	toolbaritems = [[NSDictionary dictionaryWithDictionary:dict] retain];
+	toolbaritems = [NSDictionary dictionaryWithDictionary:dict];
 	
 	NSMutableArray *array = [NSMutableArray arrayWithCapacity:[items count]+3];
 	enumerator = [items objectEnumerator];
@@ -281,7 +268,7 @@ int nextImg(int idx, int max)
 	[array addObject:NSToolbarSpaceItemIdentifier];
 	[array addObject:NSToolbarFlexibleSpaceItemIdentifier];
 	
-	toolbaridentifiers = [[NSArray arrayWithArray:array] retain];
+	toolbaridentifiers = [NSArray arrayWithArray:array];
 }
 
 -(NSArray *)makeToolbarItems
@@ -683,7 +670,7 @@ int nextImg(int idx, int max)
 	[slideshowDelay setIntValue:delay];
 	[slideshowDelayStep setIntValue:delay];
 	
-	NSNumberFormatter* fmt = [[[NSNumberFormatter alloc] init] autorelease];
+	NSNumberFormatter* fmt = [[NSNumberFormatter alloc] init];
 	[fmt setAllowsFloats:NO];
 	[fmt setMinimum:[NSNumber numberWithInt:1]];
 	[fmt setMaximum:[NSNumber numberWithInt:600]];
@@ -722,7 +709,7 @@ int nextImg(int idx, int max)
 // goto image
 - (IBAction)gotoImage:(id)sender
 {
-	NSNumberFormatter* fmt = [[[NSNumberFormatter alloc] init] autorelease];
+	NSNumberFormatter* fmt = [[NSNumberFormatter alloc] init];
 	[fmt setAllowsFloats:NO];
 	[fmt setMinimum:[NSNumber numberWithInt:1]];
 	[fmt setMaximum:[NSNumber numberWithInt:[images count]]];

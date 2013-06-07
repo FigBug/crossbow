@@ -28,17 +28,11 @@
 {
 	if (self = [super initWithWindowNibName:@"ProgressSheet" owner:self])
 	{
-		thread = [thread_ retain];
+		thread = thread_;
 	}
 	return self;
 }
 
-- (void)dealloc
-{
-	[thread release];
-	
-	[super dealloc];
-}
 
 - (void)awakeFromNib
 {
@@ -52,8 +46,6 @@
 	
 	[[self window] orderOut:sender];
 	[NSApp endSheet:[self window] returnCode:1];	
-	
-	[self autorelease];	
 }
 
 - (void)setProgress:(NSNumber*)pos

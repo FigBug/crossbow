@@ -46,10 +46,7 @@
 {
 	[[[NSWorkspace sharedWorkspace] notificationCenter] removeObserver:self];
 	
-	[deCache release];
-	[deSubItems release];
 	
-	[super dealloc];
 }
 
 - (NSArray*)getSubFolders:(DirEntry*)de
@@ -108,38 +105,36 @@
 	if (arrowThread)
 	{
 		[arrowThread cancel];
-		[arrowThread release];
 		arrowThread = nil;
 	}
 }
 
 - (void)arrowProc:(id)files
 {
-	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+	@autoreleasepool {
 
-	int done = 0;
-	for (DirEntry* de in files)
-	{
-		if ([[NSThread currentThread] isCancelled])
+		int done = 0;
+		for (DirEntry* de in files)
 		{
-			[pool release];
-			return;
-		}
-
-		if ([de hasSubFolders:YES] == MAYBE)
-		{
-			[de hasSubFolders:NO];
-			done++;
-			
-			if (done % 5 == 0)
+			if ([[NSThread currentThread] isCancelled])
 			{
-				[self performSelectorOnMainThread:@selector(arrowProcCallback:) withObject:@"working" waitUntilDone:NO];
+				return;
+			}
+
+			if ([de hasSubFolders:YES] == MAYBE)
+			{
+				[de hasSubFolders:NO];
+				done++;
+				
+				if (done % 5 == 0)
+				{
+					[self performSelectorOnMainThread:@selector(arrowProcCallback:) withObject:@"working" waitUntilDone:NO];
+				}
 			}
 		}
-	}
-	[self performSelectorOnMainThread:@selector(arrowProcCallback:) withObject:@"finished" waitUntilDone:NO];
+		[self performSelectorOnMainThread:@selector(arrowProcCallback:) withObject:@"finished" waitUntilDone:NO];
 	
-	[pool release];
+	}
 }
 
 - (void)arrowProcCallback:(id)params
@@ -150,7 +145,6 @@
 	
 	if ([status isEqual:@"finished"])
 	{
-		[arrowThread release];
 		arrowThread = nil;
 	}
 }

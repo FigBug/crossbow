@@ -29,8 +29,8 @@
 	DirEntry* file;
 }
 
-@property (nonatomic, retain) NSImage* cachedImage;
-@property (nonatomic, retain) DirEntry* file;
+@property (nonatomic, strong) NSImage* cachedImage;
+@property (nonatomic, strong) DirEntry* file;
 
 - (void)dealloc;
 

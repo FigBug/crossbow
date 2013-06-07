@@ -54,17 +54,6 @@ AppController* appController;
 	return self;
 }
 
-- (void)dealloc
-{
-	[pathWatchers release];
-	[fileSysWatch release];
-	[preferencesController release];
-	[preferences release];
-	[metadataPanel release];
-	[activeBrowsers release];
-	
-	[super dealloc];
-}
 
 + (AppController*)sharedAppController
 {

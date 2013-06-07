@@ -12,12 +12,12 @@
 @implementation ImageProcessor
 
 + (ImageProcessor*)processor {
-	return [[[ImageProcessor alloc] init] autorelease];
+	return [[ImageProcessor alloc] init];
 }
 
 
 + (ImageProcessor*)processorForInputFile:(NSString *)inFilePath {
-	ImageProcessor *ip = [[[ImageProcessor alloc] initWithInputFile:inFilePath] autorelease];
+	ImageProcessor *ip = [[ImageProcessor alloc] initWithInputFile:inFilePath];
 	return ip;
 }
 
@@ -26,7 +26,6 @@
 	if (!self) return nil;
 
 	if (![self setInputFile:inPath]) {
-		[self release];
 		return nil;
 	}
 
@@ -36,7 +35,7 @@
 + (NSArray*)getOutputFormats
 {
 	CFArrayRef outs = CGImageDestinationCopyTypeIdentifiers();
-	NSArray* arr = [NSArray arrayWithArray:(NSArray*)outs];
+	NSArray* arr = [NSArray arrayWithArray:(__bridge NSArray*)outs];
 	CFRelease(outs);
 	
 	return arr;
@@ -49,10 +48,7 @@
 
 
 - (void) dealloc {
-	[inFilePath release];
 	[self freeContext];
-	[ci release];
-	[super dealloc];
 }
 
 
@@ -120,8 +116,8 @@
 	}
 
 	CGImageDestinationRef dest = CGImageDestinationCreateWithURL(
-		(CFURLRef)[NSURL fileURLWithPath:outFilePath],
-		(CFStringRef)type,
+		(__bridge CFURLRef)[NSURL fileURLWithPath:outFilePath],
+		(__bridge CFStringRef)type,
 		1,
 		NULL
 	);

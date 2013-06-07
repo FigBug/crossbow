@@ -60,7 +60,7 @@
 		[newImage unlockFocus];		
 	}
 	
-	return [newImage autorelease];
+	return newImage;
 }
 
 - (NSImage*)imageByScalingProportionallyToSize:(NSSize)targetSize
@@ -112,7 +112,7 @@
 		[newImage unlockFocus];
 	}
 	
-	return [newImage autorelease];
+	return newImage;
 }
 
 - (void)drawInRect:(NSRect)dstRect operation:(NSCompositingOperation)op fraction:(float)delta method:(MGImageResizingMethod)resizeMethod
@@ -199,7 +199,7 @@
 	[self drawInRect:NSMakeRect(0,0,size.width,size.height) operation:NSCompositeSourceOver fraction:1.0 method:resizeMethod];
     [result unlockFocus];
     
-    return [result autorelease];
+    return result;
 }
 
 - (NSImage *)imageCroppedToFitSize:(NSSize)size

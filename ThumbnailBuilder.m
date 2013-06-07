@@ -34,12 +34,6 @@
 	return self;
 }
 
-- (void)dealloc
-{
-	[items release];
-	
-	[super dealloc];
-}
 
 - (IBAction)start:(id)sender
 {
@@ -63,66 +57,66 @@
 
 - (void)buildProc:(id)param
 {
-	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+	@autoreleasepool {
 	
-	NSMutableArray* imagesTodo  = [NSMutableArray arrayWithCapacity:100];
-	NSMutableArray* foldersTodo = [NSMutableArray arrayWithCapacity:100];
-	
-	for (DirEntry* de in items)
-	{
-		if ([de isFolder])
-			[foldersTodo addObject:de];
-		else
-			[imagesTodo addObject:de];
-	}
-	
-	while (([imagesTodo count] > 0 || [foldersTodo count] > 0) && !abort)
-	{
-		NSAutoreleasePool* subpool = [[NSAutoreleasePool alloc] init];
+		NSMutableArray* imagesTodo  = [NSMutableArray arrayWithCapacity:100];
+		NSMutableArray* foldersTodo = [NSMutableArray arrayWithCapacity:100];
 		
-		if ([imagesTodo count] > 0)
+		for (DirEntry* de in items)
 		{
-			DirEntry* de = [imagesTodo objectAtIndex:0];
-			
-			if (![de hasThumbnail] || rebuildThumb)
-			{
-				NSImage* img = [de createThumbnail];
-				
-				if (img)
-					[self performSelectorOnMainThread:@selector(showThumb:) withObject:img waitUntilDone:NO];
-			}
-			[imagesTodo removeObjectAtIndex:0];
+			if ([de isFolder])
+				[foldersTodo addObject:de];
+			else
+				[imagesTodo addObject:de];
 		}
-		else if ([foldersTodo count] > 0)
+		
+		while (([imagesTodo count] > 0 || [foldersTodo count] > 0) && !abort)
 		{
-			DirEntry* de = [foldersTodo objectAtIndex:0];
+			@autoreleasepool {
 			
-			if (![de hasThumbnail] || rebuildThumb)
-			{
-				NSImage* img = [de createThumbnail];
-				
-				if (img)
-					[self performSelectorOnMainThread:@selector(showThumb:) withObject:img waitUntilDone:NO];
-			}
-					
-			if (![de isLink])
-			{
-				NSArray* subItems = [de getSubItems];
-				for (DirEntry* subDe in subItems)
+				if ([imagesTodo count] > 0)
 				{
-					if ([subDe isFolder])
-						[foldersTodo addObject:subDe];
-					else
-						[imagesTodo addObject:subDe];
+					DirEntry* de = [imagesTodo objectAtIndex:0];
+					
+					if (![de hasThumbnail] || rebuildThumb)
+					{
+						NSImage* img = [de createThumbnail];
+						
+						if (img)
+							[self performSelectorOnMainThread:@selector(showThumb:) withObject:img waitUntilDone:NO];
+					}
+					[imagesTodo removeObjectAtIndex:0];
 				}
+				else if ([foldersTodo count] > 0)
+				{
+					DirEntry* de = [foldersTodo objectAtIndex:0];
+					
+					if (![de hasThumbnail] || rebuildThumb)
+					{
+						NSImage* img = [de createThumbnail];
+						
+						if (img)
+							[self performSelectorOnMainThread:@selector(showThumb:) withObject:img waitUntilDone:NO];
+					}
+							
+					if (![de isLink])
+					{
+						NSArray* subItems = [de getSubItems];
+						for (DirEntry* subDe in subItems)
+						{
+							if ([subDe isFolder])
+								[foldersTodo addObject:subDe];
+							else
+								[imagesTodo addObject:subDe];
+						}
+					}
+					[foldersTodo removeObjectAtIndex:0];
+				}
+			
 			}
-			[foldersTodo removeObjectAtIndex:0];
 		}
-		
-		[subpool release];
+		[self performSelectorOnMainThread:@selector(showThumb:) withObject:nil waitUntilDone:NO];
 	}
-	[self performSelectorOnMainThread:@selector(showThumb:) withObject:nil waitUntilDone:NO];
-	[pool release];
 }
 
 - (void)showThumb:(id)param
@@ -144,13 +138,11 @@
 	abort = YES;
 	[[self window] orderOut:sender];
 	[NSApp endSheet:[self window] returnCode:99];	
-	
-	[self autorelease];
 }
 
 - (void)setItems:(NSArray*)items_
 {
-	items = [items_ retain];
+	items = items_;
 }
 
 @end

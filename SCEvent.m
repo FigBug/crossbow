@@ -39,7 +39,7 @@
 // -------------------------------------------------------------------------------
 + (SCEvent *)eventWithEventId:(NSUInteger)eventId eventDate:(NSDate *)date eventPath:(NSString *)eventPath eventFlag:(FSEventStreamEventFlags)eventFlag
 {
-    return [[[SCEvent alloc] initWithEventId:eventId eventDate:date eventPath:eventPath eventFlag:eventFlag] autorelease];
+    return [[SCEvent alloc] initWithEventId:eventId eventDate:date eventPath:eventPath eventFlag:eventFlag];
 }
 
 // -------------------------------------------------------------------------------
@@ -99,8 +99,7 @@
 - (void)setEventDate:(NSDate *)date
 {
     if (_eventDate != date) {
-        [_eventDate release];
-        _eventDate = [date retain];
+        _eventDate = date;
     }
 }
 
@@ -166,8 +165,7 @@
 // -------------------------------------------------------------------------------
 - (void)dealloc
 {
-    [_eventDate release], _eventDate = nil;
-    [super dealloc];
+    _eventDate = nil;
 }
 
 @end

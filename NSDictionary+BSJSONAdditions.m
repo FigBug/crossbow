@@ -34,7 +34,6 @@ const int jsonDoNotIndent = -1;
 	NSScanner *scanner = [[NSScanner alloc] initWithString:jsonString];
 	NSDictionary *dictionary = nil;
 	[scanner scanJSONObject:&dictionary];
-	[scanner release];
 	return dictionary;
 }
 
@@ -75,7 +74,7 @@ const int jsonDoNotIndent = -1;
 	//[jsonString appendString:@"\n"];
 	[jsonString appendString:jsonObjectEndString];
 	
-	return [jsonString autorelease];
+	return jsonString;
 }
 
 - (NSString *)jsonStringForValue:(id)value withIndentLevel:(int)level
@@ -121,7 +120,7 @@ const int jsonDoNotIndent = -1;
 	}
 	
 	[jsonString appendString:jsonArrayEndString];
-	return [jsonString autorelease];
+	return jsonString;
 }
 
 - (NSString *)jsonStringForString:(NSString *)string
@@ -172,7 +171,7 @@ const int jsonDoNotIndent = -1;
 		}
 	}
 	[jsonString appendString:jsonStringDelimiterString];
-	return [jsonString autorelease];
+	return jsonString;
 }
 
 - (NSString *)jsonIndentStringForLevel:(int)level
@@ -186,7 +185,7 @@ const int jsonDoNotIndent = -1;
         }
     }
     
-    return [indentString autorelease];
+    return indentString;
 }
 
 @end

@@ -35,7 +35,7 @@
 	NSDate* lastScroll;
 }
 
-@property (nonatomic, retain) NSDate* lastScroll;
+@property (nonatomic, strong) NSDate* lastScroll;
 
 - (void)setDelegate:(id)del;
 - (void)setDocument:(NSView*)view;

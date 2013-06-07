@@ -94,17 +94,7 @@ static SCEvents *_sharedPathWatcher = nil;
 //---------------------------------------------------------------
 // The following base protocol methods are implemented to ensure
 // the singleton status of this class.
-//--------------------------------------------------------------- 
-
-- (id)copyWithZone:(NSZone *)zone { return self; }
-
-- (id)retain { return self; }
-
-- (unsigned)retainCount { return UINT_MAX; }
-
-- (id)autorelease { return self; }
-
-- (void)release { }
+//---------------------------------------------------------------
 
 // -------------------------------------------------------------------------------
 // delegate
@@ -182,8 +172,7 @@ static SCEvents *_sharedPathWatcher = nil;
 - (void)setLastEvent:(SCEvent *)event
 {
     if (_lastEvent != event) {
-        [_lastEvent release];
-        _lastEvent = [event retain];
+        _lastEvent = event;
     }
 }
 
@@ -227,8 +216,7 @@ static SCEvents *_sharedPathWatcher = nil;
 - (void)setWatchedPaths:(NSMutableArray *)paths
 {
     if (_watchedPaths != paths) {
-        [_watchedPaths release];
-        _watchedPaths = [paths retain];
+        _watchedPaths = paths;
     }
 }
 
@@ -251,8 +239,7 @@ static SCEvents *_sharedPathWatcher = nil;
 - (void)setExcludedPaths:(NSMutableArray *)paths
 {
     if (_excludedPaths != paths) {
-        [_excludedPaths release];
-        _excludedPaths = [paths retain];
+        _excludedPaths = paths;
     }
 }
 
@@ -369,10 +356,9 @@ static SCEvents *_sharedPathWatcher = nil;
     
     FSEventStreamRelease(_eventStream);
     
-    [_watchedPaths release], _watchedPaths = nil;
-    [_excludedPaths release], _excludedPaths = nil;
+    _watchedPaths = nil;
+    _excludedPaths = nil;
     
-    [super dealloc];
 }
 
 @end
@@ -388,7 +374,7 @@ static SCEvents *_sharedPathWatcher = nil;
 {
     void *callbackInfo = NULL;
     
-    _eventStream = FSEventStreamCreate(kCFAllocatorDefault, &_SCEventsCallBack, callbackInfo, (CFArrayRef)_watchedPaths, kFSEventStreamEventIdSinceNow, _notificationLatency, kFSEventStreamCreateFlagUseCFTypes | kFSEventStreamCreateFlagWatchRoot);
+    _eventStream = FSEventStreamCreate(kCFAllocatorDefault, &_SCEventsCallBack, callbackInfo, (__bridge CFArrayRef)_watchedPaths, kFSEventStreamEventIdSinceNow, _notificationLatency, kFSEventStreamCreateFlagUseCFTypes | kFSEventStreamCreateFlagWatchRoot);
 }
 
 // -------------------------------------------------------------------------------
@@ -425,7 +411,7 @@ static void _SCEventsCallBack(ConstFSEventStreamRef streamRef, void *clientCallB
          * calling this callback more frequently.
          */
         
-        NSString *eventPath = [(NSArray *)eventPaths objectAtIndex:i];
+        NSString *eventPath = [(__bridge NSArray *)eventPaths objectAtIndex:i];
         NSMutableArray *excludedPaths = [pathWatcher excludedPaths];
         
         // Check to see if the event should be ignored if the event path is in the exclude list
@@ -437,7 +423,7 @@ static void _SCEventsCallBack(ConstFSEventStreamRef streamRef, void *clientCallB
             // sub-directories then see if the exclude paths match as a prefix of the event path.
             if ([pathWatcher ignoreEventsFromSubDirs]) {
                 for (NSString *path in [pathWatcher excludedPaths]) {
-                    if ([[(NSArray *)eventPaths objectAtIndex:i] hasPrefix:path]) {
+                    if ([[(__bridge NSArray *)eventPaths objectAtIndex:i] hasPrefix:path]) {
                         shouldIgnore = YES;
                         break;
                     }
@@ -446,7 +432,7 @@ static void _SCEventsCallBack(ConstFSEventStreamRef streamRef, void *clientCallB
         }
     
         if (!shouldIgnore) {
-            NSString *eventPath = [[(NSArray *)eventPaths objectAtIndex:i] substringToIndex:([[(NSArray *)eventPaths objectAtIndex:i] length] - 1)];
+            NSString *eventPath = [[(__bridge NSArray *)eventPaths objectAtIndex:i] substringToIndex:([[(__bridge NSArray *)eventPaths objectAtIndex:i] length] - 1)];
             
             SCEvent *event = [SCEvent eventWithEventId:eventIds[i] eventDate:[NSDate date] eventPath:eventPath eventFlag:eventFlags[i]];
                 

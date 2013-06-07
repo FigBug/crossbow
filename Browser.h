@@ -33,15 +33,15 @@
 
 @interface Browser : NSWindowController {
 	// Outlets
-	IBOutlet NSOutlineView* folderTree;
+	IBOutlet NSOutlineView* __weak folderTree;
 	IBOutlet ImagePreview* previewPane;
-	IBOutlet IKImageBrowserView* fileList;
+	IBOutlet IKImageBrowserView* __weak fileList;
 	IBOutlet NSSplitView* verticalSplit;
 	IBOutlet NSSplitView* horizontalSplit;
 	IBOutlet NSWindow* browserWindow;
 	IBOutlet NSTextField* statusBar;
 	IBOutlet NSProgressIndicator* thumbProgress;
-	IBOutlet NSMenu* fileListContext;
+	IBOutlet NSMenu* __weak fileListContext;
 	IBOutlet NSSlider* thumbSize;
 	
 	// Path info
@@ -75,13 +75,13 @@
 	IBOutlet NSTextField* gotoFolderError;
 }
 
-@property (nonatomic, readonly) NSOutlineView* folderTree;
-@property (nonatomic, readonly) IKImageBrowserView* fileList;
-@property (nonatomic, retain) NSArray* folderContents;
-@property (nonatomic, retain) Selection* selection;
+@property (weak, nonatomic, readonly) NSOutlineView* folderTree;
+@property (weak, nonatomic, readonly) IKImageBrowserView* fileList;
+@property (nonatomic, strong) NSArray* folderContents;
+@property (nonatomic, strong) Selection* selection;
 @property (nonatomic, readonly) int browserId;
 @property (nonatomic, readonly) NSMutableDictionary* fileListItems;
-@property (nonatomic, readonly) NSMenu* fileListContext;
+@property (weak, nonatomic, readonly) NSMenu* fileListContext;
 
 - (BOOL)isEqual:(id)anObject;
 - (NSUInteger)hash;

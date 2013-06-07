@@ -75,7 +75,7 @@ enum Zoom
 	IBOutlet NSDrawer* imageListDrawer;
 }
 
-@property (nonatomic, retain) NSArray* images;
+@property (nonatomic, strong) NSArray* images;
 
 - (id)init:(NSArray*)images atIndex:(int)index;
 

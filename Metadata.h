@@ -20,13 +20,12 @@
 
 
 #import <Cocoa/Cocoa.h>
-#import <BGHUDAppKit/BGHUDAppKit.h>
 
 @class DirEntry;
 
 @interface Metadata : NSWindowController {
 	IBOutlet NSPanel* panel;
-	IBOutlet BGHUDOutlineView* metadataList;
+	//IBOutlet BGHUDOutlineView* metadataList;
 	
 	DirEntry* de;
 	NSDictionary* metadata;

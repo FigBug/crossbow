@@ -19,7 +19,7 @@
 
 + (ValData*)valData:(SEL)sel_
 {
-	ValData* d = [[[ValData alloc] init] autorelease];
+	ValData* d = [[ValData alloc] init];
 	d.sel = sel_;
 	return d;
 }
@@ -41,7 +41,7 @@
 
 +(SegmentedToolbarItem*)itemWithIdentifier:(NSString *)identifier label:(NSString *)label paletteLabel:(NSString *)pallabel segments:(int)segments
 {
-	return [[[SegmentedToolbarItem alloc] initWithItemIdentifier:identifier label:label paletteLabel:pallabel segments:segments] autorelease];
+	return [[SegmentedToolbarItem alloc] initWithItemIdentifier:identifier label:label paletteLabel:pallabel segments:segments];
 }
 
 -(id)initWithItemIdentifier:(NSString *)identifier label:(NSString *)label paletteLabel:(NSString *)pallabel segments:(int)segments
@@ -60,16 +60,16 @@
 			menu = [[NSMenu alloc] init];
 
 			for (int i = 0; i < segments; i++)
-				[menu addItem:[[[NSMenuItem alloc] initWithTitle:@"" action:NULL keyEquivalent:@""] autorelease]];
+				[menu addItem:[[NSMenuItem alloc] initWithTitle:@"" action:NULL keyEquivalent:@""]];
 
-			NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle:pallabel action:NULL keyEquivalent:@""] autorelease];
+			NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:pallabel action:NULL keyEquivalent:@""];
 			[item setSubmenu:menu];
 
 			[self setMenuFormRepresentation:item];
 		}
 		else
 		{
-			NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle:@"" action:NULL keyEquivalent:@""] autorelease];
+			NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:@"" action:NULL keyEquivalent:@""];
 			[self setMenuFormRepresentation:item];
 			menu = nil;
 		}
@@ -78,20 +78,17 @@
 		[control setAction:@selector(clicked:)];
 
 		actions = malloc(sizeof(SEL) * segments);
-		targets = malloc(sizeof(id) * segments);
+		targets = (__bridge id)(malloc(sizeof(id) * segments));
 	}
 	return self;
 }
 
 -(void)dealloc
 {
-	[control release];
-	[menu release];
 
 	free(actions);
-	free(targets);
+	free((__bridge void *)(targets));
 
-	[super dealloc];
 }
 
 -(void)validate
@@ -187,7 +184,7 @@
 
 +(SegmentedToolbarItem *)itemWithIdentifier:(NSString*)identifier label:(NSString*)label paletteLabel:(NSString*)pallabel imageName:(NSString*)imagename longLabel:(NSString*)longlabel action:(SEL)action activeSelector:(SEL)activeselector target:(id)activetarget
 {
-	return [[[ToolItem alloc] initWithItemIdentifier:identifier label:label paletteLabel:pallabel imageName:imagename longLabel:longlabel action:action activeSelector:activeselector target:activetarget] autorelease];
+	return [[ToolItem alloc] initWithItemIdentifier:identifier label:label paletteLabel:pallabel imageName:imagename longLabel:longlabel action:action activeSelector:activeselector target:activetarget];
 }
 
 -(id)initWithItemIdentifier:(NSString *)identifier label:(NSString *)label paletteLabel:(NSString *)pallabel imageName:(NSString *)imagename longLabel:(NSString *)longlabel action:(SEL)action activeSelector:(SEL)activeselector target:(id)activetarget

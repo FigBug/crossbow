@@ -57,12 +57,12 @@ NSString *jsonNullString = @"null";
 	if (![self scanJSONObjectStartString]) {
 		// TODO: Error condition. For now, return false result, do nothing with the dictionary handle
 	} else {
-		NSMutableDictionary *jsonKeyValues = [[[NSMutableDictionary alloc] init] autorelease];
+		NSMutableDictionary *jsonKeyValues = [[NSMutableDictionary alloc] init];
 		NSString *key = nil;
 		id value;
 		[self scanJSONWhiteSpace];
 		
-		NSLog(key);
+		NSLog(@"%@", key);
 		
 		while (([self scanJSONString:&key]) && ([self scanJSONKeyValueSeparator]) && ([self scanJSONValue:&value])) {
 			[jsonKeyValues setObject:value forKey:key];
@@ -87,7 +87,7 @@ NSString *jsonNullString = @"null";
 - (BOOL)scanJSONArray:(NSArray **)array
 {
 	BOOL result = NO;
-	NSMutableArray *values = [[[NSMutableArray alloc] init] autorelease];
+	NSMutableArray *values = [[NSMutableArray alloc] init];
 	[self scanJSONArrayStartString];
 	id value = nil;
 	
@@ -110,7 +110,7 @@ NSString *jsonNullString = @"null";
 {
 	BOOL result = NO;
 	if ([self scanJSONStringDelimiterString]) {
-		NSMutableString *chars = [[[NSMutableString alloc] init] autorelease];
+		NSMutableString *chars = [[NSMutableString alloc] init];
 		NSString *characterFormat = @"%C";
 		
 		// process character by character until we finish the string or reach another double-quote
@@ -123,66 +123,70 @@ NSString *jsonNullString = @"null";
 			} else {
 				nextChar = [[self string] characterAtIndex:([self scanLocation] + 1)];
 				switch (nextChar) {
-				case '\"':
-					[chars appendString:@"\""];
-					[self setScanLocation:([self scanLocation] + 2)];
-					break;
-				case '\\':
-					[chars appendString:@"\\"]; // debugger shows result as having two slashes, but final output is correct. Possible debugger error?
-					[self setScanLocation:([self scanLocation] + 2)];
-					break;
-				/* TODO: json.org docs mention this seq, so does yahoo, but not recognized here by xcode, note from crockford: not a required escape
-				case '\/':
-					[chars appendString:@"\/"];
-					[self setScanLocation:([self scanLocation] + 2)];
-					break;
-				*/
-				case 'b':
-					[chars appendString:@"\b"];
-					[self setScanLocation:([self scanLocation] + 2)];
-					break;
-				case 'f':
-					[chars appendString:@"\f"];
-					[self setScanLocation:([self scanLocation] + 2)];
-					break;
-				case 'n':
-					[chars appendString:@"\n"];
-					[self setScanLocation:([self scanLocation] + 2)];
-					break;
-				case 'r':
-					[chars appendString:@"\r"];
-					[self setScanLocation:([self scanLocation] + 2)];
-					break;
-				case 't':
-					[chars appendString:@"\t"];
-					[self setScanLocation:([self scanLocation] + 2)];
-					break;
-				case 'u': // unicode sequence - get string of hex chars, convert to int, convert to unichar, append
-					[self setScanLocation:([self scanLocation] + 2)]; // advance past '\u'
-					NSString *digits = [[self string] substringWithRange:NSMakeRange([self scanLocation], 4)];
-					/* START Updated code modified from code fix submitted by Bill Garrison - March 28, 2006 - http://www.standardorbit.net */
-                    NSScanner *hexScanner = [NSScanner scannerWithString:digits];
-                    NSString *verifiedHexDigits;
-                    NSCharacterSet *hexDigitSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789ABCDEF"];
-					if (NO == [hexScanner scanCharactersFromSet:hexDigitSet intoString:&verifiedHexDigits])
-                        return NO;
-                    if (4 != [verifiedHexDigits length])
-                        return NO;
-                        
-                    // Read in the hex value
-                    [hexScanner setScanLocation:0];
-                    unsigned unicodeHexValue;
-                    if (NO == [hexScanner scanHexInt:&unicodeHexValue]) {
-                        return NO;
+                    case '\"':
+                        [chars appendString:@"\""];
+                        [self setScanLocation:([self scanLocation] + 2)];
+                        break;
+                    case '\\':
+                        [chars appendString:@"\\"]; // debugger shows result as having two slashes, but final output is correct. Possible debugger error?
+                        [self setScanLocation:([self scanLocation] + 2)];
+                        break;
+                    /* TODO: json.org docs mention this seq, so does yahoo, but not recognized here by xcode, note from crockford: not a required escape
+                    case '\/':
+                        [chars appendString:@"\/"];
+                        [self setScanLocation:([self scanLocation] + 2)];
+                        break;
+                    */
+                    case 'b':
+                        [chars appendString:@"\b"];
+                        [self setScanLocation:([self scanLocation] + 2)];
+                        break;
+                    case 'f':
+                        [chars appendString:@"\f"];
+                        [self setScanLocation:([self scanLocation] + 2)];
+                        break;
+                    case 'n':
+                        [chars appendString:@"\n"];
+                        [self setScanLocation:([self scanLocation] + 2)];
+                        break;
+                    case 'r':
+                        [chars appendString:@"\r"];
+                        [self setScanLocation:([self scanLocation] + 2)];
+                        break;
+                    case 't':
+                        [chars appendString:@"\t"];
+                        [self setScanLocation:([self scanLocation] + 2)];
+                        break;
+                    case 'u': // unicode sequence - get string of hex chars, convert to int, convert to unichar, append
+                    {
+                        [self setScanLocation:([self scanLocation] + 2)]; // advance past '\u'
+                        NSString *digits = [[self string] substringWithRange:NSMakeRange([self scanLocation], 4)];
+                        /* START Updated code modified from code fix submitted by Bill Garrison - March 28, 2006 - http://www.standardorbit.net */
+                        NSScanner *hexScanner = [NSScanner scannerWithString:digits];
+                        NSString *verifiedHexDigits;
+                        NSCharacterSet *hexDigitSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789ABCDEF"];
+                        if (NO == [hexScanner scanCharactersFromSet:hexDigitSet intoString:&verifiedHexDigits])
+                            return NO;
+                        if (4 != [verifiedHexDigits length])
+                            return NO;
+                            
+                        // Read in the hex value
+                        [hexScanner setScanLocation:0];
+                        unsigned unicodeHexValue;
+                        if (NO == [hexScanner scanHexInt:&unicodeHexValue]) {
+                            return NO;
+                        }
+                        [chars appendFormat:characterFormat, unicodeHexValue];
+                        /* END update - March 28, 2006 */
+                        [self setScanLocation:([self scanLocation] + 4)];
+                        break;
                     }
-                    [chars appendFormat:characterFormat, unicodeHexValue];
-                    /* END update - March 28, 2006 */
-					[self setScanLocation:([self scanLocation] + 4)];
-					break;
-				default:
-					[chars appendFormat:@"\\%C", nextChar];
-					[self setScanLocation:([self scanLocation] + 2)];
-					break;
+                    default:
+                    {
+                        [chars appendFormat:@"\\%C", nextChar];
+                        [self setScanLocation:([self scanLocation] + 2)];
+                        break;
+                    }
 				}
 			}
 		}

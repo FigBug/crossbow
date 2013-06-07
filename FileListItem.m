@@ -28,21 +28,21 @@ static int baseThumbVer = 1;
 
 + (id)fileListItem:(DirEntry*)de
 {
-	return [[[FileListItem alloc] init:de] autorelease];
+	return [[FileListItem alloc] init:de];
 }
 
 - (id)init:(DirEntry*)de_
 {
 	if (self = [super init])
 	{
-		de = [de_ retain];
+		de = de_;
 		
 		thumbVer = ++baseThumbVer;
 		
 		if ([de hasThumbnail])
 		{
-			thumb = [[de thumbnail] retain];
-			subtitle = [[self createSubtitle] retain];
+			thumb = [de thumbnail];
+			subtitle = [self createSubtitle];
 
 			thumbVer++;
 		}
@@ -50,14 +50,6 @@ static int baseThumbVer = 1;
 	return self;
 }
 
-- (void)dealloc
-{
-	[de release];
-	[thumb release];
-	[subtitle release];
-	
-	[super dealloc];
-}
 
 - (BOOL)isEqual:(id)anObject
 {
@@ -76,16 +68,11 @@ static int baseThumbVer = 1;
 
 - (void)setThumb:(NSImage*)image
 {
-	if (thumb)
-		[thumb release];
 	thumb = image;
-	if (thumb)
-		[thumb retain];
 
 	thumbVer++;
 	
-	[subtitle release];
-	subtitle = [[self createSubtitle] retain];
+	subtitle = [self createSubtitle];
 }
 
 - (NSImage*)thumb

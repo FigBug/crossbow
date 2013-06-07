@@ -44,12 +44,6 @@
 	return self;
 }
 
-- (void)dealloc
-{
-	[bookmarks release];
-	
-	[super dealloc];
-}
 
 - (NSArray*)bookmarks
 {

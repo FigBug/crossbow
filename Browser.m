@@ -71,22 +71,6 @@ int nextBrowserId = 1;
 	return self;
 }
 
-- (void)dealloc
-{	
-	[history release];
-	[bookmarks release];
-	
-	[toolbaritems release];
-	[toolbaridentifiers release];	
-	
-	[browserTree release];
-	[browserList release];
-	[fileListItems release];
-	
-	self.folderContents = nil;
-	
-	[super dealloc];
-}
 
 - (BOOL)isEqual:(id)anObject
 {	
@@ -102,10 +86,10 @@ int nextBrowserId = 1;
 - (void)awakeFromNib
 {
 	NSTableColumn* col = [folderTree outlineTableColumn];
-	[col setDataCell: [[[NSBrowserCell alloc] init] autorelease]];
+	[col setDataCell: [[NSBrowserCell alloc] init]];
 	
 	// setup toolbar
-	NSToolbar *toolbar= [[[NSToolbar alloc] initWithIdentifier:@"BrowserToolbar"] autorelease];
+	NSToolbar *toolbar= [[NSToolbar alloc] initWithIdentifier:@"BrowserToolbar"];
 	[toolbar setDelegate:self];
 	[toolbar setDisplayMode:NSToolbarDisplayModeIconOnly];
 	[toolbar setAllowsUserCustomization:YES];
@@ -154,8 +138,6 @@ int nextBrowserId = 1;
 	[[AppController sharedAppController] watchPathWith:self addOrUpdate:NO];
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	
-	[self autorelease];
 	
 	[browserTree cancelArrowThread];
 	[self cancelThumbnailThread];
@@ -284,49 +266,47 @@ int nextBrowserId = 1;
 	if (thumbnailThread)
 	{
 		[thumbnailThread cancel];
-		[thumbnailThread release];
 	}
 	thumbnailThread = nil;
 }
 
 - (void)thumbailProc:(id)files
 {
-	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+	@autoreleasepool {
 	
-	for (DirEntry* de in files)
-	{
-		if ([[NSThread currentThread] isCancelled])
+		for (DirEntry* de in files)
 		{
-			NSMutableDictionary* params = [NSMutableDictionary dictionaryWithCapacity:1];
-			[params setObject:@"Cancelled" forKey:@"Status"];
-			
-			[self performSelectorOnMainThread:@selector(thumbnailProcCallback:) withObject:params waitUntilDone:NO];				
-			
-			[pool release];
-			return;
-		}
-		
-		NSAutoreleasePool* innerpool = [[NSAutoreleasePool alloc] init];
-		if (![de hasThumbnail])
-		{
-			NSImage* thumb = [de createThumbnail];
-			if (thumb)
+			if ([[NSThread currentThread] isCancelled])
 			{
 				NSMutableDictionary* params = [NSMutableDictionary dictionaryWithCapacity:1];
-				[params setObject:thumb forKey:@"Thumbnail"];
-				[params setObject:de    forKey:@"DirEntry"];
+				[params setObject:@"Cancelled" forKey:@"Status"];
 				
-				[self performSelectorOnMainThread:@selector(thumbnailProcCallback:) withObject:params waitUntilDone:NO];
+				[self performSelectorOnMainThread:@selector(thumbnailProcCallback:) withObject:params waitUntilDone:NO];				
+				
+				return;
+			}
+			
+			@autoreleasepool {
+				if (![de hasThumbnail])
+				{
+					NSImage* thumb = [de createThumbnail];
+					if (thumb)
+					{
+						NSMutableDictionary* params = [NSMutableDictionary dictionaryWithCapacity:1];
+						[params setObject:thumb forKey:@"Thumbnail"];
+						[params setObject:de    forKey:@"DirEntry"];
+						
+						[self performSelectorOnMainThread:@selector(thumbnailProcCallback:) withObject:params waitUntilDone:NO];
+					}
+				}
 			}
 		}
-		[innerpool release];
-	}
-	NSMutableDictionary* params = [NSMutableDictionary dictionaryWithCapacity:1];
-	[params setObject:@"Finished" forKey:@"Status"];
-	
-	[self performSelectorOnMainThread:@selector(thumbnailProcCallback:) withObject:params waitUntilDone:NO];	
+		NSMutableDictionary* params = [NSMutableDictionary dictionaryWithCapacity:1];
+		[params setObject:@"Finished" forKey:@"Status"];
+		
+		[self performSelectorOnMainThread:@selector(thumbnailProcCallback:) withObject:params waitUntilDone:NO];	
 
-	[pool release];
+	}
 }
 
 - (void)thumbnailProcCallback:(id)params_
@@ -339,7 +319,6 @@ int nextBrowserId = 1;
 		[thumbProgress setHidden:YES];
 		[browserTree runArrowThread];
 		
-		[thumbnailThread release];
 		thumbnailThread = nil;
 	}
 	else if ([status isEqual:@"Cancelled"])
@@ -462,8 +441,6 @@ int nextBrowserId = 1;
 	NSEnumerator *enumerator;
 	NSToolbarItem *item;
 	
-	[toolbaritems release];
-	[toolbaridentifiers release];
 	
 	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:[items count]];
 	enumerator = [items objectEnumerator];
@@ -471,7 +448,7 @@ int nextBrowserId = 1;
 	while (item=[enumerator nextObject]) 
 		[dict setObject:item forKey:[item itemIdentifier]];
 	
-	toolbaritems = [[NSDictionary dictionaryWithDictionary:dict] retain];
+	toolbaritems = [NSDictionary dictionaryWithDictionary:dict];
 	
 	NSMutableArray *array = [NSMutableArray arrayWithCapacity:[items count]+3];
 	enumerator = [items objectEnumerator];
@@ -483,7 +460,7 @@ int nextBrowserId = 1;
 	[array addObject:NSToolbarSpaceItemIdentifier];
 	[array addObject:NSToolbarFlexibleSpaceItemIdentifier];
 	
-	toolbaridentifiers = [[NSArray arrayWithArray:array] retain];
+	toolbaridentifiers = [NSArray arrayWithArray:array];
 }
 
 - (NSArray*)makeToolbarItems
