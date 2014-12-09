@@ -82,7 +82,7 @@
 		}
 		
 		DirEntry* first = [browser.folderContents objectAtIndex: index];
-		int startPos = [imagesToView indexOfObject: first];
+		NSInteger startPos = [imagesToView indexOfObject: first];
 		if (startPos == NSNotFound)
 			startPos = 0;
 		

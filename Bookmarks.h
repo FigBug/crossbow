@@ -28,7 +28,6 @@
 }
 
 - (id)init;
-- (void)dealloc;
 
 - (NSArray*)bookmarks;
 - (int)count;

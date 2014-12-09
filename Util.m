@@ -124,15 +124,15 @@ NSString* stringFromFileSize(long long theSize)
 {
 	float floatSize = theSize;
 	if (theSize < 1023)
-		return ([NSString stringWithFormat:@"%i bytes",theSize]);
+		return ([NSString stringWithFormat:@"%i bytes", (int)theSize]);
 	floatSize = floatSize / 1024;
 	
 	if (floatSize < 1023)
-		return ([NSString stringWithFormat:@"%1.1f KB",floatSize]);
+		return ([NSString stringWithFormat:@"%1.1f KB", floatSize]);
 	floatSize = floatSize / 1024;
 	
 	if (floatSize < 1023)
-		return ([NSString stringWithFormat:@"%1.1f MB",floatSize]);
+		return ([NSString stringWithFormat:@"%1.1f MB", floatSize]);
 	
 	floatSize = floatSize / 1024;
 	return ([NSString stringWithFormat:@"%1.1f GB",floatSize]);

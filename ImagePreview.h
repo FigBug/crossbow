@@ -32,8 +32,6 @@
 @property (nonatomic, strong) NSImage* cachedImage;
 @property (nonatomic, strong) DirEntry* file;
 
-- (void)dealloc;
-
 - (void)previewImage:(DirEntry*)de;
 - (void)updateNow:(DirEntry*)image;
 - (void)drawRect:(NSRect)dirtyRect;

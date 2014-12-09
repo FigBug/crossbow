@@ -199,7 +199,7 @@ int nextBrowserId = 1;
 
 - (void)selectDirEntry:(DirEntry*)de
 {
-	int idx = [folderContents indexOfObject:de];
+	NSInteger idx = [folderContents indexOfObject:de];
 	if (idx != NSNotFound)
 	{
 		[fileList scrollIndexToVisible:idx];

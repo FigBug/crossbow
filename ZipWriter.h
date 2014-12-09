@@ -33,7 +33,6 @@
 + (bool)createZipIn:(DirEntry*)location with:(NSArray*)files;
 + (id)zipWriterWithPath:(NSString*)path;
 - (id)initWithPath:(NSString*)path;
-- (void)dealloc;
 
 - (BOOL)addFile:(NSString*)path withName:(NSString*)name;
 - (void)close;

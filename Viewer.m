@@ -315,7 +315,7 @@ int nextImg(int idx, int max)
 	else
 	{
 		DirEntry* de = [images objectAtIndex: curImage];
-		NSString* str = [NSString stringWithFormat: @"%d/%d  |  %@  |  %d%%", curImage + 1, [images count], stringFromFileSize([de size]), (int)(zoomFactor * 100 + 0.5)];
+		NSString* str = [NSString stringWithFormat: @"%d/%d  |  %@  |  %d%%", curImage + 1, (int)[images count], stringFromFileSize([de size]), (int)(zoomFactor * 100 + 0.5)];
 		
 		[statusBar setStringValue:str];
 	}
@@ -394,7 +394,7 @@ int nextImg(int idx, int max)
 		return YES;
 	}
 	
-	return images && [images count] >= 0;
+	return images && [images count] > 0;
 }
 
 - (void)sheetDidEnd: (NSWindow*)sheet returnCode: (int)code contextInfo: (void*) context
@@ -579,7 +579,7 @@ int nextImg(int idx, int max)
 {
 	DirEntry* de = [images objectAtIndex:curImage];
 	
-	int sort = [sender tag];
+	NSInteger sort = [sender tag];
 	if (sort == -1)
 		self.images = [NSArray shuffledArrayWithArray:self.images];
 	else

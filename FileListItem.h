@@ -33,7 +33,6 @@
 
 + (id)fileListItem:(DirEntry*)de;
 - (id)init:(DirEntry*)de;
-- (void)dealloc;
 
 - (BOOL)isEqual:(id)anObject;
 - (NSUInteger)hash;

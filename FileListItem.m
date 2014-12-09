@@ -115,7 +115,7 @@ static int baseThumbVer = 1;
 		if (width && height)
 		{
 			NSString* title;
-			if (orient && [orient intValue] == 6 || [orient intValue] == 8)
+			if (orient && ([orient intValue] == 6 || [orient intValue] == 8))
 				title = [NSString stringWithFormat:@"%@ x %@", height, width];
 			else
 				title = [NSString stringWithFormat:@"%@ x %@", width, height];

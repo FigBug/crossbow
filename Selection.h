@@ -31,7 +31,6 @@
 
 + (Selection*)selectionWith:(NSArray*)list;
 - (id)initWith:(NSArray*)list;
-- (void)dealloc;
 
 - (BOOL)onlyOneFile;
 - (DirEntry*)firstFile;

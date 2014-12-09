@@ -47,7 +47,6 @@ void prefsSet(NSString* key, id val);
 }
 
 - (id)init;
-- (void)dealloc;
 
 - (id)get:(NSString*)key;
 - (void)set:(NSString*)key withValue:(id)val;
