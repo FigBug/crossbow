@@ -245,7 +245,7 @@ int nextBrowserId = 1;
 {
 	DirEntry* folder = [history current];
 	
-	self.folderContents = [[folder getSubItems] sortedArrayUsingFunction:sortFunc context:(void*)sort];
+	self.folderContents = [[folder getSubItems] sortedArrayUsingFunction:sortFunc context:(void*)(NSInteger)sort];
 	
 	[browserWindow setTitleWithRepresentedFilename: [folder path]];
 	
@@ -340,7 +340,7 @@ int nextBrowserId = 1;
 		[fli setThumb:thumb];
 		
 		// redraw thumbnail
-		int idx = [folderContents indexOfObject:de];
+		NSInteger idx = [folderContents indexOfObject:de];
 		if (idx != NSNotFound)
 		{
 			[fileList reloadData];
@@ -751,7 +751,7 @@ int nextBrowserId = 1;
 	else
 	{
 		NSArray* sel = [self.selection expandSelection:sort];
-		int idx = 0;
+		NSInteger idx = 0;
 		
 		if (sender && [sender respondsToSelector:@selector(tag)])
 		{

@@ -128,7 +128,7 @@ NSArray* imageTypes = nil;
 {
 	NSFileManager* fm = [NSFileManager defaultManager];
 	
-	NSArray* thumbs = [fm directoryContentsAtPath:[DirEntry thumbnailDir]];
+    NSArray* thumbs = [fm contentsOfDirectoryAtPath:[DirEntry thumbnailDir] error:nil];
 	
 	for (NSString* filename in thumbs)
 	{
@@ -539,7 +539,7 @@ NSArray* imageTypes = nil;
 		return nil;
 	
 	NSFileManager* fm = [NSFileManager defaultManager];
-	NSArray* contents = [fm directoryContentsAtPath: [url path]];
+	NSArray* contents = [fm contentsOfDirectoryAtPath: [url path] error:nil];
 	
 	NSMutableArray* res = [NSMutableArray arrayWithCapacity: [contents count]];
 	for (NSString* path in contents)

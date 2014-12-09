@@ -30,7 +30,7 @@
 
 extern NSString* NotThumbnailsDeleted;
 
-@interface AppController : NSObject <SCEventListenerProtocol> {
+@interface AppController : NSObject <SCEventListenerProtocol, NSOpenSavePanelDelegate> {
 	IBOutlet NSMenu* menu;
 	
 	Preferences* preferences;

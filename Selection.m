@@ -97,7 +97,7 @@
 		}
 		else
 		{
-			[res addObjectsFromArray: [[de getSubFiles] sortedArrayUsingFunction:sortFunc context:(void*)sort]];
+			[res addObjectsFromArray: [[de getSubFiles] sortedArrayUsingFunction:sortFunc context:(void*)(NSInteger)sort]];
 		}
 	}
 	return res;

@@ -34,7 +34,7 @@ enum Zoom
 @class ImageView;
 @class ImageCache;
 
-@interface Viewer : NSWindowController {
+@interface Viewer : NSWindowController<NSToolbarDelegate> {
 	IBOutlet ImageClip* imageClip;
 	IBOutlet ImageView* imageView;
 	
