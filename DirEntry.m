@@ -50,6 +50,7 @@ NSArray* imageTypes = nil;
 		{
 			dew = [NSValue valueWithNonretainedObject: de];
 			[dirEntryCache setObject:dew forKey:[url_ path]];
+            return de;
 		}
 		else
 		{

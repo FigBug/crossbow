@@ -4,14 +4,13 @@
 {
 	NSSegmentedControl *control;
 	NSMenu *menu;
-	SEL *actions;
-	id targets;
+	NSMutableArray* actions;
+	NSMutableArray* targets;
 }
 
 + (SegmentedToolbarItem*)itemWithIdentifier:(NSString*)identifier label:(NSString*)label paletteLabel:(NSString*)pallabel segments:(int)segments;
 
 - (id)initWithItemIdentifier:(NSString *)identifier label:(NSString *)label paletteLabel:(NSString *)pallabel segments:(int)segments;
-- (void)dealloc;
 
 - (void)validate;
 

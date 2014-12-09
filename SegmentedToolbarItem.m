@@ -76,19 +76,17 @@
 
 		[control setTarget:self];
 		[control setAction:@selector(clicked:)];
+        
+        actions = [NSMutableArray array];
+        targets = [NSMutableArray array];
 
-		actions = malloc(sizeof(SEL) * segments);
-		targets = (__bridge id)(malloc(sizeof(id) * segments));
+        for (int i = 0; i < segments; i++)
+        {
+            [actions addObject:[NSNull null]];
+            [targets addObject:[NSNull null]];
+        }
 	}
 	return self;
-}
-
--(void)dealloc
-{
-
-	free(actions);
-	free((__bridge void *)(targets));
-
 }
 
 -(void)validate
@@ -104,16 +102,16 @@
 		int count = [control segmentCount];
 		for (int i = 0; i < count; i++)
 		{
-			id validator = [NSApp targetForAction:actions[i] to:targets[i] from:self];
+			id validator = [NSApp targetForAction:[actions[i] pointerValue] to:targets[i] from:self];
 			
 			BOOL enable;
-            if ((validator == nil) || ![validator respondsToSelector:actions[i]]) 
+            if ((validator == nil) || ![validator respondsToSelector:[actions[i] pointerValue]])
 			{
                 enable = NO;
             } 
 			else if ([validator respondsToSelector:@selector(validateUserInterfaceItem:)]) 
 			{
-                enable = [validator validateUserInterfaceItem:[ValData valData:actions[i]]];
+                enable = [validator validateUserInterfaceItem:[ValData valData:[actions[i] pointerValue]]];
             } 
 			else 
 			{
@@ -134,8 +132,8 @@
 	[control setWidth:width forSegment:segment];
 	[[control cell] setToolTip:longlabel forSegment:segment];
 
-	actions[segment] = action;
-	targets[segment] = target;
+	actions[segment] = [NSValue valueWithPointer:action];
+    targets[segment] = target ? target : [NSNull null];
 
 	NSMenuItem *item;
 	if(menu) 
@@ -173,7 +171,7 @@
 
 -(void)clicked:(id)sender
 {
-	[[NSApplication sharedApplication] sendAction:actions[[sender selectedSegment]] to:nil from:self];
+//	[[NSApplication sharedApplication] sendAction:actions[[sender selectedSegment]] to:nil from:self];
 }
 
 @end
@@ -205,7 +203,7 @@
 {
 	[super validate];
 	
-	id validator = [NSApp targetForAction:actions[0] to:targets[0] from:self];
+    id validator = nil; //[NSApp targetForAction:actions[0] to:targets[0] from:self];
 
 	BOOL active = validator && (BOOL)(int)[validator performSelector:sel];
 
