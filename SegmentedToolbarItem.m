@@ -102,16 +102,21 @@
 		int count = [control segmentCount];
 		for (int i = 0; i < count; i++)
 		{
-			id validator = [NSApp targetForAction:[actions[i] pointerValue] to:targets[i] from:self];
+            SEL action = [actions[i] pointerValue];
+            id  target = targets[i];
+            if (target == [NSNull null])
+                target = nil;
+            
+			id validator = [NSApp targetForAction:action to:target from:self];
 			
 			BOOL enable;
-            if ((validator == nil) || ![validator respondsToSelector:[actions[i] pointerValue]])
+            if ((validator == nil) || ![validator respondsToSelector:action])
 			{
                 enable = NO;
             } 
 			else if ([validator respondsToSelector:@selector(validateUserInterfaceItem:)]) 
 			{
-                enable = [validator validateUserInterfaceItem:[ValData valData:[actions[i] pointerValue]]];
+                enable = [validator validateUserInterfaceItem:[ValData valData:action]];
             } 
 			else 
 			{
@@ -171,7 +176,10 @@
 
 -(void)clicked:(id)sender
 {
-//	[[NSApplication sharedApplication] sendAction:actions[[sender selectedSegment]] to:nil from:self];
+    id action = actions[[sender selectedSegment]];
+    SEL selAction = [action pointerValue];
+    
+	[[NSApplication sharedApplication] sendAction:selAction to:nil from:self];
 }
 
 @end
@@ -202,8 +210,15 @@
 -(void)validate
 {
 	[super validate];
+    
+    id action = actions[0];
+    id target = targets[0];
+    
+    SEL selAction = [action pointerValue];
+    if (target == [NSNull null])
+        target = nil;
 	
-    id validator = nil; //[NSApp targetForAction:actions[0] to:targets[0] from:self];
+    id validator = [NSApp targetForAction:selAction to:target from:self];
 
 	BOOL active = validator && (BOOL)(int)[validator performSelector:sel];
 
