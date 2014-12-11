@@ -47,6 +47,7 @@ extern NSString* NotThumbnailsDeleted;
 - (Preferences*)preferences;
 
 - (Metadata*)metadataPanel:(BOOL)create;
+- (void)metadataPanelClosed;
 
 - (BOOL)panel:(id)sender shouldShowFilename:(NSString *)filename;
 

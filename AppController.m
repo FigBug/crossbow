@@ -77,6 +77,11 @@ AppController* appController;
 	return metadataPanel;
 }
 
+- (void)metadataPanelClosed
+{
+    metadataPanel = nil;
+}
+
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
 }

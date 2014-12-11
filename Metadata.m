@@ -21,7 +21,7 @@
 
 #import "Metadata.h"
 #import "DirEntry.h"
-
+#import "AppController.h"
 
 @implementation Metadata
 
@@ -158,6 +158,12 @@
 - (BOOL)outlineView:(NSOutlineView*)outlineView shouldEditTableColumn:(NSTableColumn*)tableColumn item:(id)item
 {
 	return NO;
+}
+
+- (BOOL)windowShouldClose:(id)sender
+{
+    [[AppController sharedAppController] metadataPanelClosed];
+    return YES;
 }
 
 @end

@@ -23,7 +23,7 @@
 
 @class DirEntry;
 
-@interface Metadata : NSWindowController<NSOutlineViewDataSource, NSOutlineViewDelegate> {
+@interface Metadata : NSWindowController<NSWindowDelegate, NSOutlineViewDataSource, NSOutlineViewDelegate> {
 	IBOutlet NSPanel* panel;
 	IBOutlet NSOutlineView* metadataList;
 	
@@ -42,5 +42,7 @@
 
 - (id)objectForKey:(id)key root:(NSDictionary*)dict;
 - (BOOL)outlineView:(NSOutlineView *)outlineView shouldEditTableColumn:(NSTableColumn *)tableColumn item:(id)item;
+
+- (BOOL)windowShouldClose:(id)sender;
 
 @end
