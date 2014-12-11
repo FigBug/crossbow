@@ -35,6 +35,8 @@
 
 - (void)awakeFromNib
 {
+    metadataList.delegate = self;
+    metadataList.dataSource = self;
 }
 
 - (void)setDirEntry:(DirEntry*)de_
@@ -48,8 +50,8 @@
 	if (de)
 		metadata = [de metadata];
 	
-	//[metadataList reloadData];
-	//[metadataList expandItem:nil expandChildren:YES];
+	[metadataList reloadData];
+	[metadataList expandItem:nil expandChildren:YES];
 }
 
 - (id)outlineView:(NSOutlineView *)outlineView child:(NSInteger)index ofItem:(id)item
@@ -153,7 +155,7 @@
 	return nil;
 }
 
-- (BOOL)outlineView:(NSOutlineView *)outlineView shouldEditTableColumn:(NSTableColumn *)tableColumn item:(id)item
+- (BOOL)outlineView:(NSOutlineView*)outlineView shouldEditTableColumn:(NSTableColumn*)tableColumn item:(id)item
 {
 	return NO;
 }

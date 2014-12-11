@@ -25,6 +25,7 @@
 		781873140F0543D900381FBC /* NSImageAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 781873130F0543D900381FBC /* NSImageAdditions.m */; };
 		781EF3670F0FD0C800EB97E8 /* Share.xib in Resources */ = {isa = PBXBuildFile; fileRef = 781EF3660F0FD0C800EB97E8 /* Share.xib */; };
 		7820A0311A39E9AE004DABA3 /* ActivityFaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 7820A0301A39E9AE004DABA3 /* ActivityFaker.m */; };
+		7820A0351A39F35C004DABA3 /* Metadata.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7820A0341A39F35C004DABA3 /* Metadata.xib */; };
 		783041210EF3FEDE00A3BC6D /* Selection.m in Sources */ = {isa = PBXBuildFile; fileRef = 783041200EF3FEDE00A3BC6D /* Selection.m */; };
 		7830412F0EF40AB200A3BC6D /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 7830412E0EF40AB200A3BC6D /* Util.m */; };
 		783B7E770EFFE75600AF19FC /* ImagePreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 783B7E760EFFE75600AF19FC /* ImagePreview.m */; };
@@ -126,6 +127,7 @@
 		781EF4240F0FD60A00EB97E8 /* ShareController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareController.m; sourceTree = "<group>"; };
 		7820A02F1A39E9AE004DABA3 /* ActivityFaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityFaker.h; sourceTree = "<group>"; };
 		7820A0301A39E9AE004DABA3 /* ActivityFaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityFaker.m; sourceTree = "<group>"; };
+		7820A0341A39F35C004DABA3 /* Metadata.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Metadata.xib; sourceTree = "<group>"; };
 		7830411F0EF3FEDE00A3BC6D /* Selection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Selection.h; sourceTree = "<group>"; };
 		783041200EF3FEDE00A3BC6D /* Selection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Selection.m; sourceTree = "<group>"; };
 		7830412D0EF40AB200A3BC6D /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Util.h; sourceTree = "<group>"; };
@@ -405,6 +407,7 @@
 				781538270F0DA2CA00EE7C17 /* ThumbnailBuilder.xib */,
 				7800B83F0EF1E8EF00882915 /* Viewer.xib */,
 				781EF3660F0FD0C800EB97E8 /* Share.xib */,
+				7820A0341A39F35C004DABA3 /* Metadata.xib */,
 			);
 			name = Nibs;
 			sourceTree = "<group>";
@@ -550,6 +553,7 @@
 				78CDC52E0EF57AE000EC2A16 /* Preferences.xib in Resources */,
 				78CDC6A50EF5B6A800EC2A16 /* trans.png in Resources */,
 				78D5B9FC0EFA9C130020A6F7 /* TBZoomIn.png in Resources */,
+				7820A0351A39F35C004DABA3 /* Metadata.xib in Resources */,
 				78D5B9FD0EFA9C130020A6F7 /* TBZoomFit.png in Resources */,
 				78D5B9FE0EFA9C130020A6F7 /* TBLast.png in Resources */,
 				78D5B9FF0EFA9C130020A6F7 /* TBZoomActual.png in Resources */,

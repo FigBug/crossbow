@@ -23,9 +23,9 @@
 
 @class DirEntry;
 
-@interface Metadata : NSWindowController {
+@interface Metadata : NSWindowController<NSOutlineViewDataSource, NSOutlineViewDelegate> {
 	IBOutlet NSPanel* panel;
-	//IBOutlet BGHUDOutlineView* metadataList;
+	IBOutlet NSOutlineView* metadataList;
 	
 	DirEntry* de;
 	NSDictionary* metadata;
