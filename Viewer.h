@@ -22,6 +22,8 @@
 #import <Cocoa/Cocoa.h>
 #import <Quartz/Quartz.h>
 
+#include "ActivityFaker.h"
+
 enum Zoom
 {
 	ZoomFit,
@@ -55,6 +57,8 @@ enum Zoom
 	NSTimer* slideshowTimer;
 	
 	ImageCache* imageCache;
+    
+    ActivityFaker* activityFaker;
 	
 	// toolbar
 	NSDictionary *toolbaritems;

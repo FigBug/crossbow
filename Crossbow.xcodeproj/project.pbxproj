@@ -24,6 +24,7 @@
 		781873110F05424300381FBC /* NSArrayAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 781873100F05424300381FBC /* NSArrayAdditions.m */; };
 		781873140F0543D900381FBC /* NSImageAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 781873130F0543D900381FBC /* NSImageAdditions.m */; };
 		781EF3670F0FD0C800EB97E8 /* Share.xib in Resources */ = {isa = PBXBuildFile; fileRef = 781EF3660F0FD0C800EB97E8 /* Share.xib */; };
+		7820A0311A39E9AE004DABA3 /* ActivityFaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 7820A0301A39E9AE004DABA3 /* ActivityFaker.m */; };
 		783041210EF3FEDE00A3BC6D /* Selection.m in Sources */ = {isa = PBXBuildFile; fileRef = 783041200EF3FEDE00A3BC6D /* Selection.m */; };
 		7830412F0EF40AB200A3BC6D /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 7830412E0EF40AB200A3BC6D /* Util.m */; };
 		783B7E770EFFE75600AF19FC /* ImagePreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 783B7E760EFFE75600AF19FC /* ImagePreview.m */; };
@@ -123,6 +124,8 @@
 		781EF3660F0FD0C800EB97E8 /* Share.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Share.xib; sourceTree = "<group>"; };
 		781EF4230F0FD60A00EB97E8 /* ShareController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareController.h; sourceTree = "<group>"; };
 		781EF4240F0FD60A00EB97E8 /* ShareController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareController.m; sourceTree = "<group>"; };
+		7820A02F1A39E9AE004DABA3 /* ActivityFaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityFaker.h; sourceTree = "<group>"; };
+		7820A0301A39E9AE004DABA3 /* ActivityFaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityFaker.m; sourceTree = "<group>"; };
 		7830411F0EF3FEDE00A3BC6D /* Selection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Selection.h; sourceTree = "<group>"; };
 		783041200EF3FEDE00A3BC6D /* Selection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Selection.m; sourceTree = "<group>"; };
 		7830412D0EF40AB200A3BC6D /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Util.h; sourceTree = "<group>"; };
@@ -356,6 +359,8 @@
 				7830412E0EF40AB200A3BC6D /* Util.m */,
 				78FF254B0F13A15500B825F1 /* ZipWriter.h */,
 				78FF254C0F13A15500B825F1 /* ZipWriter.m */,
+				7820A02F1A39E9AE004DABA3 /* ActivityFaker.h */,
+				7820A0301A39E9AE004DABA3 /* ActivityFaker.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -578,6 +583,7 @@
 				78AB4DB30EF2B237004ABF79 /* History.m in Sources */,
 				786283FA0EF320DF0056FEAD /* Preferences.m in Sources */,
 				78FBF0410EF37B480005A150 /* Bookmarks.m in Sources */,
+				7820A0311A39E9AE004DABA3 /* ActivityFaker.m in Sources */,
 				783041210EF3FEDE00A3BC6D /* Selection.m in Sources */,
 				7830412F0EF40AB200A3BC6D /* Util.m in Sources */,
 				78CDC4EF0EF5756A00EC2A16 /* DBPrefsWindowController.m in Sources */,
@@ -632,8 +638,6 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "Developer ID Application";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -650,7 +654,6 @@
 				INSTALL_PATH = "$(HOME)/Applications";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = Crossbow;
-				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -660,8 +663,6 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "Developer ID Application";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -675,7 +676,6 @@
 				INSTALL_PATH = "$(HOME)/Applications";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = Crossbow;
-				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
 			};
 			name = Release;

@@ -70,6 +70,8 @@ int nextImg(int idx, int max)
 		associatedBrowser = 0;
 		
 		imageCache = [[ImageCache alloc] init];
+        
+        activityFaker = [[ActivityFaker alloc] initWithName:@"Crossbow Slideshow"];
 		
 		[self showWindow:self];
 	}
@@ -221,8 +223,6 @@ int nextImg(int idx, int max)
 - (void)slideshowCallback:(NSTimer*)timer
 {
 	[self nextImage: self];
-	
-	UpdateSystemActivity(UsrActivity);
 }
 
 -(NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSString *)identifier willBeInsertedIntoToolbar:(BOOL)flag 
@@ -544,11 +544,13 @@ int nextImg(int idx, int max)
 	{
 		[slideshowTimer invalidate];
 		slideshowTimer = nil;
+        [activityFaker enable];
 	}
 	else
 	{
 		int delay = [prefsGet(PrefSlideshowDelay) intValue];
 		slideshowTimer = [NSTimer scheduledTimerWithTimeInterval:delay target:self selector:@selector(slideshowCallback:) userInfo:nil repeats:YES];
+        [activityFaker disable];
 	}
 }
 
