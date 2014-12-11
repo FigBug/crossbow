@@ -508,14 +508,16 @@ int nextImg(int idx, int max)
 	[open setResolvesAliases: YES];
 	[open setAllowsMultipleSelection: YES];
 	
-	if ([open runModalForDirectory: nil file:nil types: nil] == NSOKButton)
+	if ([open runModal] == NSOKButton)
 	{
 		NSMutableArray* files  = [NSMutableArray arrayWithCapacity: 10];
 		NSMutableArray* recent = [NSMutableArray arrayWithCapacity: 10];
 		[recent addObjectsFromArray: prefsGet(PrefRecentFiles)];
 		
-		for (NSString* file in [open filenames])
+		for (NSURL* url in [open URLs])
 		{
+            NSString* file = url.path;
+            
 			[files addObject: [DirEntry dirEntryWithPath: file]];
 			if ([recent containsObject:file])
 				[recent removeObject:file];			
@@ -716,7 +718,7 @@ int nextImg(int idx, int max)
 	[gotoImageNumber setFormatter:fmt];
 	[gotoImageNumber setIntValue:curImage + 1];
 	
-	[gotoImageMax setStringValue:[NSString stringWithFormat:@"of %d.", [images count]]];
+	[gotoImageMax setStringValue:[NSString stringWithFormat:@"of %d.", (int)[images count]]];
 	
 	[NSApp beginSheet: gotoImageSheet modalForWindow:viewerWindow modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];
 }

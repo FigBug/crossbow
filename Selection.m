@@ -129,7 +129,7 @@
 	{
 		DirEntry* folder = [folders objectAtIndex:0];
 		
-		NSArray* sub = [[folder getSubItems] sortedArrayUsingFunction:sortFunc context:(void*)sort];
+		NSArray* sub = [[folder getSubItems] sortedArrayUsingFunction:sortFunc context:(void*)(NSInteger)sort];
 		for (DirEntry* de in sub)
 		{
 			[res addObject:de];

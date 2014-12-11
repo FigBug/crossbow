@@ -109,12 +109,12 @@ AppController* appController;
 
 - (IBAction)newBrowser:(id)sender
 {
-	[[Browser alloc] init];
+	(void)[[Browser alloc] init];
 }
 
 - (IBAction)newViewer:(id)sender
 {
-	[[Viewer alloc] init:nil atIndex:0];
+	(void)[[Viewer alloc] init:nil atIndex:0];
 }
 
 - (IBAction)onlineHelp:(id)sender
@@ -131,14 +131,16 @@ AppController* appController;
 	[open setResolvesAliases: YES];
 	[open setAllowsMultipleSelection: YES];
 	
-	if ([open runModalForDirectory: nil file:nil types: nil] == NSOKButton)
+	if ([open runModal] == NSOKButton)
 	{
 		NSMutableArray* files = [NSMutableArray arrayWithCapacity: 10];
 		NSMutableArray* recent = [NSMutableArray arrayWithCapacity: 10];
 		[recent addObjectsFromArray: prefsGet(PrefRecentFiles)];
 		
-		for (NSString* file in [open filenames])
+		for (NSURL* url in [open URLs])
 		{
+            NSString* file = [url path];
+            
 			[files addObject: [DirEntry dirEntryWithPath: file]];
 			if ([recent containsObject:file])
 				[recent removeObject:file];
@@ -149,7 +151,7 @@ AppController* appController;
 		
 		prefsSet(PrefRecentFiles, recent);
 		
-		[[Viewer alloc] init:files atIndex:0];
+		(void)[[Viewer alloc] init:files atIndex:0];
 	}
 }
 
@@ -170,19 +172,19 @@ AppController* appController;
 {
 	NSMenuItem* item = (NSMenuItem*)sender;
 	NSArray* files = prefsGet(PrefRecentFiles);
-	[[Viewer alloc] init: [NSArray arrayWithObject:[DirEntry dirEntryWithPath:[files objectAtIndex:[item tag]]]] atIndex:0];
+	(void)[[Viewer alloc] init: [NSArray arrayWithObject:[DirEntry dirEntryWithPath:[files objectAtIndex:[item tag]]]] atIndex:0];
 }
 
 - (BOOL)application:(NSApplication *)theApplication openFile:(NSString *)filename
 {
 	NSArray* items = [[[[DirEntry dirEntryWithPath:filename] getParent] getSubFiles] sortedArrayUsingFunction:sortFunc context:(void*)BSName];
-	[[Viewer alloc] init: items atIndex:[items indexOfObject:[DirEntry dirEntryWithPath:filename]]];
+	(void)[[Viewer alloc] init: items atIndex:[items indexOfObject:[DirEntry dirEntryWithPath:filename]]];
 	return YES;
 }
 
 - (BOOL)application:(NSApplication *)theApplication openTempFile:(NSString *)filename
 {
-	[[Viewer alloc] init: [NSArray arrayWithObject:[DirEntry dirEntryWithPath:filename]] atIndex:0];
+	(void)[[Viewer alloc] init: [NSArray arrayWithObject:[DirEntry dirEntryWithPath:filename]] atIndex:0];
 	return YES;
 }
 
@@ -198,7 +200,7 @@ AppController* appController;
 		for (NSString* filename in filenames)
 			[items addObject: [DirEntry dirEntryWithPath:filename]];
 		
-		[[Viewer alloc] init: items atIndex:0];
+		(void)[[Viewer alloc] init: items atIndex:0];
 	}
 	[NSApp replyToOpenOrPrint:NSApplicationDelegateReplySuccess];
 }
