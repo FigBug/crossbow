@@ -22,7 +22,7 @@
 #import <Cocoa/Cocoa.h>
 #import "DBPrefsWindowController.h"
 
-@interface PreferencesController : DBPrefsWindowController {
+@interface PreferencesController : DBPrefsWindowController<NSWindowDelegate> {
 	IBOutlet NSView* general;
 	IBOutlet NSView* advanced;
 	

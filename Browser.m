@@ -869,7 +869,7 @@ int nextBrowserId = 1;
 - (IBAction)createArchive:(id)sender
 {	
 	ProgressSheet* prog = [ProgressSheet alloc];	
-	[prog initWithThread:[ZipWriter createZippingThread:[self currentLocation] with:[selection deepExpandSelection:sort] forSheet:prog]];
+	(void)[prog initWithThread:[ZipWriter createZippingThread:[self currentLocation] with:[selection deepExpandSelection:sort] forSheet:prog]];
 	[NSApp beginSheet: [prog window] modalForWindow:browserWindow modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];	
 }
 

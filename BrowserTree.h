@@ -24,7 +24,7 @@
 @class Browser;
 @class DirEntry;
 
-@interface BrowserTree : NSObject {
+@interface BrowserTree : NSObject<NSOutlineViewDelegate, NSOutlineViewDataSource> {
 	Browser* browser;
 	NSArray* rootItems;
 	

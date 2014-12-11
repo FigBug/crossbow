@@ -31,7 +31,7 @@
 @class FileListItem;
 @class ImagePreview;
 
-@interface Browser : NSWindowController {
+@interface Browser : NSWindowController<NSToolbarDelegate> {
 	// Outlets
 	IBOutlet NSOutlineView* __weak folderTree;
 	IBOutlet ImagePreview* previewPane;

@@ -51,7 +51,7 @@ static SCEvents *_sharedPathWatcher = nil;
 {
     @synchronized(self) {
         if (_sharedPathWatcher == nil) {
-            [[self alloc] init];
+            (void)[[self alloc] init];
         }
     }
     

@@ -237,7 +237,7 @@ NSArray* imageTypes = nil;
 	NSString* thumbPath = [self thumbnailPath];
 	NSFileManager* fm = [NSFileManager defaultManager];
 	if ([fm fileExistsAtPath:thumbPath])
-		[fm removeFileAtPath:thumbPath handler:nil];
+        [fm removeItemAtPath:thumbPath error:nil];
 
 	NSImage* thum;
 	if (folder)
@@ -478,7 +478,7 @@ NSArray* imageTypes = nil;
 		return nil;
 	
 	NSFileManager* fm = [NSFileManager defaultManager];
-	NSArray* contents = [fm directoryContentsAtPath: [url path]];
+    NSArray* contents = [fm contentsOfDirectoryAtPath: [url path] error:nil];
 	
 	BOOL sawSubFolders = NO;
 	NSMutableArray* res = [NSMutableArray arrayWithCapacity: [contents count]];

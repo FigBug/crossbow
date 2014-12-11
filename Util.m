@@ -56,11 +56,14 @@ BOOL isVisiblePath(NSString* path)
 	
 	if (infoRec.flags & (/*kLSItemInfoIsPackage |*/ kLSItemInfoIsVolume))
 		return NO;
-	
-	NSDictionary* dict = [fm fileAttributesAtPath:path traverseLink:NO];
+    
+    if ([path isEqualTo:@"/dev"])
+        return NO;
+    
+	NSDictionary* dict = [fm attributesOfItemAtPath:path error:nil];
 	if ([[dict valueForKey:NSFileType] isEqual:NSFileTypeSymbolicLink])
 	{
-		NSString* actualPath = [fm pathContentOfSymbolicLinkAtPath:path];
+		NSString* actualPath = [fm destinationOfSymbolicLinkAtPath:path error:nil];
 		if (![actualPath isAbsolutePath])
 			actualPath = [[path stringByDeletingLastPathComponent] stringByAppendingPathComponent:actualPath];
 		
@@ -88,10 +91,10 @@ BOOL isVisiblePath(NSString* path)
 NSString* expandIfLink(NSString* path)
 {
 	NSFileManager* fm = [NSFileManager defaultManager];
-	NSDictionary* dict = [fm fileAttributesAtPath:path traverseLink:NO];
+	NSDictionary* dict = [fm attributesOfItemAtPath:path error:nil];
 	if ([[dict valueForKey:NSFileType] isEqual:NSFileTypeSymbolicLink])
 	{
-		NSString* actualPath = [fm pathContentOfSymbolicLinkAtPath:path];
+		NSString* actualPath = [fm destinationOfSymbolicLinkAtPath:path error:nil];
 		if (![actualPath isAbsolutePath])
 			actualPath = [[path stringByDeletingLastPathComponent] stringByAppendingPathComponent:actualPath];
 		return fixPathCase(actualPath);
@@ -104,6 +107,7 @@ NSString* expandIfLink(NSString* path)
 
 NSString* fixPathCase(NSString* path) 
 {
+    /*
 	FSRef ref;
 	OSStatus sts;
 	UInt8 actualPath[1000];
@@ -118,6 +122,9 @@ NSString* fixPathCase(NSString* path)
 	if (sts) return path;
 	
 	return [NSString stringWithUTF8String:(const char*)actualPath];
+     */
+    // todo: verify this works
+    return [[[NSURL fileURLWithPath:path] fileReferenceURL] path];
 }
 
 NSString* stringFromFileSize(long long theSize)
