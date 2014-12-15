@@ -240,7 +240,7 @@
 
 - (NSImage*)rotated:(int)angle
 {
-	if (angle != 90 && angle != 270)
+	if (angle != 90 && angle != 270 && angle != 180)
 		return self;
 	
     NSSize existingSize;

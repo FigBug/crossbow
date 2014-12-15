@@ -325,8 +325,10 @@ NSArray* imageTypes = nil;
 	
 	NSNumber* rot = [metadata objectForKey:(NSString*)kCGImagePropertyOrientation];
 	if (!rot) return 0;
-	
-	if ([rot intValue] == 8)
+
+    if ([rot intValue] == 3)
+        return 180;
+	else if ([rot intValue] == 8)
 		return 90;
 	else if ([rot intValue] == 6)
 		return 270;
