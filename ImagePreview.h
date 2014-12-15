@@ -24,17 +24,14 @@
 
 @class DirEntry;
 
-@interface ImagePreview : NSView {
+@interface ImagePreview : NSImageView {
 	NSImage* cachedImage;
 	DirEntry* file;
 }
 
-@property (nonatomic, strong) NSImage* cachedImage;
-@property (nonatomic, strong) DirEntry* file;
-
 - (void)previewImage:(DirEntry*)de;
 - (void)updateNow:(DirEntry*)image;
-- (void)drawRect:(NSRect)dirtyRect;
+//- (void)drawRect:(NSRect)dirtyRect;
 
 - (void)decodeProc:(NSArray*)params;
 - (void)decodeFinished:(NSArray*)params;

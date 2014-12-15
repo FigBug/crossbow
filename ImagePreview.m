@@ -26,18 +26,6 @@
 
 @implementation ImagePreview
 
-@synthesize cachedImage;
-@synthesize file;
-
-- (id)init
-{
-	if (self = [super init])
-	{
-	}
-	return self;
-}
-
-
 - (void)previewImage:(DirEntry*)de
 {
 	[NSObject cancelPreviousPerformRequestsWithTarget:self];
@@ -54,14 +42,14 @@
 		NSImage* img = [de image];
 		if (img)
 		{
-			self.file = de;		
+			file = de;
 			[NSThread detachNewThreadSelector:@selector(decodeProc:) toTarget:self withObject:[NSArray arrayWithObjects:de, img, nil]];
 			return;
 		}
 	}
-	self.file        = nil;
-	self.cachedImage = nil;
-	[self setNeedsDisplay:YES];
+	file        = nil;
+	cachedImage = nil;
+    self.image  = nil;
 }
 
 - (void)decodeProc:(NSArray*)params
@@ -82,39 +70,32 @@
 {
 	DirEntry* de   = [params objectAtIndex:0];
 	NSImage* image = [params objectAtIndex:1];
-
+    
+    if ([[file filetype] isEqual:@"com.adobe.pdf"])
+    {
+        NSImage* newImage = [[NSImage alloc] initWithSize:[image size]];
+        [newImage lockFocus];
+        [[NSColor whiteColor] set];
+        CGRect rc = NSMakeRect(0,0,[newImage size].width, [newImage size].height);
+        NSRectFill(rc);
+        [image drawInRect:rc];
+        [newImage unlockFocus];
+        image = newImage;
+    }
+    
 	if (de && file && [de isEqual:file])
 	{
-		self.cachedImage = image;
-		[self setNeedsDisplay:YES];
+        self.image = image;
+		cachedImage = image;
 	}
 }
 
 - (void)drawRect:(NSRect)dirtyRect
 {
-	NSGraphicsContext* ctx = [NSGraphicsContext currentContext];
-	
 	NSColor* bk = [NSColor blackColor];
 	[bk drawSwatchInRect:dirtyRect];
-	
-	if (cachedImage)
-	{
-		NSRect area = [self bounds];
-		NSSize sz   = [cachedImage sizeLargestRepresentation];
-	
-		if ([[file filetype] isEqual:@"com.adobe.pdf"])
-			[[NSColor whiteColor] drawSwatchInRect:shrinkRectToFit(NSMakeRect(0, 0, sz.width, sz.height), area)];
-		
-		if (sz.width < area.size.width && sz.height < area.size.height)
-		{
-			[cachedImage drawAtPoint:NSMakePoint((area.size.width - sz.width) / 2, (area.size.height - sz.height) / 2) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
-		}
-		else
-		{
-			[ctx setImageInterpolation:NSImageInterpolationHigh];
-			[cachedImage drawInRect:[self bounds] operation:NSCompositeSourceOver fraction:1.0 method:MGImageResizeScale];
-		}
-	}
+    
+    [super drawRect:dirtyRect];
 }
 
 @end
