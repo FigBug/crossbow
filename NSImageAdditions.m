@@ -239,35 +239,10 @@
 }
 
 - (NSImage*)rotated:(int)angle
-/*{
-	if (angle == 0 || ![self isValid])
-		return self;
-	
-	NSSize beforeSize = [self size];
-	
-	NSSize afterSize = (angle == 90 || angle == -90) ? NSMakeSize(beforeSize.height, beforeSize.width) : beforeSize;
-	
-	NSAffineTransform* trans = [NSAffineTransform transform];
-	[trans translateXBy:afterSize.width * 0.5 yBy:afterSize.height * 0.5];
-	[trans rotateByDegrees:angle];
-	[trans translateXBy:-beforeSize.width * 0.5 yBy:-beforeSize.height * 0.5];
-	
-	NSImage* newImage = [[NSImage alloc] initWithSize:afterSize];
-		
-	[newImage lockFocus];
-	
-	[trans set];
-	[self drawAtPoint:NSZeroPoint fromRect:NSMakeRect(0, 0, beforeSize.width, beforeSize.height) operation:NSCompositeSourceOver fraction:1.0];
-	
-	[newImage unlockFocus];
-	
-	return [newImage autorelease];	
-}*/
 {
 	if (angle != 90 && angle != 270)
 		return self;
 	
-    NSImage *existingImage = self;
     NSSize existingSize;
 	
     /**
@@ -275,8 +250,10 @@
      * The bestRepresentationForDevice: nil tells the NSImage to just
      * give us the raw image instead of it's wacky DPI-translated version.
      */
-    existingSize.width = [[existingImage bestRepresentationForDevice: nil] pixelsWide];
-    existingSize.height = [[existingImage bestRepresentationForDevice: nil] pixelsHigh];
+    NSImageRep* rep = [self largestRepresentation];
+    
+    existingSize.width = [rep pixelsWide];
+    existingSize.height = [rep pixelsHigh];
 	
     NSSize newSize = NSMakeSize(existingSize.height, existingSize.width);
     NSImage *rotatedImage = [[NSImage alloc] initWithSize:newSize];
@@ -306,7 +283,7 @@
      * again.
      */
     NSRect r1 = NSMakeRect(0, 0, newSize.height, newSize.width);
-    [[existingImage bestRepresentationForDevice: nil] drawInRect: r1];
+    [rep drawInRect: r1];
 	
     [rotatedImage unlockFocus];
 	
