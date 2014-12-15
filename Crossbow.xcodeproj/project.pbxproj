@@ -38,13 +38,11 @@
 		7893734B0F07E409001D48A0 /* Metadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 7893734A0F07E409001D48A0 /* Metadata.m */; };
 		78948BCB0EF8963600356919 /* SCEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 78948BC70EF8963600356919 /* SCEvent.m */; };
 		78948BCC0EF8963600356919 /* SCEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 78948BCA0EF8963600356919 /* SCEvents.m */; };
-		78948BDD0EF91C5E00356919 /* libcrypto.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 78948BDC0EF91C5E00356919 /* libcrypto.dylib */; };
 		78948D410EF94CB000356919 /* FileListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 78948D400EF94CB000356919 /* FileListItem.m */; };
 		78AAFEB50FC4463C005FC339 /* ImageProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 78AAFEB30FC4463C005FC339 /* ImageProcessor.m */; };
 		78AB4DB30EF2B237004ABF79 /* History.m in Sources */ = {isa = PBXBuildFile; fileRef = 78AB4DB20EF2B237004ABF79 /* History.m */; };
 		78B728B50F069309000CD71E /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78B728B40F069309000CD71E /* Carbon.framework */; };
 		78B728BF0F06933A000CD71E /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78B728BE0F06933A000CD71E /* IOKit.framework */; };
-		78CDC4C20EF55E8500EC2A16 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 78CDC4C10EF55E8500EC2A16 /* dsa_pub.pem */; };
 		78CDC4EF0EF5756A00EC2A16 /* DBPrefsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78CDC4EE0EF5756A00EC2A16 /* DBPrefsWindowController.m */; };
 		78CDC4F20EF5759400EC2A16 /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78CDC4F10EF5759400EC2A16 /* PreferencesController.m */; };
 		78CDC52E0EF57AE000EC2A16 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 78CDC52D0EF57AE000EC2A16 /* Preferences.xib */; };
@@ -161,7 +159,6 @@
 		78AB4DB20EF2B237004ABF79 /* History.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = History.m; sourceTree = "<group>"; };
 		78B728B40F069309000CD71E /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		78B728BE0F06933A000CD71E /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = /System/Library/Frameworks/IOKit.framework; sourceTree = "<absolute>"; };
-		78CDC4C10EF55E8500EC2A16 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		78CDC4ED0EF5756A00EC2A16 /* DBPrefsWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBPrefsWindowController.h; sourceTree = "<group>"; };
 		78CDC4EE0EF5756A00EC2A16 /* DBPrefsWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBPrefsWindowController.m; sourceTree = "<group>"; };
 		78CDC4F00EF5759400EC2A16 /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesController.h; sourceTree = "<group>"; };
@@ -205,7 +202,6 @@
 			files = (
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				78E389450EF0726D00703EA0 /* Quartz.framework in Frameworks */,
-				78948BDD0EF91C5E00356919 /* libcrypto.dylib in Frameworks */,
 				78B728B50F069309000CD71E /* Carbon.framework in Frameworks */,
 				78B728BF0F06933A000CD71E /* IOKit.framework in Frameworks */,
 				78FF25580F13A37600B825F1 /* libz.dylib in Frameworks */,
@@ -417,7 +413,6 @@
 			children = (
 				78EAD0200F09A618002D2588 /* App.icns */,
 				78EAD0210F09A618002D2588 /* Doc.icns */,
-				78CDC4C10EF55E8500EC2A16 /* dsa_pub.pem */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 			);
@@ -549,7 +544,6 @@
 				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
 				7800B6C30EF16DCF00882915 /* Browser.xib in Resources */,
 				7800B8400EF1E8EF00882915 /* Viewer.xib in Resources */,
-				78CDC4C20EF55E8500EC2A16 /* dsa_pub.pem in Resources */,
 				78CDC52E0EF57AE000EC2A16 /* Preferences.xib in Resources */,
 				78CDC6A50EF5B6A800EC2A16 /* trans.png in Resources */,
 				78D5B9FC0EFA9C130020A6F7 /* TBZoomIn.png in Resources */,
@@ -642,7 +636,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -668,7 +662,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
