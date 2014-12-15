@@ -21,19 +21,19 @@
 
 #import "Util.h"
 #import "DirEntry.h"
-#include <openssl/md5.h>
+#import <CommonCrypto/CommonDigest.h>
 
 NSString* md5(NSString* str)
 {
-	NSData *data = [str dataUsingEncoding:NSUTF8StringEncoding];
+	NSData* data = [str dataUsingEncoding:NSUTF8StringEncoding];
 	
-	NSMutableData *digest = [NSMutableData dataWithLength:MD5_DIGEST_LENGTH];
+	NSMutableData* digest = [NSMutableData dataWithLength:CC_MD5_DIGEST_LENGTH];
 	
-	if (MD5([data bytes], [data length], [digest mutableBytes]))
+	if (CC_MD5([data bytes], [data length], [digest mutableBytes]))
 	{
-		NSMutableString *ms = [NSMutableString string];
+		NSMutableString* ms = [NSMutableString string];
 		unsigned char* bytes = (unsigned char*)[digest bytes];
-		for (int i = 0; i < MD5_DIGEST_LENGTH; i++)
+		for (int i = 0; i < CC_MD5_DIGEST_LENGTH; i++)
 			[ms appendFormat: @"%02x", (int)(bytes[i])];
 
 		return [ms copy];		
