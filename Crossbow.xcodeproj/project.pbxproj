@@ -26,6 +26,8 @@
 		781EF3670F0FD0C800EB97E8 /* Share.xib in Resources */ = {isa = PBXBuildFile; fileRef = 781EF3660F0FD0C800EB97E8 /* Share.xib */; };
 		7820A0311A39E9AE004DABA3 /* ActivityFaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 7820A0301A39E9AE004DABA3 /* ActivityFaker.m */; };
 		7820A0351A39F35C004DABA3 /* Metadata.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7820A0341A39F35C004DABA3 /* Metadata.xib */; };
+		7820A0391A3F6691004DABA3 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7820A0381A3F6691004DABA3 /* Sparkle.framework */; };
+		7820A03B1A3F6738004DABA3 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7820A0381A3F6691004DABA3 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		783041210EF3FEDE00A3BC6D /* Selection.m in Sources */ = {isa = PBXBuildFile; fileRef = 783041200EF3FEDE00A3BC6D /* Selection.m */; };
 		7830412F0EF40AB200A3BC6D /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 7830412E0EF40AB200A3BC6D /* Util.m */; };
 		783B7E770EFFE75600AF19FC /* ImagePreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 783B7E760EFFE75600AF19FC /* ImagePreview.m */; };
@@ -71,6 +73,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		7820A03A1A3F6719004DABA3 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				7820A03B1A3F6738004DABA3 /* Sparkle.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		78CDC46B0EF55C1300EC2A16 /* Copy Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -126,6 +138,7 @@
 		7820A02F1A39E9AE004DABA3 /* ActivityFaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityFaker.h; sourceTree = "<group>"; };
 		7820A0301A39E9AE004DABA3 /* ActivityFaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityFaker.m; sourceTree = "<group>"; };
 		7820A0341A39F35C004DABA3 /* Metadata.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Metadata.xib; sourceTree = "<group>"; };
+		7820A0381A3F6691004DABA3 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		7830411F0EF3FEDE00A3BC6D /* Selection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Selection.h; sourceTree = "<group>"; };
 		783041200EF3FEDE00A3BC6D /* Selection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Selection.m; sourceTree = "<group>"; };
 		7830412D0EF40AB200A3BC6D /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Util.h; sourceTree = "<group>"; };
@@ -201,6 +214,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
+				7820A0391A3F6691004DABA3 /* Sparkle.framework in Frameworks */,
 				78E389450EF0726D00703EA0 /* Quartz.framework in Frameworks */,
 				78B728B50F069309000CD71E /* Carbon.framework in Frameworks */,
 				78B728BF0F06933A000CD71E /* IOKit.framework in Frameworks */,
@@ -229,11 +243,14 @@
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				78B728B40F069309000CD71E /* Carbon.framework */,
-				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
-				78B728BE0F06933A000CD71E /* IOKit.framework */,
 				78948BDC0EF91C5E00356919 /* libcrypto.dylib */,
 				78FF25570F13A37600B825F1 /* libz.dylib */,
+				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
+				78B728B40F069309000CD71E /* Carbon.framework */,
+				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
+				13E42FB307B3F0F600E4EEF1 /* CoreData.framework */,
+				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
+				78B728BE0F06933A000CD71E /* IOKit.framework */,
 				78E389440EF0726D00703EA0 /* Quartz.framework */,
 			);
 			name = "Linked Frameworks";
@@ -242,9 +259,7 @@
 		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
-				13E42FB307B3F0F600E4EEF1 /* CoreData.framework */,
-				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
+				7820A0381A3F6691004DABA3 /* Sparkle.framework */,
 			);
 			name = "Other Frameworks";
 			sourceTree = "<group>";
@@ -283,7 +298,7 @@
 			isa = PBXGroup;
 			children = (
 				78F312DD0EF3607B0041EA99 /* Icons */,
-				781EF1050F0FB5D600EB97E8 /* Nibs */,
+				781EF1050F0FB5D600EB97E8 /* Xibs */,
 				781EF1060F0FB60D00EB97E8 /* Other */,
 			);
 			name = Resources;
@@ -393,7 +408,7 @@
 			name = Categories;
 			sourceTree = "<group>";
 		};
-		781EF1050F0FB5D600EB97E8 /* Nibs */ = {
+		781EF1050F0FB5D600EB97E8 /* Xibs */ = {
 			isa = PBXGroup;
 			children = (
 				780C180E0F34CFBB00FE29C4 /* ProgressSheet.xib */,
@@ -405,7 +420,7 @@
 				781EF3660F0FD0C800EB97E8 /* Share.xib */,
 				7820A0341A39F35C004DABA3 /* Metadata.xib */,
 			);
-			name = Nibs;
+			name = Xibs;
 			sourceTree = "<group>";
 		};
 		781EF1060F0FB60D00EB97E8 /* Other */ = {
@@ -490,6 +505,7 @@
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
 				78CDC46B0EF55C1300EC2A16 /* Copy Frameworks */,
+				7820A03A1A3F6719004DABA3 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -636,12 +652,13 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
+					"$(PROJECT_DIR)",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -652,6 +669,7 @@
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				OTHER_LDFLAGS = "-Wl,-rpath,@loader_path/../Frameworks";
 				PRODUCT_NAME = Crossbow;
 				SDKROOT = macosx;
 			};
@@ -662,12 +680,13 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
+					"$(PROJECT_DIR)",
 				);
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -675,6 +694,7 @@
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				OTHER_LDFLAGS = "-Wl,-rpath,@loader_path/../Frameworks";
 				PRODUCT_NAME = Crossbow;
 				SDKROOT = macosx;
 			};
