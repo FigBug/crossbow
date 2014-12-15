@@ -60,7 +60,6 @@
 		NSImage* image = [params objectAtIndex:1];
 		
 		NSImage* resizedImage = [image imageByScalingProportionallyToSize:NSMakeSize(512,512)];
-		resizedImage = [resizedImage rotated:[de rotationAngle]];
 		[self performSelectorOnMainThread:@selector(decodeFinished:) withObject:[NSArray arrayWithObjects:de, resizedImage, nil] waitUntilDone:NO];
 	
 	}

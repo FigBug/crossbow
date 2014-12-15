@@ -30,6 +30,7 @@
 @class Bookmarks;
 @class FileListItem;
 @class ImagePreview;
+@class ThumbnailBuilder;
 
 @interface Browser : NSWindowController<NSToolbarDelegate> {
 	// Outlets
@@ -73,6 +74,9 @@
 	IBOutlet NSWindow* gotoFolderSheet;
 	IBOutlet NSTextField* gotoFolder;
 	IBOutlet NSTextField* gotoFolderError;
+    
+    // sheets and windows
+    ThumbnailBuilder* builder;
 }
 
 @property (weak, nonatomic, readonly) NSOutlineView* folderTree;

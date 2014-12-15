@@ -253,7 +253,6 @@ NSArray* imageTypes = nil;
 		
 		BOOL pdf = [[self filetype] isEqual:@"com.adobe.pdf"];
 	    thum = [orig imageByScalingProportionallyToSize: NSMakeSize(128, 128) background: pdf ? [NSColor whiteColor] : [NSColor clearColor] ];
-		thum = [thum rotated:[self rotationAngle]];
 	}
 	
 	if (thum)

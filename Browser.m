@@ -163,6 +163,10 @@ int nextBrowserId = 1;
 
 - (void)sheetDidEnd:(NSWindow*)sheet returnCode:(int)code contextInfo:(void*)context
 {
+    if (builder && builder.window == sheet)
+    {
+        builder = nil;
+    }
 	if (code == 99)
 	{
 		[fileListItems removeAllObjects];
@@ -856,7 +860,7 @@ int nextBrowserId = 1;
 
 - (IBAction)buildThumbnails:(id)sender
 {
-	ThumbnailBuilder* builder = [[ThumbnailBuilder alloc] init];
+	builder = [[ThumbnailBuilder alloc] init];
 	[builder setItems:[selection selection]];
 	[NSApp beginSheet: [builder window] modalForWindow:browserWindow modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];
 }

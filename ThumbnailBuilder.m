@@ -34,6 +34,9 @@
 	return self;
 }
 
+- (void)dealloc
+{
+}
 
 - (IBAction)start:(id)sender
 {

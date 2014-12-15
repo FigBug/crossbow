@@ -154,9 +154,7 @@ int nextImg(int idx, int max)
 			
 			NSImage* img = [imageCache imageForDirEntry:de];
 			
-			int angle = [de rotationAngle];
-									
-			[imageView setImage:img rotationAngle:angle];
+			[imageView setImage:img rotationAngle:0];
 			[imageView setOpaque:[[de filetype] isEqual:@"com.adobe.pdf"]];
 			[imageClip centerImage];
 			
