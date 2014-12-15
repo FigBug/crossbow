@@ -220,7 +220,13 @@
 	
     id validator = [NSApp targetForAction:selAction to:target from:self];
 
-	BOOL active = validator && (BOOL)(int)[validator performSelector:sel];
+    BOOL active = NO;
+    if (validator)
+    {
+        IMP imp = [validator methodForSelector:sel];
+        BOOL (*func)(id, SEL) = (void*)imp;
+        active = func(validator, sel);
+    }
 
 	[control setSelected:active forSegment:0];
 }
