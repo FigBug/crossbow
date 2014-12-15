@@ -9,4 +9,5 @@ Some key features include:
 * Supports all Core Image file formats including jpeg, gif, png, tiff, pdf and raw.
 * Displays image metadata including exif, iptc and gps.
 
-http://socalabs.com/download/Crossbow.dmg
+Download 1.2:
+http://rabien.com/software/Crossbow.dmg
