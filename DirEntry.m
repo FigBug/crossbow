@@ -259,7 +259,7 @@ NSArray* imageTypes = nil;
 	{
 		NSBitmapImageRep *bits = [NSBitmapImageRep imageRepWithData: [thum TIFFRepresentation]];
 		
-		NSData *data = [bits representationUsingType: NSPNGFileType properties: nil];
+		NSData *data = [bits representationUsingType: NSPNGFileType properties: [NSDictionary dictionary]];
 		
 		NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys:data, @"thumbnail", [self path], @"path", [self metadata], @"imagemetadata", nil];
 		

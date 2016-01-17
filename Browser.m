@@ -35,7 +35,6 @@
 #import "ImagePreview.h"
 #import "Metadata.h"
 #import "ThumbnailBuilder.h"
-#import "ShareController.h"
 #import "ZipWriter.h"
 #import "ProgressSheet.h"
 

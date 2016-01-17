@@ -23,7 +23,6 @@
 		7815382E0F0DA45200EE7C17 /* ThumbnailBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7815382D0F0DA45200EE7C17 /* ThumbnailBuilder.m */; };
 		781873110F05424300381FBC /* NSArrayAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 781873100F05424300381FBC /* NSArrayAdditions.m */; };
 		781873140F0543D900381FBC /* NSImageAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 781873130F0543D900381FBC /* NSImageAdditions.m */; };
-		781EF3670F0FD0C800EB97E8 /* Share.xib in Resources */ = {isa = PBXBuildFile; fileRef = 781EF3660F0FD0C800EB97E8 /* Share.xib */; };
 		7820A0311A39E9AE004DABA3 /* ActivityFaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 7820A0301A39E9AE004DABA3 /* ActivityFaker.m */; };
 		7820A0351A39F35C004DABA3 /* Metadata.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7820A0341A39F35C004DABA3 /* Metadata.xib */; };
 		7820A0391A3F6691004DABA3 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7820A0381A3F6691004DABA3 /* Sparkle.framework */; };
@@ -130,11 +129,6 @@
 		781873100F05424300381FBC /* NSArrayAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSArrayAdditions.m; sourceTree = "<group>"; };
 		781873120F0543D900381FBC /* NSImageAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSImageAdditions.h; sourceTree = "<group>"; };
 		781873130F0543D900381FBC /* NSImageAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSImageAdditions.m; sourceTree = "<group>"; };
-		781EF3590F0FBE5200EB97E8 /* CocoaSmugMug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CocoaSmugMug.h; sourceTree = "<group>"; };
-		781EF35A0F0FBE5200EB97E8 /* CocoaSmugMug.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CocoaSmugMug.m; sourceTree = "<group>"; };
-		781EF3660F0FD0C800EB97E8 /* Share.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Share.xib; sourceTree = "<group>"; };
-		781EF4230F0FD60A00EB97E8 /* ShareController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareController.h; sourceTree = "<group>"; };
-		781EF4240F0FD60A00EB97E8 /* ShareController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareController.m; sourceTree = "<group>"; };
 		7820A02F1A39E9AE004DABA3 /* ActivityFaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityFaker.h; sourceTree = "<group>"; };
 		7820A0301A39E9AE004DABA3 /* ActivityFaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityFaker.m; sourceTree = "<group>"; };
 		7820A0341A39F35C004DABA3 /* Metadata.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Metadata.xib; sourceTree = "<group>"; };
@@ -383,10 +377,6 @@
 			children = (
 				780C17670F34C99900FE29C4 /* ProgressSheet.h */,
 				780C17660F34C99900FE29C4 /* ProgressSheet.m */,
-				781EF3590F0FBE5200EB97E8 /* CocoaSmugMug.h */,
-				781EF35A0F0FBE5200EB97E8 /* CocoaSmugMug.m */,
-				781EF4230F0FD60A00EB97E8 /* ShareController.h */,
-				781EF4240F0FD60A00EB97E8 /* ShareController.m */,
 				7815382C0F0DA45200EE7C17 /* ThumbnailBuilder.h */,
 				7815382D0F0DA45200EE7C17 /* ThumbnailBuilder.m */,
 			);
@@ -417,7 +407,6 @@
 				78CDC52D0EF57AE000EC2A16 /* Preferences.xib */,
 				781538270F0DA2CA00EE7C17 /* ThumbnailBuilder.xib */,
 				7800B83F0EF1E8EF00882915 /* Viewer.xib */,
-				781EF3660F0FD0C800EB97E8 /* Share.xib */,
 				7820A0341A39F35C004DABA3 /* Metadata.xib */,
 			);
 			name = Xibs;
@@ -523,7 +512,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0720;
 				TargetAttributes = {
 					8D1107260486CEB800E47090 = {
 						DevelopmentTeam = ZMHHKRTLEM;
@@ -575,7 +564,6 @@
 				78EAD0220F09A618002D2588 /* App.icns in Resources */,
 				78EAD0230F09A618002D2588 /* Doc.icns in Resources */,
 				781538280F0DA2CA00EE7C17 /* ThumbnailBuilder.xib in Resources */,
-				781EF3670F0FD0C800EB97E8 /* Share.xib in Resources */,
 				780C180F0F34CFBB00FE29C4 /* ProgressSheet.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -670,6 +658,7 @@
 				INSTALL_PATH = "$(HOME)/Applications";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				OTHER_LDFLAGS = "-Wl,-rpath,@loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.socalabs.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = Crossbow;
 				SDKROOT = macosx;
 			};
@@ -695,6 +684,7 @@
 				INSTALL_PATH = "$(HOME)/Applications";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				OTHER_LDFLAGS = "-Wl,-rpath,@loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.socalabs.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = Crossbow;
 				SDKROOT = macosx;
 			};
@@ -703,6 +693,7 @@
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
