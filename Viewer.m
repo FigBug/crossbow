@@ -408,9 +408,15 @@ int nextImg(int idx, int max)
 {
 	NSDictionary* opts = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt: 0], NSFullScreenModeAllScreens, nil];
 	if ([imageClip isInFullScreenMode])
+    {
 		[imageClip exitFullScreenModeWithOptions:opts];
+        [NSCursor unhide];
+    }
 	else
+    {
 		[imageClip enterFullScreenMode:[NSScreen mainScreen] withOptions:opts];
+        [NSCursor hide];
+    }
 	
 	[self updateZoom];
 }
