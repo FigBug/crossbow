@@ -21,6 +21,7 @@
 
 #import "ZipWriter.h"
 #import "DirEntry.h"
+#import "ProgressSheet.h"
 #include "zip.h"
 
 @implementation ZipWriter
@@ -59,9 +60,9 @@
 {
 	@autoreleasepool {
 	
-		DirEntry* location = [param objectAtIndex:0];
-		NSArray*  files    = [param objectAtIndex:1];
-		id sheet           = [param objectAtIndex:2];
+		DirEntry* location      = [param objectAtIndex:0];
+		NSArray*  files         = [param objectAtIndex:1];
+        ProgressSheet* sheet    = [param objectAtIndex:2];
 		
 		NSString* path = [location path];
 		
@@ -155,12 +156,12 @@
 		NSDate* date = [attr objectForKey:NSFileModificationDate];
 		NSDateComponents* comp = [[NSCalendar currentCalendar] components: NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit fromDate:date];
 		
-		zipInfo.tmz_date.tm_sec  = [comp second];
-		zipInfo.tmz_date.tm_min  = [comp minute];
-		zipInfo.tmz_date.tm_hour = [comp hour];
-		zipInfo.tmz_date.tm_mday = [comp day];
-		zipInfo.tmz_date.tm_mon  = [comp month];
-		zipInfo.tmz_date.tm_year = [comp year];
+		zipInfo.tmz_date.tm_sec  = (uInt)[comp second];
+		zipInfo.tmz_date.tm_min  = (uInt)[comp minute];
+		zipInfo.tmz_date.tm_hour = (uInt)[comp hour];
+		zipInfo.tmz_date.tm_mday = (uInt)[comp day];
+		zipInfo.tmz_date.tm_mon  = (uInt)[comp month];
+		zipInfo.tmz_date.tm_year = (uInt)[comp year];
 		
 		zipInfo.dosDate = 0;
 		
@@ -183,10 +184,10 @@
 				@autoreleasepool {
 
 					data = [src readDataOfLength:10 * 1024];
-					len = [data length];
+					len = (int)[data length];
 					
 					if (len > 0)
-						zipWriteInFileInZip(zipHandle, [data bytes], [data length]);
+						zipWriteInFileInZip(zipHandle, [data bytes], (unsigned int)[data length]);
 				
 				}
 			}

@@ -182,7 +182,7 @@ int nextImg(int idx, int max)
 
 - (void)fillCache
 {
-	int max = [images count];
+	int max = (int)[images count];
 	int imagesToCache[5] = { curImage, nextImg(curImage, max), prevImg(curImage, max), nextImg(nextImg(curImage, max), max), prevImg(prevImg(curImage, max), max) };
 	
 	NSMutableArray* list = [NSMutableArray arrayWithCapacity:5];
@@ -425,7 +425,7 @@ int nextImg(int idx, int max)
 {
 	int idx = curImage - 1;
 	if (idx < 0)
-		idx = [images count] - 1;
+		idx = (int)[images count] - 1;
 	
 	[self viewImage: idx];
 }
@@ -446,7 +446,7 @@ int nextImg(int idx, int max)
 
 - (IBAction)lastImage:(id)sender
 {
-	[self viewImage: [images count] - 1];
+	[self viewImage: (int)[images count] - 1];
 }
 
 - (IBAction)zoomFit:(id)sender
@@ -535,7 +535,7 @@ int nextImg(int idx, int max)
 		if (!self.images)
 			self.images = [NSArray array];
 
-		int idx = [images count];
+		int idx = (int)[images count];
 		self.images = [images arrayByAddingObjectsFromArray:files];
 		[self viewImage: idx];
 		[imageList reloadData];
@@ -569,18 +569,18 @@ int nextImg(int idx, int max)
 	else
 		self.images = [NSArray arrayWithObject:de];
 		
-	[self viewImage:[images count] - 1];
+	[self viewImage:(int)[images count] - 1];
 	[imageList reloadData];
 }
 
 - (IBAction)openInViewer:(id)sender
 {
-	openWithApp([[images objectAtIndex:curImage] url], [sender tag], NO);
+	openWithApp([[images objectAtIndex:curImage] url], (int)[sender tag], NO);
 }
 
 - (IBAction)openInEditor:(id)sender
 {
-	openWithApp([[images objectAtIndex:curImage] url], [sender tag], YES);	
+	openWithApp([[images objectAtIndex:curImage] url], (int)[sender tag], YES);
 }
 
 - (IBAction)sort:(id)sender
@@ -594,7 +594,7 @@ int nextImg(int idx, int max)
 		self.images = [self.images sortedArrayUsingFunction:sortFunc context:(void*)sort];
 	
 	[imageList reloadData];
-	[self viewImage:[self.images indexOfObject:de]];
+	[self viewImage: (int)[self.images indexOfObject:de]];
 }
 
 - (IBAction)rotateCw:(id)sender
@@ -647,7 +647,7 @@ int nextImg(int idx, int max)
 
 - (IBAction)pan:(id)sender
 {
-	int tag = [sender tag];
+	int tag = (int)[sender tag];
 	if (tag == 0)
 	{
 		[imageClip centerImage];
@@ -720,7 +720,7 @@ int nextImg(int idx, int max)
 	NSNumberFormatter* fmt = [[NSNumberFormatter alloc] init];
 	[fmt setAllowsFloats:NO];
 	[fmt setMinimum:[NSNumber numberWithInt:1]];
-	[fmt setMaximum:[NSNumber numberWithInt:[images count]]];
+	[fmt setMaximum:[NSNumber numberWithInt:(int)[images count]]];
 	[gotoImageNumber setFormatter:fmt];
 	[gotoImageNumber setIntValue:curImage + 1];
 	
@@ -757,7 +757,7 @@ int nextImg(int idx, int max)
 
 - (void)tableViewSelectionDidChange:(NSNotification *)aNotification
 {
-	int row = [imageList selectedRow];
+	int row = (int)[imageList selectedRow];
 	if (row != -1 && curImage != -1)
 		[self viewImage:row];
 }

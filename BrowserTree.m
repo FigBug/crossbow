@@ -156,7 +156,7 @@
 	for (DirEntry* parentDe in hierarchy)
 		[browser.folderTree expandItem:parentDe];
 	
-	int row = [browser.folderTree rowForItem:de];
+	int row = (int)[browser.folderTree rowForItem:de];
 	if (row != -1)
 	{
 		[browser.folderTree selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
@@ -166,7 +166,7 @@
 
 - (DirEntry*)selectedDirEntry
 {
-	int index = [browser.folderTree selectedRow];
+	int index = (int)[browser.folderTree selectedRow];
 	if (index == -1)
 		return nil;
 	
@@ -235,7 +235,7 @@
 	
 	if (sel && [sel isChildOf: de])
 	{
-		int row = [browser.folderTree rowForItem:de];
+		int row = (int)[browser.folderTree rowForItem:de];
 		if (row != -1)
 		{
 			[browser.folderTree selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];

@@ -62,7 +62,7 @@
 		NSMutableArray* imagesToView = [NSMutableArray arrayWithCapacity: [browser.folderContents count]];
 		if ([indexes count] >= 2)
 		{
-			for (int i = [indexes firstIndex]; i <= [indexes lastIndex]; i++)
+			for (int i = (int)[indexes firstIndex]; i <= [indexes lastIndex]; i++)
 			{
 				if ([indexes containsIndex: i])
 				{
@@ -86,7 +86,7 @@
 		if (startPos == NSNotFound)
 			startPos = 0;
 		
-		[browser viewImages:imagesToView atIndex:startPos];
+		[browser viewImages:imagesToView atIndex:(int)startPos];
 	}
 }
 

@@ -53,7 +53,6 @@ extern NSString *jsonNullString;
 - (BOOL)scanJSONObjectEndString;
 - (BOOL)scanJSONArrayStartString;
 - (BOOL)scanJSONArrayEndString;
-- (BOOL)scanJSONArrayEndString;
 - (BOOL)scanJSONStringDelimiterString;
 
 @end

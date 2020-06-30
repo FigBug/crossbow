@@ -58,17 +58,17 @@
 
 - (int)count
 {
-	return [selectedItems count];
+	return (int)[selectedItems count];
 }
 
 - (int)countFiles
 {
-	return [selectedFiles count];
+	return (int)[selectedFiles count];
 }
 
 - (int)countFolders
 {
-	return [selectedFolders count];
+	return (int)[selectedFolders count];
 }
 
 - (NSArray*)selection

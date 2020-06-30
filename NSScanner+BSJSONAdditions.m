@@ -229,9 +229,9 @@ NSString *jsonNullString = @"null";
 	
 	[self scanJSONWhiteSpace];
 	NSString *substring = [[self string] substringWithRange:NSMakeRange([self scanLocation], 1)];
-	unsigned int trueLocation = [[self string] rangeOfString:jsonTrueString options:0 range:NSMakeRange([self scanLocation], ([[self string] length] - [self scanLocation]))].location;
-	unsigned int falseLocation = [[self string] rangeOfString:jsonFalseString options:0 range:NSMakeRange([self scanLocation], ([[self string] length] - [self scanLocation]))].location;
-	unsigned int nullLocation = [[self string] rangeOfString:jsonNullString options:0 range:NSMakeRange([self scanLocation], ([[self string] length] - [self scanLocation]))].location;
+	unsigned int trueLocation = (unsigned int)[[self string] rangeOfString:jsonTrueString options:0 range:NSMakeRange([self scanLocation], ([[self string] length] - [self scanLocation]))].location;
+	unsigned int falseLocation = (unsigned int)[[self string] rangeOfString:jsonFalseString options:0 range:NSMakeRange([self scanLocation], ([[self string] length] - [self scanLocation]))].location;
+	unsigned int nullLocation = (unsigned int)[[self string] rangeOfString:jsonNullString options:0 range:NSMakeRange([self scanLocation], ([[self string] length] - [self scanLocation]))].location;
 	
 	if ([substring isEqualToString:jsonStringDelimiterString]) {
 		result = [self scanJSONString:value];

@@ -183,7 +183,7 @@ AppController* appController;
 - (BOOL)application:(NSApplication *)theApplication openFile:(NSString *)filename
 {
 	NSArray* items = [[[[DirEntry dirEntryWithPath:filename] getParent] getSubFiles] sortedArrayUsingFunction:sortFunc context:(void*)BSName];
-	(void)[[Viewer alloc] init: items atIndex:[items indexOfObject:[DirEntry dirEntryWithPath:filename]]];
+	(void)[[Viewer alloc] init: items atIndex:(int)[items indexOfObject:[DirEntry dirEntryWithPath:filename]]];
 	return YES;
 }
 

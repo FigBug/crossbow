@@ -99,7 +99,7 @@
 	{
 		[self setEnabled:YES];
 
-		int count = [control segmentCount];
+		int count = (int)[control segmentCount];
 		for (int i = 0; i < count; i++)
 		{
             SEL action = [actions[i] pointerValue];

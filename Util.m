@@ -29,7 +29,7 @@ NSString* md5(NSString* str)
 	
 	NSMutableData* digest = [NSMutableData dataWithLength:CC_MD5_DIGEST_LENGTH];
 	
-	if (CC_MD5([data bytes], [data length], [digest mutableBytes]))
+	if (CC_MD5([data bytes], (CC_LONG)[data length], [digest mutableBytes]))
 	{
 		NSMutableString* ms = [NSMutableString string];
 		unsigned char* bytes = (unsigned char*)[digest bytes];

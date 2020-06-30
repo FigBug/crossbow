@@ -52,7 +52,7 @@
 
 - (int)count
 {
-	return [bookmarks count];
+	return (int)[bookmarks count];
 }
 
 - (DirEntry*)bookmark:(int)idx

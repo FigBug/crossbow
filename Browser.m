@@ -551,7 +551,7 @@ int nextBrowserId = 1;
 		int added = 0;
 		for (int i = 0; added < 10 && i < [hist count]; i++)
 		{
-			int idx = [hist count] - i - 1;
+			int idx = (int)([hist count] - i - 1);
 			DirEntry* de = [hist objectAtIndex: idx];
 			if (![dupe containsObject:de])
 			{
@@ -669,7 +669,7 @@ int nextBrowserId = 1;
 - (IBAction)bookmark:(id)sender
 {
 	NSMenuItem* itm = (NSMenuItem*)sender;
-	int tag = [itm tag] - 1000;
+	int tag = (int)([itm tag] - 1000);
 	
 	[self browseToFolder: [bookmarks bookmark:tag] sender:self];
 }
@@ -682,7 +682,7 @@ int nextBrowserId = 1;
 - (IBAction)recent:(id)sender
 {
 	NSMenuItem* itm = (NSMenuItem*)sender;
-	[history goToPast: [itm tag]];
+	[history goToPast: (int)[itm tag]];
 	
 	[self browseToFolder:[history current] sender:history];	
 }
@@ -693,7 +693,7 @@ int nextBrowserId = 1;
 	{
 		NSArray* imagesToView = [self allFiles];
 		
-		int start = [imagesToView indexOfObject: [[selection selectedFiles] objectAtIndex:0]];
+		int start = (int)[imagesToView indexOfObject: [[selection selectedFiles] objectAtIndex:0]];
 		
 		[[self viewImages:imagesToView atIndex: start] slideshow:self];
 	}
@@ -713,7 +713,7 @@ int nextBrowserId = 1;
 - (IBAction)sort:(id)sender
 {
 	NSMenuItem* item = sender;
-	sort = [item tag];
+	sort = (int)[item tag];
 	[self refreshLocation];
 }
 
@@ -731,12 +731,12 @@ int nextBrowserId = 1;
 
 - (IBAction)openInViewer:(id)sender
 {
-	openWithApp([[[self.selection selectedFiles] objectAtIndex:0] url], [sender tag], NO);
+	openWithApp([[[self.selection selectedFiles] objectAtIndex:0] url], (int)[sender tag], NO);
 }
 
 - (IBAction)openInEditor:(id)sender
 {
-	openWithApp([[[self.selection selectedFiles] objectAtIndex:0] url], [sender tag], YES);	
+	openWithApp([[[self.selection selectedFiles] objectAtIndex:0] url], (int)[sender tag], YES);
 }
 
 - (IBAction)viewSelection:(id)sender
@@ -749,7 +749,7 @@ int nextBrowserId = 1;
 			if ([de isFile])
 				[files addObject:de];
 		}
-		[self viewImages:files atIndex: [files indexOfObject:[self.selection firstFile]]];
+		[self viewImages:files atIndex: (int)[files indexOfObject:[self.selection firstFile]]];
 	}
 	else
 	{
@@ -762,7 +762,7 @@ int nextBrowserId = 1;
 			if (idx == NSNotFound) idx = 0;
 		}
 		
-		[self viewImages:sel atIndex:idx];
+		[self viewImages:sel atIndex:(int)idx];
 	}
 }
 
@@ -779,7 +779,7 @@ int nextBrowserId = 1;
 - (IBAction)deleteBookmarkFinished:(id)sender
 {
 	if ([sender tag] > 0)
-		[bookmarks deleteBookmark:[bookmarkList indexOfSelectedItem]];
+		[bookmarks deleteBookmark: (int)[bookmarkList indexOfSelectedItem]];
 	
 	[deleteBookmarkSheet orderOut:sender];
 	[NSApp endSheet:deleteBookmarkSheet returnCode:[sender tag]];	
