@@ -411,7 +411,7 @@ NSArray* imageTypes = nil;
 	return NO;
 }
 
-- (BOOL)hasSubFolders:(BOOL)allowMaybe
+- (int)hasSubFolders:(BOOL)allowMaybe
 {
 	if (!folder)
 		return NO;

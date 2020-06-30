@@ -190,7 +190,7 @@
 - (BOOL)outlineView:(NSOutlineView *)outlineView isItemExpandable:(id)item
 {
 	DirEntry* de = (DirEntry*)item;
-	BOOL subFolders = [de hasSubFolders:YES];
+	int subFolders = [de hasSubFolders:YES];
 	if (subFolders == YES || subFolders == MAYBE)
 		return YES;
 	else

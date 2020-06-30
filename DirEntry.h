@@ -30,7 +30,7 @@
 	BOOL folder;
 	BOOL image;
 	BOOL link;
-	BOOL subFolders;
+	int subFolders;
 	NSDate* creationDate;
 	NSDate* modificationDate;
 	long long fileSize;
@@ -80,7 +80,7 @@
 - (NSString*)displayName;
 - (BOOL)isFilesystemRoot;
 - (BOOL)isChildOf:(DirEntry*)de;
-- (BOOL)hasSubFolders:(BOOL)allowMaybe;
+- (int)hasSubFolders:(BOOL)allowMaybe; // NO = 0, YES = 1, MAYBE = 2
 
 - (DirEntry*)getLinkedDirEntry;
 
