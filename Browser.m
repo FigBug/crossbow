@@ -74,8 +74,12 @@ int nextBrowserId = 1;
 
 - (BOOL)isEqual:(id)anObject
 {
-    Browser* b = (Browser*)anObject;
-    return browserId == b.browserId;
+    if ([anObject isKindOfClass:[Browser class]])
+    {
+        Browser* b = (Browser*)anObject;
+        return browserId == b.browserId;
+    }
+    return NO;
 }
 
 - (NSUInteger)hash

@@ -160,11 +160,11 @@ void setMenuDelegates(NSMenu* menu, id del, NSArray* menus)
     }
 }
 
-NSInteger sortFunc(id num1, id num2, void *context)
+NSInteger sortFunc(id num1, id num2, void* context)
 {
     DirEntry* de1 = (DirEntry*)num1;
     DirEntry* de2 = (DirEntry*)num2;
-    int sort = (int)context;
+    int sort = (int)(size_t)context;
 
     if (sort == BSModified)
     {
