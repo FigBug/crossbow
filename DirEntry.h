@@ -21,7 +21,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-#define MAYBE (BOOL)2
+#define MAYBE 2
 
 @interface DirEntry : NSObject {
     NSURL* url;
@@ -30,7 +30,7 @@
     BOOL folder;
     BOOL image;
     BOOL link;
-    BOOL subFolders;
+    int subFolders;
     NSDate* creationDate;
     NSDate* modificationDate;
     long long fileSize;
@@ -80,7 +80,7 @@
 - (NSString*)displayName;
 - (BOOL)isFilesystemRoot;
 - (BOOL)isChildOf:(DirEntry*)de;
-- (BOOL)hasSubFolders:(BOOL)allowMaybe;
+- (int)hasSubFolders:(BOOL)allowMaybe;
 
 - (DirEntry*)getLinkedDirEntry;
 
