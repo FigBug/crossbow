@@ -25,14 +25,14 @@
 @class Browser;
 
 @interface BrowserList : NSObject {
-	Browser* browser;
+    Browser* browser;
 }
 
 - (id)init:(Browser*)browser;
 
 // FileList Protocol
 - (NSUInteger)numberOfItemsInImageBrowser:(IKImageBrowserView*)aBrowser;
-- (id)imageBrowser:(IKImageBrowserView*)aBrowser itemAtIndex:(NSUInteger)index;	
+- (id)imageBrowser:(IKImageBrowserView*)aBrowser itemAtIndex:(NSUInteger)index;
 
 // IKImageBrowserDelegate Protocol
 - (void)imageBrowser:(IKImageBrowserView*)aBrowser cellWasDoubleClickedAtIndex:(NSUInteger)index;

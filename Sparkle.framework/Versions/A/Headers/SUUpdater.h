@@ -120,7 +120,7 @@ extern NSString *const SUUpdaterAppcastItemNotificationKey;
 extern NSString *const SUUpdaterAppcastNotificationKey;
 
 // -----------------------------------------------------------------------------
-//	SUUpdater Delegate:
+//  SUUpdater Delegate:
 // -----------------------------------------------------------------------------
 
 /*!
@@ -315,7 +315,7 @@ extern NSString *const SUUpdaterAppcastNotificationKey;
 
 
 // -----------------------------------------------------------------------------
-//	Constants:
+//  Constants:
 // -----------------------------------------------------------------------------
 
 // Define some minimum intervals to avoid DOS-like checking attacks. These are in seconds.

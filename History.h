@@ -24,9 +24,9 @@
 @class DirEntry;
 
 @interface History : NSObject {
-	NSMutableArray* history;
-	int pos;
-	int max;
+    NSMutableArray* history;
+    int pos;
+    int max;
 }
 
 - (DirEntry*)current;

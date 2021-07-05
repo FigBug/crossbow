@@ -28,58 +28,58 @@
 
 - (id)init
 {
-	if (self = [super init])
-	{
-		bookmarks = [[NSMutableArray alloc] initWithCapacity: 10];
-		
-		NSArray* paths = prefsGet(PrefBookmarks);
-		
-		for (NSString* path in paths)
-		{
-			DirEntry* de = [DirEntry dirEntryWithPath: path];
-			if (de)
-				[bookmarks addObject: de];
-		}
-	}
-	return self;
+    if (self = [super init])
+    {
+        bookmarks = [[NSMutableArray alloc] initWithCapacity: 10];
+
+        NSArray* paths = prefsGet(PrefBookmarks);
+
+        for (NSString* path in paths)
+        {
+            DirEntry* de = [DirEntry dirEntryWithPath: path];
+            if (de)
+                [bookmarks addObject: de];
+        }
+    }
+    return self;
 }
 
 
 - (NSArray*)bookmarks
 {
-	return bookmarks;
+    return bookmarks;
 }
 
 - (int)count
 {
-	return (int)[bookmarks count];
+    return (int)[bookmarks count];
 }
 
 - (DirEntry*)bookmark:(int)idx
 {
-	return [bookmarks objectAtIndex:idx];
+    return [bookmarks objectAtIndex:idx];
 }
 
 - (void)addBookmark:(DirEntry*)de
 {
-	[bookmarks addObject:de];
-	
-	NSMutableArray* paths = [NSMutableArray arrayWithCapacity: 10];
-	for (DirEntry* de in bookmarks)
-		[paths addObject: [de path]];
+    [bookmarks addObject:de];
 
-	prefsSet(PrefBookmarks, [NSArray arrayWithArray: paths]);
+    NSMutableArray* paths = [NSMutableArray arrayWithCapacity: 10];
+    for (DirEntry* de in bookmarks)
+        [paths addObject: [de path]];
+
+    prefsSet(PrefBookmarks, [NSArray arrayWithArray: paths]);
 }
 
 - (void)deleteBookmark:(int)idx
 {
-	[bookmarks removeObjectAtIndex:idx];
+    [bookmarks removeObjectAtIndex:idx];
 
-	NSMutableArray* paths = [NSMutableArray arrayWithCapacity: 10];
-	for (DirEntry* de in bookmarks)
-		[paths addObject: [de path]];
-	
-	prefsSet(PrefBookmarks, [NSArray arrayWithArray: paths]);	
+    NSMutableArray* paths = [NSMutableArray arrayWithCapacity: 10];
+    for (DirEntry* de in bookmarks)
+        [paths addObject: [de path]];
+
+    prefsSet(PrefBookmarks, [NSArray arrayWithArray: paths]);
 }
 
 @end

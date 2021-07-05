@@ -24,7 +24,7 @@
 @class DirEntry;
 
 @interface Bookmarks : NSObject {
-	NSMutableArray* bookmarks;
+    NSMutableArray* bookmarks;
 }
 
 - (id)init;

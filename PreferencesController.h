@@ -23,11 +23,11 @@
 #import "DBPrefsWindowController.h"
 
 @interface PreferencesController : DBPrefsWindowController<NSWindowDelegate> {
-	IBOutlet NSView* general;
-	IBOutlet NSView* advanced;
-	
-	// general
-	IBOutlet NSPathControl* startupFolder;
+    IBOutlet NSView* general;
+    IBOutlet NSView* advanced;
+
+    // general
+    IBOutlet NSPathControl* startupFolder;
 }
 
 - (id)init;

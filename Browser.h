@@ -33,48 +33,51 @@
 @class ThumbnailBuilder;
 
 @interface Browser : NSWindowController<NSToolbarDelegate> {
-	// Outlets
-	IBOutlet NSOutlineView* __weak folderTree;
-	IBOutlet ImagePreview* previewPane;
-	IBOutlet IKImageBrowserView* __weak fileList;
-	IBOutlet NSSplitView* verticalSplit;
-	IBOutlet NSSplitView* horizontalSplit;
-	IBOutlet NSWindow* browserWindow;
-	IBOutlet NSTextField* statusBar;
-	IBOutlet NSProgressIndicator* thumbProgress;
-	IBOutlet NSMenu* __weak fileListContext;
-	IBOutlet NSSlider* thumbSize;
-	
-	// Path info
-	History* history;
-	NSArray* folderContents;
-	int sort;
-	int browserId;
-	
-	Bookmarks* bookmarks;
-	Selection* selection;
-	
-	// Data Sources
-	BrowserTree* browserTree;
-	BrowserList* browserList;
-	
-	NSMutableDictionary* fileListItems;
-	
-	NSThread* thumbnailThread;
-	
-	// toolbar
-	NSDictionary *toolbaritems;
-	NSArray *toolbaridentifiers;
-	
-	// delete bookmark sheet
-	IBOutlet NSWindow* deleteBookmarkSheet;
-	IBOutlet NSPopUpButton* bookmarkList;
-	
-	// go to folder
-	IBOutlet NSWindow* gotoFolderSheet;
-	IBOutlet NSTextField* gotoFolder;
-	IBOutlet NSTextField* gotoFolderError;
-    
+    // Outlets
+    IBOutlet NSOutlineView* __weak folderTree;
+    IBOutlet ImagePreview* previewPane;
+    IBOutlet IKImageBrowserView* __weak fileList;
+    IBOutlet NSSplitView* verticalSplit;
+    IBOutlet NSSplitView* horizontalSplit;
+    IBOutlet NSWindow* browserWindow;
+    IBOutlet NSTextField* statusBar;
+    IBOutlet NSProgressIndicator* thumbProgress;
+    IBOutlet NSMenu* __weak fileListContext;
+    IBOutlet NSSlider* thumbSize;
+
+    // Path info
+    History* history;
+    NSArray* folderContents;
+    int sort;
+    int browserId;
+
+    Bookmarks* bookmarks;
+    Selection* selection;
+
+    // Data Sources
+    BrowserTree* browserTree;
+    BrowserList* browserList;
+
+    NSMutableDictionary* fileListItems;
+
+    NSThread* thumbnailThread;
+
+    // toolbar
+    NSDictionary *toolbaritems;
+    NSArray *toolbaridentifiers;
+
+    // delete bookmark sheet
+    IBOutlet NSWindow* deleteBookmarkSheet;
+    IBOutlet NSPopUpButton* bookmarkList;
+
+    // go to folder
+    IBOutlet NSWindow* gotoFolderSheet;
+    IBOutlet NSTextField* gotoFolder;
+    IBOutlet NSTextField* gotoFolderError;
+
+    NSPopover* popover;
+    NSView* popupFocus;
+
     // sheets and windows
     ThumbnailBuilder* builder;
 }
@@ -100,7 +103,6 @@
 - (id)viewImages:(NSArray*)images atIndex:(int)idx;
 
 - (void)cancelThumbnailThread;
-- (void)thumbailProc:(id)files;
 - (void)thumbnailProcCallback:(id)params;
 
 - (void)previewFile:(DirEntry*)file;

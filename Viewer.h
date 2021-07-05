@@ -26,9 +26,9 @@
 
 enum Zoom
 {
-	ZoomFit,
-	ZoomActual,
-	ZoomFree,
+    ZoomFit,
+    ZoomActual,
+    ZoomFree,
 };
 
 @class Metadata;
@@ -37,46 +37,46 @@ enum Zoom
 @class ImageCache;
 
 @interface Viewer : NSWindowController<NSToolbarDelegate> {
-	IBOutlet ImageClip* imageClip;
-	IBOutlet ImageView* imageView;
-	
-	IBOutlet NSWindow* viewerWindow;
-	IBOutlet NSMenu* viewerMenu;
-	IBOutlet NSTextField* statusBar;
+    IBOutlet ImageClip* imageClip;
+    IBOutlet ImageView* imageView;
 
-	int firstImage;
-	int curImage;
-	
-	int associatedBrowser;
-	
-	int zoomMode;
-	double zoomFactor;
-	
-	NSArray* images;
-	
-	NSTimer* slideshowTimer;
-	
-	ImageCache* imageCache;
-    
+    IBOutlet NSWindow* viewerWindow;
+    IBOutlet NSMenu* viewerMenu;
+    IBOutlet NSTextField* statusBar;
+
+    int firstImage;
+    int curImage;
+
+    int associatedBrowser;
+
+    int zoomMode;
+    double zoomFactor;
+
+    NSArray* images;
+
+    NSTimer* slideshowTimer;
+
+    ImageCache* imageCache;
+
     ActivityFaker* activityFaker;
-	
-	// toolbar
-	NSDictionary *toolbaritems;
-	NSArray *toolbaridentifiers;
-	
-	// slideshow delay
-	IBOutlet NSWindow* slideshowDelaySheet;
-	IBOutlet NSTextField* slideshowDelay;
-	IBOutlet NSStepper* slideshowDelayStep;
-	
-	// goto image
-	IBOutlet NSWindow* gotoImageSheet;
-	IBOutlet NSTextField* gotoImageNumber;
-	IBOutlet NSTextField* gotoImageMax;
-	
-	// image list drawer
-	IBOutlet NSTableView* imageList;
-	IBOutlet NSDrawer* imageListDrawer;
+
+    // toolbar
+    NSDictionary *toolbaritems;
+    NSArray *toolbaridentifiers;
+
+    // slideshow delay
+    IBOutlet NSWindow* slideshowDelaySheet;
+    IBOutlet NSTextField* slideshowDelay;
+    IBOutlet NSStepper* slideshowDelayStep;
+
+    // goto image
+    IBOutlet NSWindow* gotoImageSheet;
+    IBOutlet NSTextField* gotoImageNumber;
+    IBOutlet NSTextField* gotoImageMax;
+
+    // image list drawer
+    IBOutlet NSTableView* imageList;
+    IBOutlet NSDrawer* imageListDrawer;
 }
 
 @property (nonatomic, strong) NSArray* images;

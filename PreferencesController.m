@@ -28,49 +28,49 @@
 
 - (id)init
 {
-	if (self = [super initWithWindowNibName:@"Preferences"])
-	{
-	}
-	return self;
+    if (self = [super initWithWindowNibName:@"Preferences"])
+    {
+    }
+    return self;
 }
 
 - (void)setupToolbar
 {
-	[self setCrossFade:YES];
-	
-	[self addView:general label:@"General" image:[NSImage imageNamed:@"NSPreferencesGeneral"]];
-	[self addView:advanced label:@"Advanced" image:[NSImage imageNamed:@"NSAdvanced"]];
+    [self setCrossFade:YES];
+
+    [self addView:general label:@"General" image:[NSImage imageNamed:@"NSPreferencesGeneral"]];
+    [self addView:advanced label:@"Advanced" image:[NSImage imageNamed:@"NSAdvanced"]];
 }
 
 - (void)windowDidLoad
 {
-	[super windowDidLoad];
-	[[self window] setDelegate:self];
+    [super windowDidLoad];
+    [[self window] setDelegate:self];
 
-	// General
-	[startupFolder setURL: [NSURL fileURLWithPath: prefsGet(PrefStartupFolder)]];
+    // General
+    [startupFolder setURL: [NSURL fileURLWithPath: prefsGet(PrefStartupFolder)]];
 }
 
 - (IBAction)startupFolderChanged:(id)sender
 {
-	NSPathComponentCell* cell = [startupFolder clickedPathComponentCell];
-	
-	NSURL* url = cell ? [cell URL] : [startupFolder URL];
-	if ([url isFileURL] && [[DirEntry dirEntryWithURL: url] isFolder])	
-		prefsSet(PrefStartupFolder, [url path]);
-	[startupFolder setURL: [NSURL fileURLWithPath: prefsGet(PrefStartupFolder)]];
+    NSPathComponentCell* cell = [startupFolder clickedPathComponentCell];
+
+    NSURL* url = cell ? [cell URL] : [startupFolder URL];
+    if ([url isFileURL] && [[DirEntry dirEntryWithURL: url] isFolder])
+        prefsSet(PrefStartupFolder, [url path]);
+    [startupFolder setURL: [NSURL fileURLWithPath: prefsGet(PrefStartupFolder)]];
 }
 
 - (void)windowWillClose:(NSNotification *)notification
 {
-	prefsSet(PrefStartupFolder, [[startupFolder URL] path]);
+    prefsSet(PrefStartupFolder, [[startupFolder URL] path]);
 }
 
 - (IBAction)clearThumbnailCache:(id)sender
 {
-	[DirEntry clearAllThumbnails];
-	
-	[[NSNotificationCenter defaultCenter] postNotificationName:NotThumbnailsDeleted object:self];
+    [DirEntry clearAllThumbnails];
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:NotThumbnailsDeleted object:self];
 }
 
 

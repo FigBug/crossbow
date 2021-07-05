@@ -25,13 +25,13 @@
 @class DirEntry;
 
 @interface BrowserTree : NSObject<NSOutlineViewDelegate, NSOutlineViewDataSource> {
-	Browser* browser;
-	NSArray* rootItems;
-	
-	NSMutableSet* deCache;
-	NSMutableDictionary* deSubItems;
-	
-	NSThread* arrowThread;
+    Browser* browser;
+    NSArray* rootItems;
+
+    NSMutableSet* deCache;
+    NSMutableDictionary* deSubItems;
+
+    NSThread* arrowThread;
 }
 
 - (id)init:(Browser*)browser;

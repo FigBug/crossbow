@@ -23,16 +23,16 @@
 
 
 @interface ImageClip : NSView {
-	NSView* document;
+    NSView* document;
 
-	NSPoint center;
-	NSPoint dragCenter;
-	
-	NSPoint dragStart;
-	
-	IBOutlet id delegate;
-	
-	NSDate* lastScroll;
+    NSPoint center;
+    NSPoint dragCenter;
+
+    NSPoint dragStart;
+
+    IBOutlet id delegate;
+
+    NSDate* lastScroll;
 }
 
 @property (nonatomic, strong) NSDate* lastScroll;

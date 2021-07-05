@@ -24,13 +24,13 @@
 @class DirEntry;
 
 @interface ImageCache : NSObject {
-	NSMutableDictionary* cache;
-	NSThread* decodeThread;
+    NSMutableDictionary* cache;
+    NSThread* decodeThread;
 }
 
 - (NSImage*)imageForDirEntry:(DirEntry*)de;
 - (void)cacheDirEntries:(NSArray*)list;
 - (void)cancelThread;
 - (void)decodeProc:(id)todo;
-   
+
 @end

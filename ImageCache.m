@@ -27,92 +27,92 @@
 
 - (id)init
 {
-    if (self = [super init]) 
-	{
-		cache = [[NSMutableDictionary alloc] initWithCapacity:5];
+    if (self = [super init])
+    {
+        cache = [[NSMutableDictionary alloc] initWithCapacity:5];
     }
     return self;
 }
 
 - (void)dealloc
 {
-	[self cancelThread];
-	
+    [self cancelThread];
+
 }
 
 - (NSImage*)imageForDirEntry:(DirEntry*)de
 {
-	NSImage* img = nil;
-	
-	@synchronized (self)
-	{
-		img = [cache objectForKey:[de path]];
-		if (!img)
-		{
-			img = [de image];
-			if (img)
-				[cache setObject:img forKey:[de path]];
-		}
-	}
-	return img;
+    NSImage* img = nil;
+
+    @synchronized (self)
+    {
+        img = [cache objectForKey:[de path]];
+        if (!img)
+        {
+            img = [de image];
+            if (img)
+                [cache setObject:img forKey:[de path]];
+        }
+    }
+    return img;
 }
 
 - (void)cancelThread
 {
-	if (decodeThread)
-	{
-		[decodeThread cancel];
-		decodeThread = nil;
-	}
+    if (decodeThread)
+    {
+        [decodeThread cancel];
+        decodeThread = nil;
+    }
 }
 
 - (void)cacheDirEntries:(NSArray*)list
 {
-	[self cancelThread];
-	
-	NSMutableDictionary* newCache = [[NSMutableDictionary alloc] initWithCapacity:5];
-	NSMutableArray* todo = [NSMutableArray arrayWithCapacity:5];
-	
-	@synchronized (self)
-	{
-		for (DirEntry* de in list)
-		{
-			NSImage* img = [cache objectForKey:[de path]];
-			if (img)
-				[newCache setObject:img forKey:[de path]];
-			else
-				[todo addObject:de];
-		}
-		cache = newCache;
-	}
-	decodeThread = [[NSThread alloc] initWithTarget:self selector:@selector(decodeProc:) object:todo];
-	[decodeThread start];
+    [self cancelThread];
+
+    NSMutableDictionary* newCache = [[NSMutableDictionary alloc] initWithCapacity:5];
+    NSMutableArray* todo = [NSMutableArray arrayWithCapacity:5];
+
+    @synchronized (self)
+    {
+        for (DirEntry* de in list)
+        {
+            NSImage* img = [cache objectForKey:[de path]];
+            if (img)
+                [newCache setObject:img forKey:[de path]];
+            else
+                [todo addObject:de];
+        }
+        cache = newCache;
+    }
+    decodeThread = [[NSThread alloc] initWithTarget:self selector:@selector(decodeProc:) object:todo];
+    [decodeThread start];
 }
 
 - (void)decodeProc:(id)todo
 {
-	@autoreleasepool {
-	
-		for (DirEntry* de in todo)
-		{
-			if ([[NSThread currentThread] isCancelled])
-				return;
-			
-			@autoreleasepool {
-			
-				NSImage* img = [de image];
-				if (img)
-				{
-					[img isValid];
-					
-					@synchronized (self)
-					{
-						[cache setObject:img forKey:[de path]];
-					}
-				}
-			}
-		}
-	}
+    @autoreleasepool {
+
+        for (DirEntry* de in todo)
+        {
+            if ([[NSThread currentThread] isCancelled])
+                return;
+
+            @autoreleasepool {
+
+                NSImage* img = [de image];
+                if (img)
+                {
+                    [img isValid];
+
+                    @synchronized (self)
+                    {
+                        [cache setObject:img forKey:[de path]];
+                    }
+                }
+            }
+        }
+    }
 }
 
 @end

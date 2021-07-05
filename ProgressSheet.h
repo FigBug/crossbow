@@ -22,8 +22,8 @@
 #import <Cocoa/Cocoa.h>
 
 @interface ProgressSheet : NSWindowController {
-	IBOutlet NSProgressIndicator* progressBar;
-	NSThread* thread;
+    IBOutlet NSProgressIndicator* progressBar;
+    NSThread* thread;
 }
 
 - (id)initWithThread:(NSThread*)thread;

@@ -26,68 +26,71 @@
 
 - (id)init
 {
-	if (self = [super init])
-	{
-		history = [[NSMutableArray alloc] initWithCapacity: 10];
-		pos     = -1;
-		max     = 30;		
-	}
-	return self;
+    if (self = [super init])
+    {
+        history = [[NSMutableArray alloc] initWithCapacity: 10];
+        pos     = -1;
+        max     = 30;
+    }
+    return self;
 }
 
 - (DirEntry*)current
 {
-	return [history objectAtIndex: pos];
+    return [history objectAtIndex: pos];
 }
 
 - (void)add:(DirEntry*)folder
 {
-	while (pos < [history count] - 1)
-		[history removeLastObject];
-	
-	[history addObject:folder];
-	pos++;
+    if (folder)
+    {
+        while (pos < [history count] - 1)
+            [history removeLastObject];
+
+        [history addObject:folder];
+        pos++;
+    }
 }
 
 - (BOOL)canGoBack
 {
-	return pos > 0;
+    return pos > 0;
 }
 
 - (void)goBack
 {
-	pos--;
+    pos--;
 }
 
 - (BOOL)canGoForward
 {
-	return pos < [history count] - 1;	
+    return pos < [history count] - 1;
 }
 
 - (void)goForward
 {
-	pos++;
+    pos++;
 }
 
 - (BOOL)canGoUp
 {
-	DirEntry* de = [self current];
-	return ![de isFilesystemRoot];
+    DirEntry* de = [self current];
+    return ![de isFilesystemRoot];
 }
 
 - (void)goUp
 {
-	[self add: [[self current] getParent]];
+    [self add: [[self current] getParent]];
 }
 
 - (NSArray*)getHistory
 {
-	return history;
+    return history;
 }
 
 - (void)goToPast:(int)index
 {
-	pos = index;
+    pos = index;
 }
 
 

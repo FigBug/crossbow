@@ -39,16 +39,18 @@ extern NSString* PrefShareTab;
 extern NSString* PrefSmugmugUser;
 extern NSString* PrefSmugmugPass;
 
+extern NSString* PrefRootPaths;
+extern NSString* PrefSavedUrls;
+
 id prefsGet(NSString* key);
 void prefsSet(NSString* key, id val);
 
 @interface Preferences : NSObject {
-	NSUserDefaults* prefs;
 }
 
 - (id)init;
 
-- (id)get:(NSString*)key;
-- (void)set:(NSString*)key withValue:(id)val;
++ (id)get:(NSString*)key;
++ (void)set:(NSString*)key withValue:(id)val;
 
 @end

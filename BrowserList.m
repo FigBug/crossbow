@@ -29,80 +29,80 @@
 
 - (id)init:(Browser*)browser_
 {
-	if (self = [super init])
-	{
-		browser = browser_;
-	}
-	return self;
+    if (self = [super init])
+    {
+        browser = browser_;
+    }
+    return self;
 }
 
 - (NSUInteger)numberOfItemsInImageBrowser:(IKImageBrowserView*)aBrowser
 {
-	return [browser.folderContents count];
+    return [browser.folderContents count];
 }
 
 - (id)imageBrowser:(IKImageBrowserView*)aBrowser itemAtIndex:(NSUInteger)index
 {
-	NSArray* arr = browser.folderContents;
-	DirEntry* de = [arr objectAtIndex: index];
-	return [browser fileListItemFor:de];
+    NSArray* arr = browser.folderContents;
+    DirEntry* de = [arr objectAtIndex: index];
+    return [browser fileListItemFor:de];
 }
 
 
 - (void)imageBrowser:(IKImageBrowserView*)aBrowser cellWasDoubleClickedAtIndex:(NSUInteger)index
 {
-	DirEntry* de = [browser.folderContents objectAtIndex: index];
-	if ([de isFolder])
-	{
-		[browser browseToFolder:de sender:browser.fileList];
-	}
-	else
-	{
-		NSIndexSet* indexes = [aBrowser selectionIndexes];
-		NSMutableArray* imagesToView = [NSMutableArray arrayWithCapacity: [browser.folderContents count]];
-		if ([indexes count] >= 2)
-		{
-			for (int i = (int)[indexes firstIndex]; i <= [indexes lastIndex]; i++)
-			{
-				if ([indexes containsIndex: i])
-				{
-					DirEntry* de = [browser.folderContents objectAtIndex: i];
-					if ([de isFile])
-						[imagesToView addObject: de];
-				}
-			}
-		}
-		else
-		{
-			for (DirEntry* de in browser.folderContents)
-			{
-				if ([de isFile])
-					[imagesToView addObject: de];
-			}
-		}
-		
-		DirEntry* first = [browser.folderContents objectAtIndex: index];
-		NSInteger startPos = [imagesToView indexOfObject: first];
-		if (startPos == NSNotFound)
-			startPos = 0;
-		
-		[browser viewImages:imagesToView atIndex:(int)startPos];
-	}
+    DirEntry* de = [browser.folderContents objectAtIndex: index];
+    if ([de isFolder])
+    {
+        [browser browseToFolder:de sender:browser.fileList];
+    }
+    else
+    {
+        NSIndexSet* indexes = [aBrowser selectionIndexes];
+        NSMutableArray* imagesToView = [NSMutableArray arrayWithCapacity: [browser.folderContents count]];
+        if ([indexes count] >= 2)
+        {
+            for (int i = (int)[indexes firstIndex]; i <= [indexes lastIndex]; i++)
+            {
+                if ([indexes containsIndex: i])
+                {
+                    DirEntry* de = [browser.folderContents objectAtIndex: i];
+                    if ([de isFile])
+                        [imagesToView addObject: de];
+                }
+            }
+        }
+        else
+        {
+            for (DirEntry* de in browser.folderContents)
+            {
+                if ([de isFile])
+                    [imagesToView addObject: de];
+            }
+        }
+
+        DirEntry* first = [browser.folderContents objectAtIndex: index];
+        NSInteger startPos = [imagesToView indexOfObject: first];
+        if (startPos == NSNotFound)
+            startPos = 0;
+
+        [browser viewImages:imagesToView atIndex:(int)startPos];
+    }
 }
 
 - (void)imageBrowser:(IKImageBrowserView*)aBrowser cellWasRightClickedAtIndex:(NSUInteger)index withEvent:(NSEvent*)event
 {
-	[[browser.fileListContext itemWithTitle:@"View"] setTag:index];
-	[NSMenu popUpContextMenu:browser.fileListContext withEvent:event forView:aBrowser];
+    [[browser.fileListContext itemWithTitle:@"View"] setTag:index];
+    [NSMenu popUpContextMenu:browser.fileListContext withEvent:event forView:aBrowser];
 }
 
 - (void)imageBrowserSelectionDidChange:(IKImageBrowserView*)aBrowser
 {
-	NSUInteger idx = [[aBrowser selectionIndexes] firstIndex];
-	DirEntry* de = (idx == NSNotFound) ? nil : [browser.folderContents objectAtIndex: idx];
-	[browser selectionChanged];
-	[browser previewFile:de];
-	[browser updateStatusBar];
+    NSUInteger idx = [[aBrowser selectionIndexes] firstIndex];
+    DirEntry* de = (idx == NSNotFound) ? nil : [browser.folderContents objectAtIndex: idx];
+    [browser selectionChanged];
+    [browser previewFile:de];
+    [browser updateStatusBar];
 }
 
 @end

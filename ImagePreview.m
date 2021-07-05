@@ -28,72 +28,82 @@
 
 - (void)previewImage:(DirEntry*)de
 {
-	[NSObject cancelPreviousPerformRequestsWithTarget:self];
-	[self performSelector:@selector(updateNow:) withObject:de afterDelay:0.1];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    [self performSelector:@selector(updateNow:) withObject:de afterDelay:0.1];
 }
 
 - (void)updateNow:(DirEntry*)de
 {
-	if (de && file && [de isEqual:file])
-		return;
-	
-	if (de)
-	{
-		NSImage* img = [de image];
-		if (img)
-		{
-			file = de;
-			[NSThread detachNewThreadSelector:@selector(decodeProc:) toTarget:self withObject:[NSArray arrayWithObjects:de, img, nil]];
-			return;
-		}
-	}
-	file        = nil;
-	cachedImage = nil;
+    if (de && file && [de isEqual:file])
+        return;
+
+    if (de)
+    {
+        NSImage* img = [de image];
+        if (img)
+        {
+            file = de;
+            [NSThread detachNewThreadSelector:@selector(decodeProc:) toTarget:self withObject:[NSArray arrayWithObjects:de, img, nil]];
+            return;
+        }
+    }
+    file        = nil;
+    cachedImage = nil;
     self.image  = nil;
 }
 
 - (void)decodeProc:(NSArray*)params
 {
-	@autoreleasepool {
-	
-		DirEntry* de   = [params objectAtIndex:0];
-		NSImage* image = [params objectAtIndex:1];
-		
-		NSImage* resizedImage = [image imageByScalingProportionallyToSize:NSMakeSize(512,512)];
-		[self performSelectorOnMainThread:@selector(decodeFinished:) withObject:[NSArray arrayWithObjects:de, resizedImage, nil] waitUntilDone:NO];
-	
-	}
+    @autoreleasepool {
+
+        NSAssert(params.count == 2, @"params error");
+        if (params.count >= 2)
+        {
+            DirEntry* de   = [params objectAtIndex:0];
+            NSImage* image = [params objectAtIndex:1];
+
+            NSImage* resizedImage = [image imageByScalingProportionallyToSize:NSMakeSize(512,512)];
+            if (resizedImage)
+                [self performSelectorOnMainThread:@selector(decodeFinished:) withObject:[NSArray arrayWithObjects:de, resizedImage, nil] waitUntilDone:NO];
+
+            NSAssert(image != nil && resizedImage != nil, @"nil images");
+        }
+    }
 }
 
 - (void)decodeFinished:(NSArray*)params
 {
-	DirEntry* de   = [params objectAtIndex:0];
-	NSImage* image = [params objectAtIndex:1];
-    
-    if ([[file filetype] isEqual:@"com.adobe.pdf"])
+    NSAssert(params.count == 2, @"params error");
+    if (params.count >= 2)
     {
-        NSImage* newImage = [[NSImage alloc] initWithSize:[image size]];
-        [newImage lockFocus];
-        [[NSColor whiteColor] set];
-        CGRect rc = NSMakeRect(0,0,[newImage size].width, [newImage size].height);
-        NSRectFill(rc);
-        [image drawInRect:rc];
-        [newImage unlockFocus];
-        image = newImage;
+        DirEntry* de   = [params objectAtIndex:0];
+        NSImage* image = [params objectAtIndex:1];
+
+        if ([[file filetype] isEqual:@"com.adobe.pdf"])
+        {
+            NSImage* newImage = [[NSImage alloc] initWithSize:[image size]];
+            [newImage lockFocus];
+            [[NSColor whiteColor] set];
+            CGRect rc = NSMakeRect(0,0,[newImage size].width, [newImage size].height);
+            NSRectFill(rc);
+            [image drawInRect:rc];
+            [newImage unlockFocus];
+            image = newImage;
+        }
+
+        if (de && file && [de isEqual:file])
+        {
+            self.image = image;
+            cachedImage = image;
+        }
     }
-    
-	if (de && file && [de isEqual:file])
-	{
-        self.image = image;
-		cachedImage = image;
-	}
 }
 
 - (void)drawRect:(NSRect)dirtyRect
 {
-	NSColor* bk = [NSColor blackColor];
-	[bk drawSwatchInRect:dirtyRect];
-    
+    NSColor* bk = [NSColor blackColor];
+    [bk drawSwatchInRect:dirtyRect];
+
     [super drawRect:dirtyRect];
 }
 

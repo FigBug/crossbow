@@ -28,239 +28,237 @@
 
 - (id)init:(Browser*)browser_
 {
-	if (self = [super init])
-	{
-		browser   = browser_;
-		
-		deCache = [[NSMutableSet alloc] initWithCapacity: 100];
-		deSubItems = [[NSMutableDictionary alloc] initWithCapacity: 100];
-		
-		NSWorkspace* ws = [NSWorkspace sharedWorkspace];
-		[[ws notificationCenter] addObserver:self selector:@selector(devicesChanged:) name:@"NSWorkspaceDidMountNotification" object:ws];
-		[[ws notificationCenter] addObserver:self selector:@selector(devicesChanged:) name:@"NSWorkspaceDidUnmountNotification" object:ws];
-	}
-	return self;
+    if (self = [super init])
+    {
+        browser   = browser_;
+
+        deCache = [[NSMutableSet alloc] initWithCapacity: 100];
+        deSubItems = [[NSMutableDictionary alloc] initWithCapacity: 100];
+
+        NSWorkspace* ws = [NSWorkspace sharedWorkspace];
+        [[ws notificationCenter] addObserver:self selector:@selector(devicesChanged:) name:@"NSWorkspaceDidMountNotification" object:ws];
+        [[ws notificationCenter] addObserver:self selector:@selector(devicesChanged:) name:@"NSWorkspaceDidUnmountNotification" object:ws];
+    }
+    return self;
 }
 
 - (void)dealloc
 {
-	[[[NSWorkspace sharedWorkspace] notificationCenter] removeObserver:self];
-	
-	
+    [[[NSWorkspace sharedWorkspace] notificationCenter] removeObserver:self];
 }
 
 - (NSArray*)getSubFolders:(DirEntry*)de
 {
-	NSString* key = de ? [de path] : @"(null)";
-	
-	NSArray* res = [deSubItems objectForKey:key];
-	if (res)
-		return res;
-	
-	res = de ? [[de getSubFolders] sortedArrayUsingFunction:sortFunc context:(void*)BSName] : [DirEntry getRootItems];
-	
-	[deSubItems setObject:res forKey:key];
-	[deCache addObjectsFromArray:res];
-	
-	return res;
+    NSString* key = de ? [de path] : @"(null)";
+
+    NSArray* res = [deSubItems objectForKey:key];
+    if (res)
+        return res;
+
+    res = de ? [[de getSubFolders] sortedArrayUsingFunction:sortFunc context:(void*)BSName] : [DirEntry getDisplayRootItems];
+
+    [deSubItems setObject:res forKey:key];
+    [deCache addObjectsFromArray:res];
+
+    return res;
 }
 
 - (void)devicesChanged:(id)param
 {
-	[deSubItems removeObjectForKey:@"(null)"];
-	[browser.folderTree reloadData];
+    [deSubItems removeObjectForKey:@"(null)"];
+    [browser.folderTree reloadData];
 }
 
 - (void)refresh
 {
-	[deSubItems removeAllObjects];
-	[browser.folderTree reloadData];
+    [deSubItems removeAllObjects];
+    [browser.folderTree reloadData];
 }
 
 - (void)refreshCurrent
 {
-	DirEntry* de = [self selectedDirEntry];
-	if (!de)
-		return;
-	
-	[deSubItems removeObjectForKey:[de path]];
-	[browser.folderTree reloadItem:de];
+    DirEntry* de = [self selectedDirEntry];
+    if (!de)
+        return;
+
+    [deSubItems removeObjectForKey:[de path]];
+    [browser.folderTree reloadItem:de];
 }
 
 - (void)runArrowThread
 {
-	[self cancelArrowThread];
-	
-	NSOutlineView* ov = browser.folderTree;
-	NSMutableArray* items = [NSMutableArray arrayWithCapacity:[ov numberOfRows]];
-	for (int i = 0; i < [ov numberOfRows]; i++)
-		[items addObject:[ov itemAtRow:i]];
-	
-	arrowThread = [[NSThread alloc] initWithTarget:self selector:@selector(arrowProc:) object:items];
-	[arrowThread start];
+    [self cancelArrowThread];
+
+    NSOutlineView* ov = browser.folderTree;
+    NSMutableArray* items = [NSMutableArray arrayWithCapacity:[ov numberOfRows]];
+    for (int i = 0; i < [ov numberOfRows]; i++)
+        [items addObject:[ov itemAtRow:i]];
+
+    arrowThread = [[NSThread alloc] initWithTarget:self selector:@selector(arrowProc:) object:items];
+    [arrowThread start];
 }
 
 - (void)cancelArrowThread
 {
-	if (arrowThread)
-	{
-		[arrowThread cancel];
-		arrowThread = nil;
-	}
+    if (arrowThread)
+    {
+        [arrowThread cancel];
+        arrowThread = nil;
+    }
 }
 
 - (void)arrowProc:(id)files
 {
-	@autoreleasepool {
+    @autoreleasepool {
 
-		int done = 0;
-		for (DirEntry* de in files)
-		{
-			if ([[NSThread currentThread] isCancelled])
-			{
-				return;
-			}
+        int done = 0;
+        for (DirEntry* de in files)
+        {
+            if ([[NSThread currentThread] isCancelled])
+            {
+                return;
+            }
 
-			if ([de hasSubFolders:YES] == MAYBE)
-			{
-				[de hasSubFolders:NO];
-				done++;
-				
-				if (done % 5 == 0)
-				{
-					[self performSelectorOnMainThread:@selector(arrowProcCallback:) withObject:@"working" waitUntilDone:NO];
-				}
-			}
-		}
-		[self performSelectorOnMainThread:@selector(arrowProcCallback:) withObject:@"finished" waitUntilDone:NO];
-	
-	}
+            if ([de hasSubFolders:YES] == MAYBE)
+            {
+                [de hasSubFolders:NO];
+                done++;
+
+                if (done % 5 == 0)
+                {
+                    [self performSelectorOnMainThread:@selector(arrowProcCallback:) withObject:@"working" waitUntilDone:NO];
+                }
+            }
+        }
+        [self performSelectorOnMainThread:@selector(arrowProcCallback:) withObject:@"finished" waitUntilDone:NO];
+
+    }
 }
 
 - (void)arrowProcCallback:(id)params
 {
-	NSString* status = (NSString*)params;
-	
-	[browser.folderTree reloadData];
-	
-	if ([status isEqual:@"finished"])
-	{
-		arrowThread = nil;
-	}
+    NSString* status = (NSString*)params;
+
+    [browser.folderTree reloadData];
+
+    if ([status isEqual:@"finished"])
+    {
+        arrowThread = nil;
+    }
 }
 
 - (void)selectDirEntry:(DirEntry*)de
 {
-	NSArray* hierarchy = [de getHierarchy];
-	
-	for (DirEntry* parentDe in hierarchy)
-		[browser.folderTree expandItem:parentDe];
-	
-	int row = (int)[browser.folderTree rowForItem:de];
-	if (row != -1)
-	{
-		[browser.folderTree selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
-		[browser.folderTree scrollRowToVisible:row];
-	}
+    NSArray* hierarchy = [de getHierarchy];
+
+    for (DirEntry* parentDe in hierarchy)
+        [browser.folderTree expandItem:parentDe];
+
+    int row = (int)[browser.folderTree rowForItem:de];
+    if (row != -1)
+    {
+        [browser.folderTree selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
+        [browser.folderTree scrollRowToVisible:row];
+    }
 }
 
 - (DirEntry*)selectedDirEntry
 {
-	int index = (int)[browser.folderTree selectedRow];
-	if (index == -1)
-		return nil;
-	
-	DirEntry* de = [browser.folderTree itemAtRow:index];
-	return de;
+    int index = (int)[browser.folderTree selectedRow];
+    if (index == -1)
+        return nil;
+
+    DirEntry* de = [browser.folderTree itemAtRow:index];
+    return de;
 }
 
 - (id)outlineView:(NSOutlineView *)outlineView child:(NSInteger)index ofItem:(id)item
 {
-	if (item)
-	{
-		DirEntry* de = (DirEntry*)item;
-		return [[self getSubFolders:de] objectAtIndex:index];
-	}
-	else
-	{
-		return [[self getSubFolders:nil] objectAtIndex:index];
-	}
+    if (item)
+    {
+        DirEntry* de = (DirEntry*)item;
+        return [[self getSubFolders:de] objectAtIndex:index];
+    }
+    else
+    {
+        return [[self getSubFolders:nil] objectAtIndex:index];
+    }
 }
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView isItemExpandable:(id)item
 {
-	DirEntry* de = (DirEntry*)item;
-	int subFolders = [de hasSubFolders:YES];
-	if (subFolders == YES || subFolders == MAYBE)
-		return YES;
-	else
-		return NO;
+    DirEntry* de = (DirEntry*)item;
+    BOOL subFolders = [de hasSubFolders:YES];
+    if (subFolders == YES || subFolders == MAYBE)
+        return YES;
+    else
+        return NO;
 }
 
 - (NSInteger)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item
 {
-	if (item)
-	{
-		DirEntry* de = (DirEntry*)item;
-		return [[self getSubFolders:de] count];
-	}
-	else
-	{
-		return [[self getSubFolders:nil] count];
-	}
+    if (item)
+    {
+        DirEntry* de = (DirEntry*)item;
+        return [[self getSubFolders:de] count];
+    }
+    else
+    {
+        return [[self getSubFolders:nil] count];
+    }
 }
 
 - (id)outlineView:(NSOutlineView *)outlineView objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item
 {
-	if (item)
-	{
-		DirEntry* de = (DirEntry*)item;
-		return [de displayName];
-	}
-	return @"";
+    if (item)
+    {
+        DirEntry* de = (DirEntry*)item;
+        return [de displayName];
+    }
+    return @"";
 }
 
 - (void)outlineViewSelectionDidChange:(NSNotification *)notification
 {
-	NSOutlineView* folderTree = [notification object];
-	DirEntry* de = [folderTree itemAtRow: [folderTree selectedRow]];
-	if (![de isEqual:[browser currentLocation]])
-		[browser browseToFolder:de sender:folderTree];
+    NSOutlineView* folderTree = [notification object];
+    DirEntry* de = [folderTree itemAtRow: [folderTree selectedRow]];
+    if (![de isEqual:[browser currentLocation]])
+        [browser browseToFolder:de sender:folderTree];
 }
 
 - (void)outlineViewItemWillCollapse:(NSNotification *)notification
 {
-	DirEntry* de = [[notification userInfo] objectForKey:@"NSObject"];
-	DirEntry* sel = [self selectedDirEntry];
-	
-	if (sel && [sel isChildOf: de])
-	{
-		int row = (int)[browser.folderTree rowForItem:de];
-		if (row != -1)
-		{
-			[browser.folderTree selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
-			[browser.folderTree scrollRowToVisible:row];
-		}
-	}
+    DirEntry* de = [[notification userInfo] objectForKey:@"NSObject"];
+    DirEntry* sel = [self selectedDirEntry];
+
+    if (sel && [sel isChildOf: de])
+    {
+        int row = (int)[browser.folderTree rowForItem:de];
+        if (row != -1)
+        {
+            [browser.folderTree selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
+            [browser.folderTree scrollRowToVisible:row];
+        }
+    }
 }
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView shouldEditTableColumn:(NSTableColumn *)tableColumn item:(id)item
 {
-	return NO;
+    return NO;
 }
 
 - (void)outlineView:(NSOutlineView *)outlineView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn item:(id)item
 {
-	if (item)
-	{
-		NSSize sz = { 17, 17 };
-		
-		DirEntry* de = (DirEntry*)item;
-		NSImage* icon = [de icon];
-		[icon setSize: sz];
-		[cell setImage: icon];
-		[cell setLeaf:YES];
-	}
+    if (item)
+    {
+        NSSize sz = { 17, 17 };
+
+        DirEntry* de = (DirEntry*)item;
+        NSImage* icon = [de icon];
+        [icon setSize: sz];
+        [cell setImage: icon];
+        [cell setLeaf:YES];
+    }
 }
 
 @end

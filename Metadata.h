@@ -24,11 +24,11 @@
 @class DirEntry;
 
 @interface Metadata : NSWindowController<NSWindowDelegate, NSOutlineViewDataSource, NSOutlineViewDelegate> {
-	IBOutlet NSPanel* panel;
-	IBOutlet NSOutlineView* metadataList;
-	
-	DirEntry* de;
-	NSDictionary* metadata;
+    IBOutlet NSPanel* panel;
+    IBOutlet NSOutlineView* metadataList;
+
+    DirEntry* de;
+    NSDictionary* metadata;
 }
 
 - (void)setDirEntry:(DirEntry*)de;

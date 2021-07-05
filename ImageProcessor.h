@@ -10,9 +10,9 @@
 #import <QuartzCore/QuartzCore.h>
 
 @interface ImageProcessor : NSObject {
-	NSString *inFilePath;
-	CIImage *ci;
-	CGContextRef context;
+    NSString *inFilePath;
+    CIImage *ci;
+    CGContextRef context;
 }
 
 

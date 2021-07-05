@@ -27,10 +27,10 @@
 
 - (id)init
 {
-	if (self = [super initWithWindowNibName:@"Metadata"])
-	{
-	}
-	return self;
+    if (self = [super initWithWindowNibName:@"Metadata"])
+    {
+    }
+    return self;
 }
 
 - (void)awakeFromNib
@@ -41,123 +41,123 @@
 
 - (void)setDirEntry:(DirEntry*)de_
 {
-	if (de == de_)
-		return;
-	
-	de = de_;
-	
-	metadata = nil;
-	if (de)
-		metadata = [de metadata];
-	
-	[metadataList reloadData];
-	[metadataList expandItem:nil expandChildren:YES];
+    if (de == de_)
+        return;
+
+    de = de_;
+
+    metadata = nil;
+    if (de)
+        metadata = [de metadata];
+
+    [metadataList reloadData];
+    [metadataList expandItem:nil expandChildren:YES];
 }
 
 - (id)outlineView:(NSOutlineView *)outlineView child:(NSInteger)index ofItem:(id)item
 {
-	if (!metadata)
-		return nil;
-	
-	if (item == nil)
-	{
-		NSArray* values = [[metadata allKeys] sortedArrayUsingSelector:@selector(compare:)];
-		return [values objectAtIndex:index];
-	}
-	else
-	{
-		NSArray* values = [[[self objectForKey:item root:metadata] allKeys] sortedArrayUsingSelector:@selector(compare:)];
-		return [values objectAtIndex:index];
-	}
+    if (!metadata)
+        return nil;
+
+    if (item == nil)
+    {
+        NSArray* values = [[metadata allKeys] sortedArrayUsingSelector:@selector(compare:)];
+        return [values objectAtIndex:index];
+    }
+    else
+    {
+        NSArray* values = [[[self objectForKey:item root:metadata] allKeys] sortedArrayUsingSelector:@selector(compare:)];
+        return [values objectAtIndex:index];
+    }
 }
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView isItemExpandable:(id)item
 {
-	if (!metadata)
-		return NO;
+    if (!metadata)
+        return NO;
 
-	id obj = [self objectForKey:item root:metadata];
-	return obj && [obj isKindOfClass: [NSDictionary class]] && [obj count] > 0;
+    id obj = [self objectForKey:item root:metadata];
+    return obj && [obj isKindOfClass: [NSDictionary class]] && [obj count] > 0;
 }
 
 - (NSInteger)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item
 {
-	if (!metadata)
-		return 0;
+    if (!metadata)
+        return 0;
 
-	if (item == nil)
-	{
-		return [metadata count];
-	}
-	else
-	{
-		id obj = [self objectForKey:item root:metadata];
-		if (obj && [obj isKindOfClass: [NSDictionary class]])
-			return [obj count];
-		else
-			return 0;
-	}
+    if (item == nil)
+    {
+        return [metadata count];
+    }
+    else
+    {
+        id obj = [self objectForKey:item root:metadata];
+        if (obj && [obj isKindOfClass: [NSDictionary class]])
+            return [obj count];
+        else
+            return 0;
+    }
 }
 
 - (id)outlineView:(NSOutlineView *)outlineView objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item
 {
-	if (!metadata)
-		return nil;
+    if (!metadata)
+        return nil;
 
-	id obj = [self objectForKey:item root:metadata];
-	if (obj && [obj isKindOfClass: [NSDictionary class]])
-	{
-		if ([[tableColumn identifier] isEqual:@"Name"])
-			return [item substringWithRange:NSMakeRange(1, [item length] - 2)];
-		else
-			return @"";
-	}
-	else
-	{
-		if ([[tableColumn identifier] isEqual:@"Name"])
-		{
-			return item;
-		}
-		else
-		{
-			if ([obj isKindOfClass: [NSArray class]])
-			{
-				NSArray* arr = (NSArray*)obj;
-				NSString* res = @"";
-				for (id el in arr)
-				{
-					res = [res stringByAppendingFormat:@"%@ ", el];
-				}
-				return res;
-			}
-			else
-			{
-				return [obj description];				
-			}
-		}
-	}
+    id obj = [self objectForKey:item root:metadata];
+    if (obj && [obj isKindOfClass: [NSDictionary class]])
+    {
+        if ([[tableColumn identifier] isEqual:@"Name"])
+            return [item substringWithRange:NSMakeRange(1, [item length] - 2)];
+        else
+            return @"";
+    }
+    else
+    {
+        if ([[tableColumn identifier] isEqual:@"Name"])
+        {
+            return item;
+        }
+        else
+        {
+            if ([obj isKindOfClass: [NSArray class]])
+            {
+                NSArray* arr = (NSArray*)obj;
+                NSString* res = @"";
+                for (id el in arr)
+                {
+                    res = [res stringByAppendingFormat:@"%@ ", el];
+                }
+                return res;
+            }
+            else
+            {
+                return [obj description];
+            }
+        }
+    }
 }
 
 - (id)objectForKey:(id)key root:(NSDictionary*)dict
 {
-	id res = [dict objectForKey:key];
-	if (res) return res;
-	
-	NSArray* values = [dict allValues];
-	for (id val in values)
-	{
-		if ([val isKindOfClass: [NSDictionary class]])
-		{
-			res = [self objectForKey:key root:val];
-			if (res) return res;
-		}
-	}
-	return nil;
+    id res = [dict objectForKey:key];
+    if (res) return res;
+
+    NSArray* values = [dict allValues];
+    for (id val in values)
+    {
+        if ([val isKindOfClass: [NSDictionary class]])
+        {
+            res = [self objectForKey:key root:val];
+            if (res) return res;
+        }
+    }
+    return nil;
 }
 
 - (BOOL)outlineView:(NSOutlineView*)outlineView shouldEditTableColumn:(NSTableColumn*)tableColumn item:(id)item
 {
-	return NO;
+    return NO;
 }
 
 - (BOOL)windowShouldClose:(id)sender

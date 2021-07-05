@@ -23,11 +23,11 @@
 
 
 @interface ImageView : NSView {
-	NSSize originalSize;
-	NSImage* image;
-	int angle;
-	double zoom;
-	BOOL opaque;
+    NSSize originalSize;
+    NSImage* image;
+    int angle;
+    double zoom;
+    BOOL opaque;
 }
 
 - (NSSize)originalSize;

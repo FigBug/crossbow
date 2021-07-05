@@ -20,18 +20,18 @@
 
 + (NSArray*)shuffledArrayWithArray:(NSArray*)array
 {
-	NSMutableArray* shuffled = [NSMutableArray arrayWithArray:array];
-	if (shuffled == nil)
-		return nil;
-	
-	NSUInteger n = [array count];
-	while (n > 1) 
-	{
-		NSUInteger k = rand() % n;
-		n--;
-		[shuffled exchangeObjectAtIndex: n withObjectAtIndex: k];
-	}
-	return [self arrayWithArray: shuffled];
+    NSMutableArray* shuffled = [NSMutableArray arrayWithArray:array];
+    if (shuffled == nil)
+        return nil;
+
+    NSUInteger n = [array count];
+    while (n > 1)
+    {
+        NSUInteger k = rand() % n;
+        n--;
+        [shuffled exchangeObjectAtIndex: n withObjectAtIndex: k];
+    }
+    return [self arrayWithArray: shuffled];
 }
 
 @end

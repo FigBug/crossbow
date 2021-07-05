@@ -30,16 +30,16 @@
 
 extern NSString* NotThumbnailsDeleted;
 
-@interface AppController : NSObject <SCEventListenerProtocol, NSOpenSavePanelDelegate> {
-	IBOutlet NSMenu* menu;
-	
-	Preferences* preferences;
-	PreferencesController* preferencesController;
-	SCEvents* fileSysWatch;
-	NSMutableArray* pathWatchers;
-	Metadata* metadataPanel;
-	
-	NSMutableArray* activeBrowsers;
+@interface AppController : NSObject <NSApplicationDelegate, SCEventListenerProtocol, NSOpenSavePanelDelegate> {
+    IBOutlet NSMenu* menu;
+
+    Preferences* preferences;
+    PreferencesController* preferencesController;
+    SCEvents* fileSysWatch;
+    NSMutableArray* pathWatchers;
+    Metadata* metadataPanel;
+
+    NSMutableArray* activeBrowsers;
 }
 
 + (AppController*)sharedAppController;
@@ -72,5 +72,8 @@ extern NSString* NotThumbnailsDeleted;
 - (IBAction)openRecent:(id)sender;
 - (IBAction)showPrefs:(id)sender;
 - (IBAction)clearRecentDocuments:(id)sender;
+- (IBAction)contactSupport:(id)sender;
+- (IBAction)requestFeature:(id)sender;
+
 
 @end

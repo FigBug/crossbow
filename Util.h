@@ -23,11 +23,11 @@
 
 enum BrowserSort
 {
-	BSName,
-	BSModified,
-	BSCreated,
-	BSSize,
-	BSKind,
+    BSName,
+    BSModified,
+    BSCreated,
+    BSSize,
+    BSKind,
 };
 
 BOOL isVisiblePath(NSString* path);

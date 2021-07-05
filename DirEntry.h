@@ -24,16 +24,16 @@
 #define MAYBE (BOOL)2
 
 @interface DirEntry : NSObject {
-	NSURL* url;
-	NSString* displayName;
-	BOOL invalid;
-	BOOL folder;
-	BOOL image;
-	BOOL link;
-	int subFolders;
-	NSDate* creationDate;
-	NSDate* modificationDate;
-	long long fileSize;
+    NSURL* url;
+    NSString* displayName;
+    BOOL invalid;
+    BOOL folder;
+    BOOL image;
+    BOOL link;
+    BOOL subFolders;
+    NSDate* creationDate;
+    NSDate* modificationDate;
+    long long fileSize;
 }
 
 + (DirEntry*)dirEntryWithURL:(NSURL*)url;
@@ -80,7 +80,7 @@
 - (NSString*)displayName;
 - (BOOL)isFilesystemRoot;
 - (BOOL)isChildOf:(DirEntry*)de;
-- (int)hasSubFolders:(BOOL)allowMaybe; // NO = 0, YES = 1, MAYBE = 2
+- (BOOL)hasSubFolders:(BOOL)allowMaybe;
 
 - (DirEntry*)getLinkedDirEntry;
 
@@ -91,6 +91,9 @@
 - (NSArray*)getSubFiles;
 - (NSArray*)getSubFolders;
 + (NSArray*)getRootItems;
++ (NSArray*)getDisplayRootItems;
++ (void)addDisplayRootItem:(NSString*)path;
++ (void)removeDisplayRootItem:(NSString*)path;
 
 + (DirEntry*)getDesktop;
 + (DirEntry*)getHome;

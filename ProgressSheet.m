@@ -26,31 +26,31 @@
 
 - (id)initWithThread:(NSThread*)thread_
 {
-	if (self = [super initWithWindowNibName:@"ProgressSheet" owner:self])
-	{
-		thread = thread_;
-	}
-	return self;
+    if (self = [super initWithWindowNibName:@"ProgressSheet" owner:self])
+    {
+        thread = thread_;
+    }
+    return self;
 }
 
 
 - (void)awakeFromNib
 {
-	[thread start];
+    [thread start];
 }
 
 - (void)cancel:(id)sender
 {
-	if (sender != thread)
-		[thread cancel];
-	
-	[[self window] orderOut:sender];
-	[NSApp endSheet:[self window] returnCode:1];	
+    if (sender != thread)
+        [thread cancel];
+
+    [[self window] orderOut:sender];
+    [NSApp endSheet:[self window] returnCode:1];
 }
 
 - (void)setProgress:(NSNumber*)pos
 {
-	[progressBar setDoubleValue:[pos doubleValue]];
+    [progressBar setDoubleValue:[pos doubleValue]];
 }
 
 @end

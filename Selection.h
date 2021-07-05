@@ -24,9 +24,9 @@
 @class DirEntry;
 
 @interface Selection : NSObject {
-	NSArray* selectedItems;
-	NSArray* selectedFiles;
-	NSArray* selectedFolders;
+    NSArray* selectedItems;
+    NSArray* selectedFiles;
+    NSArray* selectedFolders;
 }
 
 + (Selection*)selectionWith:(NSArray*)list;

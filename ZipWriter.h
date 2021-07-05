@@ -22,14 +22,15 @@
 #import <Cocoa/Cocoa.h>
 
 @class DirEntry;
+@class ProgressSheet;
 
 @interface ZipWriter : NSObject {
-	void* zipHandle;
-	NSString* zipFilePath;
+    void* zipHandle;
+    NSString* zipFilePath;
 }
 
 + (NSString*)createZipName:(NSString*)folder;
-+ (NSThread*)createZippingThread:(DirEntry*)location with:(NSArray*)files forSheet:(id)sheet;
++ (NSThread*)createZippingThread:(DirEntry*)location with:(NSArray*)files forSheet:(ProgressSheet*)sheet;
 + (bool)createZipIn:(DirEntry*)location with:(NSArray*)files;
 + (id)zipWriterWithPath:(NSString*)path;
 - (id)initWithPath:(NSString*)path;

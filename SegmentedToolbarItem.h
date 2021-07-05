@@ -2,10 +2,10 @@
 
 @interface SegmentedToolbarItem : NSToolbarItem
 {
-	NSSegmentedControl *control;
-	NSMenu *menu;
-	NSMutableArray* actions;
-	NSMutableArray* targets;
+    NSSegmentedControl *control;
+    NSMenu *menu;
+    NSMutableArray* actions;
+    NSMutableArray* targets;
 }
 
 + (SegmentedToolbarItem*)itemWithIdentifier:(NSString*)identifier label:(NSString*)label paletteLabel:(NSString*)pallabel segments:(int)segments;
@@ -21,11 +21,13 @@
 
 - (void)clicked:(id)sender;
 
+- (NSView*)control;
+
 @end
 
 @interface ToolItem : SegmentedToolbarItem
 {
-	SEL sel;
+    SEL sel;
 }
 
 + (SegmentedToolbarItem*)itemWithIdentifier:(NSString*)identifier label:(NSString*)label paletteLabel:(NSString*)pallabel imageName:(NSString*)imagename longLabel:(NSString*)longlabel action:(SEL)action activeSelector:(SEL)activeselector target:(id)activetarget;
@@ -34,4 +36,3 @@
 -(void)validate;
 
 @end
-

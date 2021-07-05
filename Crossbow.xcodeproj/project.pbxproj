@@ -27,11 +27,17 @@
 		7820A0351A39F35C004DABA3 /* Metadata.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7820A0341A39F35C004DABA3 /* Metadata.xib */; };
 		783041210EF3FEDE00A3BC6D /* Selection.m in Sources */ = {isa = PBXBuildFile; fileRef = 783041200EF3FEDE00A3BC6D /* Selection.m */; };
 		7830412F0EF40AB200A3BC6D /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 7830412E0EF40AB200A3BC6D /* Util.m */; };
+		7838C5521DB29EB800209C1A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7838C5511DB29EB800209C1A /* Images.xcassets */; };
 		783B7E770EFFE75600AF19FC /* ImagePreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 783B7E760EFFE75600AF19FC /* ImagePreview.m */; };
 		786283FA0EF320DF0056FEAD /* Preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 786283F90EF320DF0056FEAD /* Preferences.m */; };
 		78774EB50F0BB9A000BAD9E2 /* ImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 78774EB40F0BB9A000BAD9E2 /* ImageView.m */; };
 		78774EB80F0BB9B300BAD9E2 /* ImageClip.m in Sources */ = {isa = PBXBuildFile; fileRef = 78774EB70F0BB9B300BAD9E2 /* ImageClip.m */; };
 		787752C30F0D459500BAD9E2 /* ImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 787752C20F0D459500BAD9E2 /* ImageCache.m */; };
+		788D1D851DB547C600C83396 /* FileAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 788D1D841DB547C600C83396 /* FileAccess.m */; };
+		788D1D881DB557A800C83396 /* WelcomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 788D1D871DB557A800C83396 /* WelcomeViewController.xib */; };
+		788D1D8A1DB557B400C83396 /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 788D1D891DB557B400C83396 /* WelcomeViewController.m */; };
+		788D1D951DB557FA00C83396 /* Malus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 788D1D921DB557F300C83396 /* Malus.framework */; };
+		788D1D961DB557FA00C83396 /* Malus.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 788D1D921DB557F300C83396 /* Malus.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7893714D0F073E5F001D48A0 /* TBCw.png in Resources */ = {isa = PBXBuildFile; fileRef = 7893714B0F073E5F001D48A0 /* TBCw.png */; };
 		7893714E0F073E5F001D48A0 /* TBCcw.png in Resources */ = {isa = PBXBuildFile; fileRef = 7893714C0F073E5F001D48A0 /* TBCcw.png */; };
 		7893734B0F07E409001D48A0 /* Metadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 7893734A0F07E409001D48A0 /* Metadata.m */; };
@@ -69,6 +75,30 @@
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		788D1D911DB557F300C83396 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 788D1D8C1DB557F300C83396 /* Malus.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 787498291C555A9300E403FC;
+			remoteInfo = Malus;
+		};
+		788D1D931DB557F300C83396 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 788D1D8C1DB557F300C83396 /* Malus.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7874997B1C556AF400E403FC;
+			remoteInfo = Malus_iOS;
+		};
+		788D1D971DB557FA00C83396 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 788D1D8C1DB557F300C83396 /* Malus.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 787498281C555A9300E403FC;
+			remoteInfo = Malus;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		7820A03A1A3F6719004DABA3 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -85,6 +115,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				788D1D961DB557FA00C83396 /* Malus.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -92,8 +123,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		1DDD58150DA1D0A300B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
@@ -131,6 +164,7 @@
 		783041200EF3FEDE00A3BC6D /* Selection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Selection.m; sourceTree = "<group>"; };
 		7830412D0EF40AB200A3BC6D /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Util.h; sourceTree = "<group>"; };
 		7830412E0EF40AB200A3BC6D /* Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Util.m; sourceTree = "<group>"; };
+		7838C5511DB29EB800209C1A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Crossbow/Images.xcassets; sourceTree = "<group>"; };
 		783B7E750EFFE75600AF19FC /* ImagePreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagePreview.h; sourceTree = "<group>"; };
 		783B7E760EFFE75600AF19FC /* ImagePreview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagePreview.m; sourceTree = "<group>"; };
 		784E0710176251A200C243C6 /* Crossbow.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Crossbow.entitlements; sourceTree = "<group>"; };
@@ -142,6 +176,12 @@
 		78774EB70F0BB9B300BAD9E2 /* ImageClip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageClip.m; sourceTree = "<group>"; };
 		787752C10F0D459500BAD9E2 /* ImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCache.h; sourceTree = "<group>"; };
 		787752C20F0D459500BAD9E2 /* ImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCache.m; sourceTree = "<group>"; };
+		788D1D831DB547C600C83396 /* FileAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileAccess.h; sourceTree = "<group>"; };
+		788D1D841DB547C600C83396 /* FileAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileAccess.m; sourceTree = "<group>"; };
+		788D1D871DB557A800C83396 /* WelcomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WelcomeViewController.xib; sourceTree = "<group>"; };
+		788D1D891DB557B400C83396 /* WelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeViewController.m; sourceTree = "<group>"; };
+		788D1D8B1DB557BF00C83396 /* WelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeViewController.h; sourceTree = "<group>"; };
+		788D1D8C1DB557F300C83396 /* Malus.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Malus.xcodeproj; path = ../Malus/Malus.xcodeproj; sourceTree = "<group>"; };
 		7893714B0F073E5F001D48A0 /* TBCw.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TBCw.png; sourceTree = "<group>"; };
 		7893714C0F073E5F001D48A0 /* TBCcw.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TBCcw.png; sourceTree = "<group>"; };
 		789373490F07E409001D48A0 /* Metadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Metadata.h; sourceTree = "<group>"; };
@@ -154,8 +194,6 @@
 		78948BDC0EF91C5E00356919 /* libcrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcrypto.dylib; path = /usr/lib/libcrypto.dylib; sourceTree = "<absolute>"; };
 		78948D3F0EF94CB000356919 /* FileListItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileListItem.h; sourceTree = "<group>"; };
 		78948D400EF94CB000356919 /* FileListItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileListItem.m; sourceTree = "<group>"; };
-		78A95C0924AADA6B00F618DD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		78A95C0B24AADA7000F618DD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		78AAFEB30FC4463C005FC339 /* ImageProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageProcessor.m; sourceTree = "<group>"; };
 		78AAFEB40FC4463C005FC339 /* ImageProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageProcessor.h; sourceTree = "<group>"; };
 		78AB4DB10EF2B237004ABF79 /* History.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = History.h; sourceTree = "<group>"; };
@@ -204,6 +242,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
+				788D1D951DB557FA00C83396 /* Malus.framework in Frameworks */,
 				78E389450EF0726D00703EA0 /* Quartz.framework in Frameworks */,
 				78B728B50F069309000CD71E /* Carbon.framework in Frameworks */,
 				78B728BF0F06933A000CD71E /* IOKit.framework in Frameworks */,
@@ -263,6 +302,7 @@
 		29B97314FDCFA39411CA2CEA /* Crossbow */ = {
 			isa = PBXGroup;
 			children = (
+				788D1D8C1DB557F300C83396 /* Malus.xcodeproj */,
 				784E0710176251A200C243C6 /* Crossbow.entitlements */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
@@ -285,6 +325,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7838C5511DB29EB800209C1A /* Images.xcassets */,
 				78F312DD0EF3607B0041EA99 /* Icons */,
 				781EF1050F0FB5D600EB97E8 /* Xibs */,
 				781EF1060F0FB60D00EB97E8 /* Other */,
@@ -342,13 +383,16 @@
 		7800B6C60EF16E7900882915 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				78FF25500F13A2C700B825F1 /* Zip */,
+				7820A02F1A39E9AE004DABA3 /* ActivityFaker.h */,
+				7820A0301A39E9AE004DABA3 /* ActivityFaker.m */,
 				7800B6C70EF1743500882915 /* AppController.h */,
 				7800B6C80EF1743500882915 /* AppController.m */,
 				7800B6EB0EF1808200882915 /* DirEntry.h */,
 				7800B6EC0EF1808200882915 /* DirEntry.m */,
 				780C18BB0F34DCBC00FE29C4 /* DirEntryFileOps.h */,
 				780C18BC0F34DCBC00FE29C4 /* DirEntryFileOps.m */,
+				788D1D831DB547C600C83396 /* FileAccess.h */,
+				788D1D841DB547C600C83396 /* FileAccess.m */,
 				789373490F07E409001D48A0 /* Metadata.h */,
 				7893734A0F07E409001D48A0 /* Metadata.m */,
 				78948BC60EF8963600356919 /* SCEvent.h */,
@@ -358,10 +402,9 @@
 				78948BCA0EF8963600356919 /* SCEvents.m */,
 				7830412D0EF40AB200A3BC6D /* Util.h */,
 				7830412E0EF40AB200A3BC6D /* Util.m */,
+				78FF25500F13A2C700B825F1 /* Zip */,
 				78FF254B0F13A15500B825F1 /* ZipWriter.h */,
 				78FF254C0F13A15500B825F1 /* ZipWriter.m */,
-				7820A02F1A39E9AE004DABA3 /* ActivityFaker.h */,
-				7820A0301A39E9AE004DABA3 /* ActivityFaker.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -395,13 +438,14 @@
 		781EF1050F0FB5D600EB97E8 /* Xibs */ = {
 			isa = PBXGroup;
 			children = (
-				780C180E0F34CFBB00FE29C4 /* ProgressSheet.xib */,
 				7800B6C20EF16DCF00882915 /* Browser.xib */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
+				7820A0341A39F35C004DABA3 /* Metadata.xib */,
 				78CDC52D0EF57AE000EC2A16 /* Preferences.xib */,
+				780C180E0F34CFBB00FE29C4 /* ProgressSheet.xib */,
 				781538270F0DA2CA00EE7C17 /* ThumbnailBuilder.xib */,
 				7800B83F0EF1E8EF00882915 /* Viewer.xib */,
-				7820A0341A39F35C004DABA3 /* Metadata.xib */,
+				788D1D871DB557A800C83396 /* WelcomeViewController.xib */,
 			);
 			name = Xibs;
 			sourceTree = "<group>";
@@ -415,6 +459,15 @@
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 			);
 			name = Other;
+			sourceTree = "<group>";
+		};
+		788D1D8D1DB557F300C83396 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				788D1D921DB557F300C83396 /* Malus.framework */,
+				788D1D941DB557F300C83396 /* Malus.framework */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		78AAFE980FC4461D005FC339 /* Imaging */ = {
@@ -442,6 +495,8 @@
 		78D5B92B0EFA7DBF0020A6F7 /* UI Components */ = {
 			isa = PBXGroup;
 			children = (
+				788D1D8B1DB557BF00C83396 /* WelcomeViewController.h */,
+				788D1D891DB557B400C83396 /* WelcomeViewController.m */,
 				78D5B92D0EFA7DD30020A6F7 /* SegmentedToolbarItem.h */,
 				78D5B92E0EFA7DD30020A6F7 /* SegmentedToolbarItem.m */,
 			);
@@ -493,6 +548,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				788D1D981DB557FA00C83396 /* PBXTargetDependency */,
 			);
 			name = Crossbow;
 			productInstallPath = "$(HOME)/Applications";
@@ -506,9 +562,10 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1200;
+				LastUpgradeCheck = 1000;
 				TargetAttributes = {
 					8D1107260486CEB800E47090 = {
+						DevelopmentTeam = 3FS7DJDG38;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
 								enabled = 1;
@@ -519,20 +576,42 @@
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Crossbow" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = en;
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				en,
-				Base,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Crossbow */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 788D1D8D1DB557F300C83396 /* Products */;
+					ProjectRef = 788D1D8C1DB557F300C83396 /* Malus.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				8D1107260486CEB800E47090 /* Crossbow */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		788D1D921DB557F300C83396 /* Malus.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Malus.framework;
+			remoteRef = 788D1D911DB557F300C83396 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		788D1D941DB557F300C83396 /* Malus.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Malus.framework;
+			remoteRef = 788D1D931DB557F300C83396 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		8D1107290486CEB800E47090 /* Resources */ = {
@@ -544,10 +623,12 @@
 				7800B6C30EF16DCF00882915 /* Browser.xib in Resources */,
 				7800B8400EF1E8EF00882915 /* Viewer.xib in Resources */,
 				78CDC52E0EF57AE000EC2A16 /* Preferences.xib in Resources */,
+				788D1D881DB557A800C83396 /* WelcomeViewController.xib in Resources */,
 				78CDC6A50EF5B6A800EC2A16 /* trans.png in Resources */,
 				78D5B9FC0EFA9C130020A6F7 /* TBZoomIn.png in Resources */,
 				7820A0351A39F35C004DABA3 /* Metadata.xib in Resources */,
 				78D5B9FD0EFA9C130020A6F7 /* TBZoomFit.png in Resources */,
+				7838C5521DB29EB800209C1A /* Images.xcassets in Resources */,
 				78D5B9FE0EFA9C130020A6F7 /* TBLast.png in Resources */,
 				78D5B9FF0EFA9C130020A6F7 /* TBZoomActual.png in Resources */,
 				78D5BA000EFA9C130020A6F7 /* TBZoomOut.png in Resources */,
@@ -589,9 +670,11 @@
 				78948D410EF94CB000356919 /* FileListItem.m in Sources */,
 				78D5B92F0EFA7DD30020A6F7 /* SegmentedToolbarItem.m in Sources */,
 				783B7E770EFFE75600AF19FC /* ImagePreview.m in Sources */,
+				788D1D851DB547C600C83396 /* FileAccess.m in Sources */,
 				781873110F05424300381FBC /* NSArrayAdditions.m in Sources */,
 				781873140F0543D900381FBC /* NSImageAdditions.m in Sources */,
 				7893734B0F07E409001D48A0 /* Metadata.m in Sources */,
+				788D1D8A1DB557B400C83396 /* WelcomeViewController.m in Sources */,
 				78774EB50F0BB9A000BAD9E2 /* ImageView.m in Sources */,
 				78774EB80F0BB9B300BAD9E2 /* ImageClip.m in Sources */,
 				787752C30F0D459500BAD9E2 /* ImageCache.m in Sources */,
@@ -609,11 +692,19 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		788D1D981DB557FA00C83396 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Malus;
+			targetProxy = 788D1D971DB557FA00C83396 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		089C165CFE840E0CC02AAC07 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				78A95C0924AADA6B00F618DD /* en */,
+				089C165DFE840E0CC02AAC07 /* English */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -621,7 +712,7 @@
 		1DDD58140DA1D0A300B32029 /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				78A95C0B24AADA7000F618DD /* Base */,
+				1DDD58150DA1D0A300B32029 /* English */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -633,9 +724,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Crossbow.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -644,16 +736,15 @@
 					"$(PROJECT_DIR)",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Crossbow_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = "APPSTORE=1";
 				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = "$(HOME)/Applications";
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
-				ONLY_ACTIVE_ARCH = NO;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_LDFLAGS = "-Wl,-rpath,@loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.socalabs.${PRODUCT_NAME:identifier}";
+				PRODUCT_BUNDLE_IDENTIFIER = com.rabiensoftware.crossbow;
 				PRODUCT_NAME = Crossbow;
 				SDKROOT = macosx;
 			};
@@ -663,9 +754,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Crossbow.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -673,14 +765,14 @@
 					"$(SRCROOT)",
 					"$(PROJECT_DIR)",
 				);
-				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Crossbow_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = "APPSTORE=1";
 				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = "$(HOME)/Applications";
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_LDFLAGS = "-Wl,-rpath,@loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.socalabs.${PRODUCT_NAME:identifier}";
+				PRODUCT_BUNDLE_IDENTIFIER = com.rabiensoftware.crossbow;
 				PRODUCT_NAME = Crossbow;
 				SDKROOT = macosx;
 			};
@@ -701,7 +793,6 @@
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -738,7 +829,6 @@
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;

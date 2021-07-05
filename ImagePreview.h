@@ -25,8 +25,8 @@
 @class DirEntry;
 
 @interface ImagePreview : NSImageView {
-	NSImage* cachedImage;
-	DirEntry* file;
+    NSImage* cachedImage;
+    DirEntry* file;
 }
 
 - (void)previewImage:(DirEntry*)de;

@@ -11,127 +11,123 @@
 
 - (NSImage*)imageByScalingProportionallyToSize:(NSSize)targetSize background:(NSColor*)bk
 {
-	NSImage* sourceImage = self;
-	NSImage* newImage = nil;
-	
-	if ([sourceImage isValid])
-	{
-		NSSize imageSize = [self sizeLargestRepresentation];
-		
-		if (imageSize.width  <= targetSize.width &&
-			imageSize.height <= targetSize.height)
-		{
-			[self setSize:imageSize];
-			return self;
-		}
-		
-		float scaleFactor  = 0.0;
-		float scaledWidth  = targetSize.width;
-		float scaledHeight = targetSize.height;
-		
-		float widthFactor  = targetSize.width / imageSize.width;
-		float heightFactor = targetSize.height / imageSize.height;
-		
-		if ( widthFactor < heightFactor )
-			scaleFactor = widthFactor;
-		else
-			scaleFactor = heightFactor;
-		
-		scaledWidth  = imageSize.width  * scaleFactor;
-		scaledHeight = imageSize.height * scaleFactor;
-		
-		newImage = [[NSImage alloc] initWithSize:NSMakeSize(scaledWidth, scaledHeight)];
-		
-		NSRect thumbnailRect;
-		thumbnailRect.origin      = NSMakePoint(0,0);
-		thumbnailRect.size.width  = scaledWidth;
-		thumbnailRect.size.height = scaledHeight;		
-		
-		[newImage lockFocus];
-		[bk drawSwatchInRect:thumbnailRect];
-		
-		[[NSGraphicsContext currentContext] setImageInterpolation:NSImageInterpolationHigh];
-				
-		[sourceImage drawInRect: thumbnailRect
-					   fromRect: NSZeroRect
-					  operation: NSCompositeSourceOver
-					   fraction: 1.0];
-		
-		[newImage unlockFocus];		
-	}
-	
-	return newImage;
+    NSImage* sourceImage = self;
+    NSImage* newImage = nil;
+
+    if ([sourceImage isValid])
+    {
+        NSSize imageSize = [self sizeLargestRepresentation];
+
+        if (imageSize.width  <= targetSize.width &&
+            imageSize.height <= targetSize.height)
+        {
+            [self setSize:imageSize];
+            return self;
+        }
+
+        float scaleFactor  = 0.0;
+
+        float widthFactor  = targetSize.width / imageSize.width;
+        float heightFactor = targetSize.height / imageSize.height;
+
+        if ( widthFactor < heightFactor )
+            scaleFactor = widthFactor;
+        else
+            scaleFactor = heightFactor;
+
+        float scaledWidth  = imageSize.width  * scaleFactor;
+        float scaledHeight = imageSize.height * scaleFactor;
+
+        newImage = [[NSImage alloc] initWithSize:NSMakeSize(scaledWidth, scaledHeight)];
+
+        NSRect thumbnailRect;
+        thumbnailRect.origin      = NSMakePoint(0,0);
+        thumbnailRect.size.width  = scaledWidth;
+        thumbnailRect.size.height = scaledHeight;
+
+        [newImage lockFocus];
+        [bk drawSwatchInRect:thumbnailRect];
+
+        [[NSGraphicsContext currentContext] setImageInterpolation:NSImageInterpolationHigh];
+
+        [sourceImage drawInRect: thumbnailRect
+                       fromRect: NSZeroRect
+                      operation: NSCompositeSourceOver
+                       fraction: 1.0];
+
+        [newImage unlockFocus];
+    }
+
+    return newImage;
 }
 
 - (NSImage*)imageByScalingProportionallyToSize:(NSSize)targetSize
 {
-	NSImage* sourceImage = self;
-	NSImage* newImage = nil;
-	
-	if ([sourceImage isValid])
-	{
-		NSSize imageSize = [self sizeLargestRepresentation];
-		
-		if (imageSize.width  <= targetSize.width &&
-			imageSize.height <= targetSize.height)
-		{
-			[self setSize:imageSize];
-			return self;
-		}
-				
-		float scaleFactor  = 0.0;
-		float scaledWidth  = targetSize.width;
-		float scaledHeight = targetSize.height;
-		
-		float widthFactor  = targetSize.width / imageSize.width;
-		float heightFactor = targetSize.height / imageSize.height;
-		
-		if ( widthFactor < heightFactor )
-			scaleFactor = widthFactor;
-		else
-			scaleFactor = heightFactor;
-		
-		scaledWidth  = imageSize.width  * scaleFactor;
-		scaledHeight = imageSize.height * scaleFactor;
-		
-		newImage = [[NSImage alloc] initWithSize:NSMakeSize(scaledWidth, scaledHeight)];
-		
-		[newImage lockFocus];
-		[[NSGraphicsContext currentContext] setImageInterpolation:NSImageInterpolationHigh];
-		
-		NSRect thumbnailRect;
-		thumbnailRect.origin      = NSMakePoint(0,0);
-		thumbnailRect.size.width  = scaledWidth;
-		thumbnailRect.size.height = scaledHeight;
-		
-		[sourceImage drawInRect: thumbnailRect
-					   fromRect: NSZeroRect
-					  operation: NSCompositeSourceOver
-					   fraction: 1.0];
-		
-		[newImage unlockFocus];
-	}
-	
-	return newImage;
+    NSImage* sourceImage = self;
+    NSImage* newImage = nil;
+
+    if ([sourceImage isValid])
+    {
+        NSSize imageSize = [self sizeLargestRepresentation];
+
+        if (imageSize.width  <= targetSize.width &&
+            imageSize.height <= targetSize.height)
+        {
+            [self setSize:imageSize];
+            return self;
+        }
+
+        float scaleFactor  = 0.0;
+
+        float widthFactor  = targetSize.width / imageSize.width;
+        float heightFactor = targetSize.height / imageSize.height;
+
+        if ( widthFactor < heightFactor )
+            scaleFactor = widthFactor;
+        else
+            scaleFactor = heightFactor;
+
+        float scaledWidth  = imageSize.width  * scaleFactor;
+        float scaledHeight = imageSize.height * scaleFactor;
+
+        newImage = [[NSImage alloc] initWithSize:NSMakeSize(scaledWidth, scaledHeight)];
+
+        [newImage lockFocus];
+        [[NSGraphicsContext currentContext] setImageInterpolation:NSImageInterpolationHigh];
+
+        NSRect thumbnailRect;
+        thumbnailRect.origin      = NSMakePoint(0,0);
+        thumbnailRect.size.width  = scaledWidth;
+        thumbnailRect.size.height = scaledHeight;
+
+        [sourceImage drawInRect: thumbnailRect
+                       fromRect: NSZeroRect
+                      operation: NSCompositeSourceOver
+                       fraction: 1.0];
+
+        [newImage unlockFocus];
+    }
+
+    return newImage;
 }
 
 - (void)drawInRect:(NSRect)dstRect operation:(NSCompositingOperation)op fraction:(float)delta method:(MGImageResizingMethod)resizeMethod
 {
-	float sourceWidth = [self sizeLargestRepresentation].width;
+    float sourceWidth = [self sizeLargestRepresentation].width;
     float sourceHeight = [self sizeLargestRepresentation].height;
     float targetWidth = dstRect.size.width;
     float targetHeight = dstRect.size.height;
     BOOL cropping = !(resizeMethod == MGImageResizeScale);
-    
+
     // Calculate aspect ratios
     float sourceRatio = sourceWidth / sourceHeight;
     float targetRatio = targetWidth / targetHeight;
-    
+
     // Determine what side of the source image to use for proportional scaling
     BOOL scaleWidth = (sourceRatio <= targetRatio);
     // Deal with the case of just scaling proportionally to fit, without cropping
     scaleWidth = (cropping) ? scaleWidth : !scaleWidth;
-    
+
     // Proportionally scale source image
     float scalingFactor, scaledWidth, scaledHeight;
     if (scaleWidth) {
@@ -144,61 +140,80 @@
         scaledHeight = targetHeight;
     }
     float scaleFactor = scaledHeight / sourceHeight;
-    
+
     // Calculate compositing rectangles
     NSRect sourceRect;
-    if (cropping) {
-        float destX = 0.0f, destY = 0.0f;
-        if (resizeMethod == MGImageResizeCrop) {
+    if (cropping)
+    {
+        float destX, destY;
+        if (resizeMethod == MGImageResizeCrop)
+        {
             // Crop center
             destX = round((scaledWidth - targetWidth) / 2.0);
             destY = round((scaledHeight - targetHeight) / 2.0);
-        } else if (resizeMethod == MGImageResizeCropStart) {
+        }
+        else if (resizeMethod == MGImageResizeCropStart)
+        {
             // Crop top or left (prefer top)
-            if (scaleWidth) {
-				// Crop top
-				destX = round((scaledWidth - targetWidth) / 2.0);
-				destY = round(scaledHeight - targetHeight);
-            } else {
-				// Crop left
-                destX = 0.0;
-				destY = round((scaledHeight - targetHeight) / 2.0);
+            if (scaleWidth)
+            {
+                // Crop top
+                destX = round((scaledWidth - targetWidth) / 2.0);
+                destY = round(scaledHeight - targetHeight);
             }
-        } else if (resizeMethod == MGImageResizeCropEnd) {
-            // Crop bottom or right
-            if (scaleWidth) {
-				// Crop bottom
-				destX = 0.0;
-				destY = 0.0;
-            } else {
-				// Crop right
-				destX = round(scaledWidth - targetWidth);
-				destY = round((scaledHeight - targetHeight) / 2.0);
+            else
+            {
+                // Crop left
+                destX = 0.0;
+                destY = round((scaledHeight - targetHeight) / 2.0);
             }
         }
-        sourceRect = NSMakeRect(destX / scaleFactor, destY / scaleFactor, 
+        else if (resizeMethod == MGImageResizeCropEnd)
+        {
+            // Crop bottom or right
+            if (scaleWidth)
+            {
+                // Crop bottom
+                destX = 0.0;
+                destY = 0.0;
+            }
+            else
+            {
+                // Crop right
+                destX = round(scaledWidth - targetWidth);
+                destY = round((scaledHeight - targetHeight) / 2.0);
+            }
+        }
+        else
+        {
+            destX = 0;
+            destY = 0;
+        }
+        sourceRect = NSMakeRect(destX / scaleFactor, destY / scaleFactor,
                                 targetWidth / scaleFactor, targetHeight / scaleFactor);
-    } else {
-        sourceRect = NSMakeRect(0, 0, sourceWidth, sourceHeight);
-		dstRect.origin.x += (targetWidth - scaledWidth) / 2.0;
-		dstRect.origin.y += (targetHeight - scaledHeight) / 2.0;
-		dstRect.size.width = scaledWidth;
-		dstRect.size.height = scaledHeight;
     }
-    
+    else
+    {
+        sourceRect = NSMakeRect(0, 0, sourceWidth, sourceHeight);
+        dstRect.origin.x += (targetWidth - scaledWidth) / 2.0;
+        dstRect.origin.y += (targetHeight - scaledHeight) / 2.0;
+        dstRect.size.width = scaledWidth;
+        dstRect.size.height = scaledHeight;
+    }
+
     [self drawInRect:dstRect fromRect:sourceRect operation:op fraction:delta];
 }
 
 - (NSImage *)imageToFitSize:(NSSize)size method:(MGImageResizingMethod)resizeMethod
 {
     NSImage *result = [[NSImage alloc] initWithSize:size];
-    
+
     // Composite image appropriately
     [result lockFocus];
     [[NSGraphicsContext currentContext] setImageInterpolation:NSImageInterpolationHigh];
-	[self drawInRect:NSMakeRect(0,0,size.width,size.height) operation:NSCompositeSourceOver fraction:1.0 method:resizeMethod];
+    [self drawInRect:NSMakeRect(0,0,size.width,size.height) operation:NSCompositeSourceOver fraction:1.0 method:resizeMethod];
     [result unlockFocus];
-    
+
     return result;
 }
 
@@ -214,52 +229,52 @@
 
 - (NSImageRep*)largestRepresentation
 {
-	int area = 0;
-	NSImageRep* largest = nil;
-	
-	for (NSImageRep* rep in [self representations])
-	{
-		int a = (int)([rep pixelsWide] * [rep pixelsHigh]);
-		if (a > area)
-		{
-			area = a;
-			largest = rep;
-		}
-	}
-	return largest;
+    int area = 0;
+    NSImageRep* largest = nil;
+
+    for (NSImageRep* rep in [self representations])
+    {
+        int a = (int)[rep pixelsWide] * (int)[rep pixelsHigh];
+        if (a > area)
+        {
+            area = a;
+            largest = rep;
+        }
+    }
+    return largest;
 }
 
 - (NSSize)sizeLargestRepresentation
 {
-	NSImageRep* rep = [self largestRepresentation];
-	if (rep)		
-		return NSMakeSize([rep pixelsWide], [rep pixelsHigh]);
-	else
-		return [self size];
+    NSImageRep* rep = [self largestRepresentation];
+    if (rep)
+        return NSMakeSize([rep pixelsWide], [rep pixelsHigh]);
+    else
+        return [self size];
 }
 
 - (NSImage*)rotated:(int)angle
 {
-	if (angle != 90 && angle != 270 && angle != 180)
-		return self;
-	
+    if (angle != 90 && angle != 270 && angle != 180)
+        return self;
+
     NSSize existingSize;
-	
+
     /**
      * Get the size of the original image in its raw bitmap format.
      * The bestRepresentationForDevice: nil tells the NSImage to just
      * give us the raw image instead of it's wacky DPI-translated version.
      */
     NSImageRep* rep = [self largestRepresentation];
-    
+
     existingSize.width = [rep pixelsWide];
     existingSize.height = [rep pixelsHigh];
-	
+
     NSSize newSize = NSMakeSize(existingSize.height, existingSize.width);
     NSImage *rotatedImage = [[NSImage alloc] initWithSize:newSize];
-	
+
     [rotatedImage lockFocus];
-	
+
     /**
      * Apply the following transformations:
      *
@@ -271,12 +286,12 @@
      */
     NSAffineTransform *rotateTF = [NSAffineTransform transform];
     NSPoint centerPoint = NSMakePoint(newSize.width / 2, newSize.height / 2);
-	
+
     [rotateTF translateXBy: centerPoint.x yBy: centerPoint.y];
     [rotateTF rotateByDegrees: angle];
     [rotateTF translateXBy: -centerPoint.y yBy: -centerPoint.x];
     [rotateTF concat];
-	
+
     /**
      * We have to get the image representation to do its drawing directly,
      * because otherwise the stupid NSImage DPI thingie bites us in the butt
@@ -284,9 +299,9 @@
      */
     NSRect r1 = NSMakeRect(0, 0, newSize.height, newSize.width);
     [rep drawInRect: r1];
-	
+
     [rotatedImage unlockFocus];
-	
+
     return rotatedImage;
 }
 

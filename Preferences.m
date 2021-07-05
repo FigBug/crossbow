@@ -33,62 +33,61 @@ NSString* PrefImageListWidth = @"PrefImageListWidth";
 NSString* PrefZoomMode       = @"PrefZoomMode";
 NSString* PrefThumbnailSize  = @"PrefThumbnailSize";
 NSString* PrefRebuildThumbs  = @"PrefRebuildThumbs";
-NSString* PrefShareTab		 = @"PrefShareTab";
-NSString* PrefSmugmugUser	 = @"PrefSmugmugUser";
+NSString* PrefShareTab       = @"PrefShareTab";
+NSString* PrefSmugmugUser    = @"PrefSmugmugUser";
 NSString* PrefSmugmugPass    = @"PrefSmugmugPass";
+NSString* PrefRootPaths      = @"PrefRootPaths";
+NSString* PrefSavedUrls      = @"PrefSavedUrls";
 
 id prefsGet(NSString* key)
 {
-	return [[[AppController sharedAppController] preferences] get: key];
+    return [[NSUserDefaults standardUserDefaults] objectForKey: key];
 }
 
 void prefsSet(NSString* key, id val)
-{	
-	[[[AppController sharedAppController] preferences] set:key withValue:val];
+{
+    [[NSUserDefaults standardUserDefaults] setObject:val forKey: key];
 }
 
 @implementation Preferences
 
 - (id)init
 {
-	if (self = [super init])
-	{
-		prefs = [NSUserDefaults standardUserDefaults];
-		
-		NSMutableDictionary* defaultValues = [NSMutableDictionary dictionary];
-		
-		[defaultValues setObject: [NSNumber numberWithInt:0] forKey:PrefShareTab];
-		[defaultValues setObject: @"" forKey:PrefSmugmugUser];
-		[defaultValues setObject: @"" forKey:PrefSmugmugPass];
-		[defaultValues setObject: [NSNumber numberWithBool:NO] forKey:PrefRebuildThumbs];
-		[defaultValues setObject: [NSNumber numberWithDouble:0.309133] forKey: PrefThumbnailSize];
-		[defaultValues setObject: [NSNumber numberWithInt:0] forKey: PrefZoomMode];
-		[defaultValues setObject: @"" forKey: PrefGotoFolder];
-		[defaultValues setObject: [NSNumber numberWithBool:NO] forKey: PrefImageListOpen];
-		[defaultValues setObject: [NSNumber numberWithInt:175] forKey: PrefImageListWidth];
-		[defaultValues setObject: [NSNumber numberWithInt:5] forKey: PrefSlideshowDelay];
-		[defaultValues setObject: [[DirEntry getHome] path] forKey: PrefStartupFolder];
-		[defaultValues setObject: [NSArray array] forKey: PrefRecentFiles];
-		[defaultValues setObject: [NSArray arrayWithObjects: [[DirEntry getHome] path], 
-								                             [[DirEntry getDesktop] path], 
-															 [[DirEntry getDocuments] path], 
-								                             [[DirEntry getDownloads] path], 
-								                             nil] forKey: PrefBookmarks];
-		
-		[prefs registerDefaults: defaultValues];
-	}
-	return self;
+    if (self = [super init])
+    {
+        NSUserDefaults* prefs = [NSUserDefaults standardUserDefaults];
+
+        NSMutableDictionary* defaultValues = [NSMutableDictionary dictionary];
+
+        [defaultValues setObject: [NSNumber numberWithInt:0] forKey:PrefShareTab];
+        [defaultValues setObject: @"" forKey:PrefSmugmugUser];
+        [defaultValues setObject: @"" forKey:PrefSmugmugPass];
+        [defaultValues setObject: [NSNumber numberWithBool:NO] forKey:PrefRebuildThumbs];
+        [defaultValues setObject: [NSNumber numberWithDouble:0.309133] forKey: PrefThumbnailSize];
+        [defaultValues setObject: [NSNumber numberWithInt:0] forKey: PrefZoomMode];
+        [defaultValues setObject: @"" forKey: PrefGotoFolder];
+        [defaultValues setObject: [NSNumber numberWithBool:NO] forKey: PrefImageListOpen];
+        [defaultValues setObject: [NSNumber numberWithInt:175] forKey: PrefImageListWidth];
+        [defaultValues setObject: [NSNumber numberWithInt:5] forKey: PrefSlideshowDelay];
+        [defaultValues setObject: [[DirEntry getDesktop] path] forKey: PrefStartupFolder];
+        [defaultValues setObject: [NSArray array] forKey: PrefRecentFiles];
+        [defaultValues setObject: [NSArray arrayWithObjects: [[DirEntry getDesktop] path],
+                                                             [[DirEntry getDownloads] path],
+                                                             nil] forKey: PrefBookmarks];
+
+        [prefs registerDefaults: defaultValues];
+    }
+    return self;
 }
 
-
-- (id)get:(NSString*)key
++ (id)get:(NSString*)key
 {
-	return [prefs objectForKey: key];
+    return [[NSUserDefaults standardUserDefaults] objectForKey: key];
 }
 
-- (void)set:(NSString*)key withValue:(id)val
++ (void)set:(NSString*)key withValue:(id)val
 {
-	[prefs setObject:val forKey: key];
+    [[NSUserDefaults standardUserDefaults] setObject:val forKey: key];
 }
 
 @end

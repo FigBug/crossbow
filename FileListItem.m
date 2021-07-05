@@ -28,128 +28,128 @@ static int baseThumbVer = 1;
 
 + (id)fileListItem:(DirEntry*)de
 {
-	return [[FileListItem alloc] init:de];
+    return [[FileListItem alloc] init:de];
 }
 
 - (id)init:(DirEntry*)de_
 {
-	if (self = [super init])
-	{
-		de = de_;
-		
-		thumbVer = ++baseThumbVer;
-		
-		if ([de hasThumbnail])
-		{
-			thumb = [de thumbnail];
-			subtitle = [self createSubtitle];
+    if (self = [super init])
+    {
+        de = de_;
 
-			thumbVer++;
-		}
-	}
-	return self;
+        thumbVer = ++baseThumbVer;
+
+        if ([de hasThumbnail])
+        {
+            thumb = [de thumbnail];
+            subtitle = [self createSubtitle];
+
+            thumbVer++;
+        }
+    }
+    return self;
 }
 
 
 - (BOOL)isEqual:(id)anObject
 {
-	return [de isEqual:[anObject dirEntry]];
+    return [de isEqual:[anObject dirEntry]];
 }
 
 - (NSUInteger)hash
 {
-	return [de hash];
+    return [de hash];
 }
 
 - (DirEntry*)dirEntry
 {
-	return de;
+    return de;
 }
 
 - (void)setThumb:(NSImage*)image
 {
-	thumb = image;
+    thumb = image;
 
-	thumbVer++;
-	
-	subtitle = [self createSubtitle];
+    thumbVer++;
+
+    subtitle = [self createSubtitle];
 }
 
 - (NSImage*)thumb
 {
-	return thumb;
+    return thumb;
 }
 
 - (id)imageRepresentation
 {
-	if (thumb)
-		return thumb;
-	else
-		return nil;
+    if (thumb)
+        return thumb;
+    else
+        return nil;
 }
 
 - (NSString *)imageRepresentationType
 {
-	return IKImageBrowserNSImageRepresentationType;
+    return IKImageBrowserNSImageRepresentationType;
 }
 
 - (NSString*)imageSubtitle
 {
-	if (subtitle)
-		return subtitle;
-	return @"";
+    if (subtitle)
+        return subtitle;
+    return @"";
 }
 
 - (NSString*)createSubtitle
 {
-	if ([de hasThumbnail])
-	{
-		NSDictionary* metadata = [de metadata];
-		
-		NSNumber* width  = [metadata objectForKey:(NSString*)kCGImagePropertyPixelWidth];
-		NSNumber* height = [metadata objectForKey:(NSString*)kCGImagePropertyPixelHeight];
-		NSNumber* orient = [metadata objectForKey:(NSString*)kCGImagePropertyOrientation];
-		NSNumber* depth  = [metadata objectForKey:(NSString*)kCGImagePropertyDepth];
-		NSString* model  = [metadata objectForKey:(NSString*)kCGImagePropertyColorModel];
-		
-		if (width && height)
-		{
-			NSString* title;
-			if (orient && ([orient intValue] == 6 || [orient intValue] == 8))
-				title = [NSString stringWithFormat:@"%@ x %@", height, width];
-			else
-				title = [NSString stringWithFormat:@"%@ x %@", width, height];
-			
-			if (depth && model)
-				title = [title stringByAppendingFormat:@" (%@ %@)", depth, model];
-			
-			return title;
-		}
-	}
-	return @"";
+    if ([de hasThumbnail])
+    {
+        NSDictionary* metadata = [de metadata];
+
+        NSNumber* width  = [metadata objectForKey:(NSString*)kCGImagePropertyPixelWidth];
+        NSNumber* height = [metadata objectForKey:(NSString*)kCGImagePropertyPixelHeight];
+        NSNumber* orient = [metadata objectForKey:(NSString*)kCGImagePropertyOrientation];
+        NSNumber* depth  = [metadata objectForKey:(NSString*)kCGImagePropertyDepth];
+        NSString* model  = [metadata objectForKey:(NSString*)kCGImagePropertyColorModel];
+
+        if (width && height)
+        {
+            NSString* title;
+            if (orient && ([orient intValue] == 6 || [orient intValue] == 8))
+                title = [NSString stringWithFormat:@"%@ x %@", height, width];
+            else
+                title = [NSString stringWithFormat:@"%@ x %@", width, height];
+
+            if (depth && model)
+                title = [title stringByAppendingFormat:@" (%@ %@)", depth, model];
+
+            return title;
+        }
+    }
+    return @"";
 }
 
 - (NSString *)imageTitle
 {
-	return [de displayName];
+    return [de displayName];
 }
 
 - (NSString *)imageUID
 {
-	return [de path];
+    return [de path];
 }
 
 - (NSUInteger)imageVersion
 {
-	if (thumb)
-		return thumbVer;
-	else
-		return 0;
+    if (thumb)
+        return thumbVer;
+    else
+        return 0;
 }
 
 - (BOOL)isSelectable
 {
-	return YES;
+    return YES;
 }
 
 @end

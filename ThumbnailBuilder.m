@@ -28,10 +28,10 @@
 
 - (id)init
 {
-	if (self = [super initWithWindowNibName:@"ThumbnailBuilder" owner:self])
-	{
-	}
-	return self;
+    if (self = [super initWithWindowNibName:@"ThumbnailBuilder" owner:self])
+    {
+    }
+    return self;
 }
 
 - (void)dealloc
@@ -40,112 +40,112 @@
 
 - (IBAction)start:(id)sender
 {
-	[lastThumb setEnabled:YES];
-	
-	[start setEnabled:NO];
-	[rebuild setEnabled:NO];
-	
-	abort = NO;
-	rebuildThumb = [rebuild state] == NSOnState;
-	prefsSet(PrefRebuildThumbs, [NSNumber numberWithBool:rebuildThumb]);
-	[NSThread detachNewThreadSelector:@selector(buildProc:) toTarget:self withObject:nil];
+    [lastThumb setEnabled:YES];
+
+    [start setEnabled:NO];
+    [rebuild setEnabled:NO];
+
+    abort = NO;
+    rebuildThumb = [rebuild state] == NSOnState;
+    prefsSet(PrefRebuildThumbs, [NSNumber numberWithBool:rebuildThumb]);
+    [NSThread detachNewThreadSelector:@selector(buildProc:) toTarget:self withObject:nil];
 }
 
 - (void)awakeFromNib
 {
-	[lastThumb setEnabled:NO];
-	
-	[rebuild setState: [prefsGet(PrefRebuildThumbs) boolValue] ? NSOnState : NSOffState];
+    [lastThumb setEnabled:NO];
+
+    [rebuild setState: [prefsGet(PrefRebuildThumbs) boolValue] ? NSOnState : NSOffState];
 }
 
 - (void)buildProc:(id)param
 {
-	@autoreleasepool {
-	
-		NSMutableArray* imagesTodo  = [NSMutableArray arrayWithCapacity:100];
-		NSMutableArray* foldersTodo = [NSMutableArray arrayWithCapacity:100];
-		
-		for (DirEntry* de in items)
-		{
-			if ([de isFolder])
-				[foldersTodo addObject:de];
-			else
-				[imagesTodo addObject:de];
-		}
-		
-		while (([imagesTodo count] > 0 || [foldersTodo count] > 0) && !abort)
-		{
-			@autoreleasepool {
-			
-				if ([imagesTodo count] > 0)
-				{
-					DirEntry* de = [imagesTodo objectAtIndex:0];
-					
-					if (![de hasThumbnail] || rebuildThumb)
-					{
-						NSImage* img = [de createThumbnail];
-						
-						if (img)
-							[self performSelectorOnMainThread:@selector(showThumb:) withObject:img waitUntilDone:NO];
-					}
-					[imagesTodo removeObjectAtIndex:0];
-				}
-				else if ([foldersTodo count] > 0)
-				{
-					DirEntry* de = [foldersTodo objectAtIndex:0];
-					
-					if (![de hasThumbnail] || rebuildThumb)
-					{
-						NSImage* img = [de createThumbnail];
-						
-						if (img)
-							[self performSelectorOnMainThread:@selector(showThumb:) withObject:img waitUntilDone:NO];
-					}
-							
-					if (![de isLink])
-					{
-						NSArray* subItems = [de getSubItems];
-						for (DirEntry* subDe in subItems)
-						{
-							if ([subDe isFolder])
-								[foldersTodo addObject:subDe];
-							else
-								[imagesTodo addObject:subDe];
-						}
-					}
-					[foldersTodo removeObjectAtIndex:0];
-				}
-			
-			}
-		}
-		[self performSelectorOnMainThread:@selector(showThumb:) withObject:nil waitUntilDone:NO];
-	}
+    @autoreleasepool {
+
+        NSMutableArray* imagesTodo  = [NSMutableArray arrayWithCapacity:100];
+        NSMutableArray* foldersTodo = [NSMutableArray arrayWithCapacity:100];
+
+        for (DirEntry* de in items)
+        {
+            if ([de isFolder])
+                [foldersTodo addObject:de];
+            else
+                [imagesTodo addObject:de];
+        }
+
+        while (([imagesTodo count] > 0 || [foldersTodo count] > 0) && !abort)
+        {
+            @autoreleasepool {
+
+                if ([imagesTodo count] > 0)
+                {
+                    DirEntry* de = [imagesTodo objectAtIndex:0];
+
+                    if (![de hasThumbnail] || rebuildThumb)
+                    {
+                        NSImage* img = [de createThumbnail];
+
+                        if (img)
+                            [self performSelectorOnMainThread:@selector(showThumb:) withObject:img waitUntilDone:NO];
+                    }
+                    [imagesTodo removeObjectAtIndex:0];
+                }
+                else if ([foldersTodo count] > 0)
+                {
+                    DirEntry* de = [foldersTodo objectAtIndex:0];
+
+                    if (![de hasThumbnail] || rebuildThumb)
+                    {
+                        NSImage* img = [de createThumbnail];
+
+                        if (img)
+                            [self performSelectorOnMainThread:@selector(showThumb:) withObject:img waitUntilDone:NO];
+                    }
+
+                    if (![de isLink])
+                    {
+                        NSArray* subItems = [de getSubItems];
+                        for (DirEntry* subDe in subItems)
+                        {
+                            if ([subDe isFolder])
+                                [foldersTodo addObject:subDe];
+                            else
+                                [imagesTodo addObject:subDe];
+                        }
+                    }
+                    [foldersTodo removeObjectAtIndex:0];
+                }
+
+            }
+        }
+        [self performSelectorOnMainThread:@selector(showThumb:) withObject:nil waitUntilDone:NO];
+    }
 }
 
 - (void)showThumb:(id)param
 {
-	if (param)
-	{
-		NSRect rc = [lastThumb bounds];
-		NSImage* img = [param imageCroppedToFitSize:rc.size];
-		[lastThumb setImage:img];
-	}
-	else
-	{
-		[cancel setTitle:@"Close"];
-	}
+    if (param)
+    {
+        NSRect rc = [lastThumb bounds];
+        NSImage* img = [param imageCroppedToFitSize:rc.size];
+        [lastThumb setImage:img];
+    }
+    else
+    {
+        [cancel setTitle:@"Close"];
+    }
 }
 
 - (IBAction)done:(id)sender
 {
-	abort = YES;
-	[[self window] orderOut:sender];
-	[NSApp endSheet:[self window] returnCode:99];	
+    abort = YES;
+    [[self window] orderOut:sender];
+    [NSApp endSheet:[self window] returnCode:99];
 }
 
 - (void)setItems:(NSArray*)items_
 {
-	items = items_;
+    items = items_;
 }
 
 @end

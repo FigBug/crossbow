@@ -25,10 +25,10 @@
 @class DirEntry;
 
 @interface FileListItem : NSObject {
-	DirEntry* de;
-	NSImage* thumb;
-	NSString* subtitle;
-	int thumbVer;
+    DirEntry* de;
+    NSImage* thumb;
+    NSString* subtitle;
+    int thumbVer;
 }
 
 + (id)fileListItem:(DirEntry*)de;

@@ -27,120 +27,120 @@
 
 + (Selection*)selectionWith:(NSArray*)list
 {
-	Selection* s = [[Selection alloc] initWith:list];
-	
-	return s;
+    Selection* s = [[Selection alloc] initWith:list];
+
+    return s;
 }
 
 - (id)initWith:(NSArray*)list
 {
-	if (self = [super init])
-	{
-		selectedItems = list;
-		
-		NSMutableArray* files   = [NSMutableArray arrayWithCapacity: 10];
-		NSMutableArray* folders = [NSMutableArray arrayWithCapacity: 10];
-		
-		for (DirEntry* de in list)
-		{
-			if ([de isFolder])
-				[folders addObject: de];
-			else
-				[files addObject: de];
-		}
-		
-		selectedFiles   = [[NSArray alloc] initWithArray: files];
-		selectedFolders = [[NSArray alloc] initWithArray: folders];
-	}
-	return self;
+    if (self = [super init])
+    {
+        selectedItems = list;
+
+        NSMutableArray* files   = [NSMutableArray arrayWithCapacity: 10];
+        NSMutableArray* folders = [NSMutableArray arrayWithCapacity: 10];
+
+        for (DirEntry* de in list)
+        {
+            if ([de isFolder])
+                [folders addObject: de];
+            else
+                [files addObject: de];
+        }
+
+        selectedFiles   = [[NSArray alloc] initWithArray: files];
+        selectedFolders = [[NSArray alloc] initWithArray: folders];
+    }
+    return self;
 }
 
 
 - (int)count
 {
-	return (int)[selectedItems count];
+    return (int)[selectedItems count];
 }
 
 - (int)countFiles
 {
-	return (int)[selectedFiles count];
+    return (int)[selectedFiles count];
 }
 
 - (int)countFolders
 {
-	return (int)[selectedFolders count];
+    return (int)[selectedFolders count];
 }
 
 - (NSArray*)selection
 {
-	return [selectedFolders arrayByAddingObjectsFromArray: selectedFiles];
+    return [selectedFolders arrayByAddingObjectsFromArray: selectedFiles];
 }
 
 - (NSArray*)selectedFiles
-{	
-	return selectedFiles;
+{
+    return selectedFiles;
 }
 
 - (NSArray*)selectedFolders
 {
-	return selectedFolders;
+    return selectedFolders;
 }
 
 - (NSArray*)expandSelection:(int)sort
 {
-	NSMutableArray* res = [NSMutableArray arrayWithCapacity: [self countFiles]];
-	for (DirEntry* de in selectedItems)
-	{
-		if ([de isFile])
-		{
-			[res addObject: de];
-		}
-		else
-		{
-			[res addObjectsFromArray: [[de getSubFiles] sortedArrayUsingFunction:sortFunc context:(void*)(NSInteger)sort]];
-		}
-	}
-	return res;
+    NSMutableArray* res = [NSMutableArray arrayWithCapacity: [self countFiles]];
+    for (DirEntry* de in selectedItems)
+    {
+        if ([de isFile])
+        {
+            [res addObject: de];
+        }
+        else
+        {
+            [res addObjectsFromArray: [[de getSubFiles] sortedArrayUsingFunction:sortFunc context:(void*)(NSInteger)sort]];
+        }
+    }
+    return res;
 }
 
 - (BOOL)onlyOneFile
 {
-	return [selectedItems count] == 1 && [selectedFiles count] == 1;
+    return [selectedItems count] == 1 && [selectedFiles count] == 1;
 }
 
 - (DirEntry*)firstFile
 {
-	return ([selectedFiles count] > 0) ? [selectedFiles objectAtIndex:0] : nil;
+    return ([selectedFiles count] > 0) ? [selectedFiles objectAtIndex:0] : nil;
 }
 
 - (NSArray*)deepExpandSelection:(int)sort
 {
-	NSMutableArray* res = [NSMutableArray arrayWithCapacity: [self countFiles]];
-	
-	NSMutableArray* folders = [NSMutableArray arrayWithCapacity:10];
-	
-	for (DirEntry* de in selectedItems)
-	{
-		[res addObject:de];
-		if ([de isFolder])
-			[folders addObject:de];
-	}
-	while ([folders count] > 0)
-	{
-		DirEntry* folder = [folders objectAtIndex:0];
-		
-		NSArray* sub = [[folder getSubItems] sortedArrayUsingFunction:sortFunc context:(void*)(NSInteger)sort];
-		for (DirEntry* de in sub)
-		{
-			[res addObject:de];
-			if ([de isFolder])
-				[folders addObject:de];
-		}
-		
-		[folders removeObjectAtIndex:0];
-	}
-	
-	return res;
+    NSMutableArray* res = [NSMutableArray arrayWithCapacity: [self countFiles]];
+
+    NSMutableArray* folders = [NSMutableArray arrayWithCapacity:10];
+
+    for (DirEntry* de in selectedItems)
+    {
+        [res addObject:de];
+        if ([de isFolder])
+            [folders addObject:de];
+    }
+    while ([folders count] > 0)
+    {
+        DirEntry* folder = [folders objectAtIndex:0];
+
+        NSArray* sub = [[folder getSubItems] sortedArrayUsingFunction:sortFunc context:(void*)(NSInteger)sort];
+        for (DirEntry* de in sub)
+        {
+            [res addObject:de];
+            if ([de isFolder])
+                [folders addObject:de];
+        }
+
+        [folders removeObjectAtIndex:0];
+    }
+
+    return res;
 }
 
 @end

@@ -23,14 +23,14 @@
 
 
 @interface ThumbnailBuilder : NSWindowController {
-	IBOutlet NSImageView* lastThumb;
-	IBOutlet NSButton* rebuild;
-	IBOutlet NSButton* start;
-	IBOutlet NSButton* cancel;
-	
-	BOOL rebuildThumb;
-	NSArray* items;
-	BOOL abort;
+    IBOutlet NSImageView* lastThumb;
+    IBOutlet NSButton* rebuild;
+    IBOutlet NSButton* start;
+    IBOutlet NSButton* cancel;
+
+    BOOL rebuildThumb;
+    NSArray* items;
+    BOOL abort;
 }
 
 - (void)setItems:(NSArray*)items;

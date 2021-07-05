@@ -26,35 +26,35 @@
 
 -(bool)moveToTrash
 {
-	NSFileManager* fm = [NSFileManager defaultManager];
-	NSWorkspace* ws = [NSWorkspace sharedWorkspace];
-	
-	if ([self isFile])
-	{
-		NSString* thumb = [self thumbnailPath];
-		
-		NSInteger tag = 0;
-		[ws performFileOperation:NSWorkspaceRecycleOperation source:[[self getParent] path] destination: @"" files:[NSArray arrayWithObject:[self filename]] tag:&tag];
-		
-		if (tag >= 0)
-			[fm removeItemAtPath:thumb error:nil];
-	}
-	else
-	{
-		NSMutableArray* thumbs = [NSMutableArray arrayWithCapacity:10];
-		
-		NSArray* sub = [self deepGetSubItems];
-		for (DirEntry* de in sub)
-			[thumbs addObject: [de thumbnailPath]];
-		[thumbs addObject: [self thumbnailPath]];
-		
-		NSInteger tag = 0;
-		[ws performFileOperation:NSWorkspaceRecycleOperation source:[[self getParent] path] destination: @"" files:[NSArray arrayWithObject:[self filename]] tag:&tag];
-		
-		for (NSString* thumb in thumbs)
-			[fm removeItemAtPath:thumb error:nil];
-	}
-	return YES;
+    NSFileManager* fm = [NSFileManager defaultManager];
+    NSWorkspace* ws = [NSWorkspace sharedWorkspace];
+
+    if ([self isFile])
+    {
+        NSString* thumb = [self thumbnailPath];
+
+        NSInteger tag = 0;
+        [ws performFileOperation:NSWorkspaceRecycleOperation source:[[self getParent] path] destination: @"" files:[NSArray arrayWithObject:[self filename]] tag:&tag];
+
+        if (tag >= 0)
+            [fm removeItemAtPath:thumb error:nil];
+    }
+    else
+    {
+        NSMutableArray* thumbs = [NSMutableArray arrayWithCapacity:10];
+
+        NSArray* sub = [self deepGetSubItems];
+        for (DirEntry* de in sub)
+            [thumbs addObject: [de thumbnailPath]];
+        [thumbs addObject: [self thumbnailPath]];
+
+        NSInteger tag = 0;
+        [ws performFileOperation:NSWorkspaceRecycleOperation source:[[self getParent] path] destination: @"" files:[NSArray arrayWithObject:[self filename]] tag:&tag];
+
+        for (NSString* thumb in thumbs)
+            [fm removeItemAtPath:thumb error:nil];
+    }
+    return YES;
 }
 
 @end

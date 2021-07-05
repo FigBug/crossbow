@@ -43,15 +43,15 @@
 
 
 @interface DBPrefsWindowController : NSWindowController<NSAnimationDelegate,NSToolbarDelegate> {
-	NSMutableArray *toolbarIdentifiers;
-	NSMutableDictionary *toolbarViews;
-	NSMutableDictionary *toolbarItems;
-	
-	BOOL _crossFade;
-	BOOL _shiftSlowsAnimation;
-	
-	NSView *contentSubview;
-	NSViewAnimation *viewAnimation;
+    NSMutableArray *toolbarIdentifiers;
+    NSMutableDictionary *toolbarViews;
+    NSMutableDictionary *toolbarItems;
+
+    BOOL _crossFade;
+    BOOL _shiftSlowsAnimation;
+
+    NSView *contentSubview;
+    NSViewAnimation *viewAnimation;
 }
 
 
