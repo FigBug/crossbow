@@ -59,11 +59,11 @@ if security find-identity -v -p codesigning | grep -q "$DEV_APP_ID"; then
     codesign -s "$DEV_APP_ID" --options=runtime --timestamp --force -v "$fw"
   done
   codesign -s "$DEV_APP_ID" --options=runtime --timestamp --force \
-    --entitlements "$ROOT/Crossbow.entitlements" -v "$APP_NAME.app"
+    --entitlements "$ROOT/Resources/Crossbow.entitlements" -v "$APP_NAME.app"
   codesign --verify --deep --strict -v "$APP_NAME.app"
 else
   echo "Skipping Developer ID signing - certificate not in keychain, ad-hoc signing instead"
-  codesign --force --deep --sign - --entitlements "$ROOT/Crossbow.entitlements" "$APP_NAME.app"
+  codesign --force --deep --sign - --entitlements "$ROOT/Resources/Crossbow.entitlements" "$APP_NAME.app"
 fi
 
 #

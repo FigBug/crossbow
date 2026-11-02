@@ -231,7 +231,7 @@
 		783041200EF3FEDE00A3BC6D /* Selection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Selection.m; sourceTree = "<group>"; };
 		7830412D0EF40AB200A3BC6D /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Util.h; sourceTree = "<group>"; };
 		7830412E0EF40AB200A3BC6D /* Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Util.m; sourceTree = "<group>"; };
-		7838C5511DB29EB800209C1A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Crossbow/Images.xcassets; sourceTree = "<group>"; };
+		7838C5511DB29EB800209C1A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		783B7E750EFFE75600AF19FC /* ImagePreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagePreview.h; sourceTree = "<group>"; };
 		783B7E760EFFE75600AF19FC /* ImagePreview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagePreview.m; sourceTree = "<group>"; };
 		784B67DC2693530200F36D68 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
@@ -329,21 +329,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		080E96DDFE201D6D7F000001 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				7800B6A50EF16C2700882915 /* Browser */,
-				781873040F05412900381FBC /* Categories */,
-				7800B6C60EF16E7900882915 /* Common */,
-				78AAFE980FC4461D005FC339 /* Imaging */,
-				78CDC4E70EF5755500EC2A16 /* Preferences */,
-				781538050F0DA04900EE7C17 /* Tools */,
-				78D5B92B0EFA7DBF0020A6F7 /* UI Components */,
-				7800B6A80EF16C3500882915 /* Viewer */,
-			);
-			name = Classes;
-			sourceTree = "<group>";
-		};
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -380,10 +365,7 @@
 			isa = PBXGroup;
 			children = (
 				788D1D8C1DB557F300C83396 /* Malus.xcodeproj */,
-				784E0710176251A200C243C6 /* Crossbow.entitlements */,
-				A5000000000000000000004E /* CrossbowAppStore.entitlements */,
-				080E96DDFE201D6D7F000001 /* Classes */,
-				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				A7000000000000000000000B /* Source */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
@@ -391,24 +373,17 @@
 			name = Crossbow;
 			sourceTree = "<group>";
 		};
-		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
-			isa = PBXGroup;
-			children = (
-				32CA4F630368D1EE00C91783 /* Crossbow_Prefix.pch */,
-				29B97316FDCFA39411CA2CEA /* main.m */,
-			);
-			name = "Other Sources";
-			sourceTree = "<group>";
-		};
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				784E0710176251A200C243C6 /* Crossbow.entitlements */,
+				A5000000000000000000004E /* CrossbowAppStore.entitlements */,
 				7838C5511DB29EB800209C1A /* Images.xcassets */,
 				78F312DD0EF3607B0041EA99 /* Icons */,
 				781EF1050F0FB5D600EB97E8 /* Xibs */,
 				781EF1060F0FB60D00EB97E8 /* Other */,
 			);
-			name = Resources;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
@@ -418,101 +393,6 @@
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		7800B6A50EF16C2700882915 /* Browser */ = {
-			isa = PBXGroup;
-			children = (
-				78FBF03F0EF37B480005A150 /* Bookmarks.h */,
-				78FBF0400EF37B480005A150 /* Bookmarks.m */,
-				7800B6CA0EF1757400882915 /* Browser.h */,
-				7800B6CB0EF1757400882915 /* Browser.m */,
-				7800B7800EF1A0A300882915 /* BrowserTree.h */,
-				7800B7810EF1A0A300882915 /* BrowserTree.m */,
-				7800B7830EF1A0B500882915 /* BrowserList.h */,
-				7800B7840EF1A0B500882915 /* BrowserList.m */,
-				78948D3F0EF94CB000356919 /* FileListItem.h */,
-				78948D400EF94CB000356919 /* FileListItem.m */,
-				78AB4DB10EF2B237004ABF79 /* History.h */,
-				78AB4DB20EF2B237004ABF79 /* History.m */,
-				7830411F0EF3FEDE00A3BC6D /* Selection.h */,
-				783041200EF3FEDE00A3BC6D /* Selection.m */,
-				783B7E750EFFE75600AF19FC /* ImagePreview.h */,
-				783B7E760EFFE75600AF19FC /* ImagePreview.m */,
-			);
-			name = Browser;
-			sourceTree = "<group>";
-		};
-		7800B6A80EF16C3500882915 /* Viewer */ = {
-			isa = PBXGroup;
-			children = (
-				7800B8420EF1E99C00882915 /* Viewer.h */,
-				7800B8430EF1E99C00882915 /* Viewer.m */,
-				78774EB30F0BB9A000BAD9E2 /* ImageView.h */,
-				78774EB40F0BB9A000BAD9E2 /* ImageView.m */,
-				78774EB60F0BB9B300BAD9E2 /* ImageClip.h */,
-				78774EB70F0BB9B300BAD9E2 /* ImageClip.m */,
-				787752C10F0D459500BAD9E2 /* ImageCache.h */,
-				787752C20F0D459500BAD9E2 /* ImageCache.m */,
-			);
-			name = Viewer;
-			sourceTree = "<group>";
-		};
-		7800B6C60EF16E7900882915 /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				7820A02F1A39E9AE004DABA3 /* ActivityFaker.h */,
-				7820A0301A39E9AE004DABA3 /* ActivityFaker.m */,
-				7800B6C70EF1743500882915 /* AppController.h */,
-				7800B6C80EF1743500882915 /* AppController.m */,
-				7800B6EB0EF1808200882915 /* DirEntry.h */,
-				7800B6EC0EF1808200882915 /* DirEntry.m */,
-				780C18BB0F34DCBC00FE29C4 /* DirEntryFileOps.h */,
-				780C18BC0F34DCBC00FE29C4 /* DirEntryFileOps.m */,
-				788D1D831DB547C600C83396 /* FileAccess.h */,
-				788D1D841DB547C600C83396 /* FileAccess.m */,
-				789373490F07E409001D48A0 /* Metadata.h */,
-				7893734A0F07E409001D48A0 /* Metadata.m */,
-				78948BC60EF8963600356919 /* SCEvent.h */,
-				78948BC70EF8963600356919 /* SCEvent.m */,
-				78948BC80EF8963600356919 /* SCEventListenerProtocol.h */,
-				78948BC90EF8963600356919 /* SCEvents.h */,
-				78948BCA0EF8963600356919 /* SCEvents.m */,
-				A60000000000000000000001 /* ImageEdit.h */,
-				A60000000000000000000002 /* ImageEdit.m */,
-				7830412D0EF40AB200A3BC6D /* Util.h */,
-				7830412E0EF40AB200A3BC6D /* Util.m */,
-				78FF25500F13A2C700B825F1 /* Zip */,
-				78FF254B0F13A15500B825F1 /* ZipWriter.h */,
-				78FF254C0F13A15500B825F1 /* ZipWriter.m */,
-			);
-			name = Common;
-			sourceTree = "<group>";
-		};
-		781538050F0DA04900EE7C17 /* Tools */ = {
-			isa = PBXGroup;
-			children = (
-				780C17670F34C99900FE29C4 /* ProgressSheet.h */,
-				780C17660F34C99900FE29C4 /* ProgressSheet.m */,
-				7815382C0F0DA45200EE7C17 /* ThumbnailBuilder.h */,
-				7815382D0F0DA45200EE7C17 /* ThumbnailBuilder.m */,
-			);
-			name = Tools;
-			sourceTree = "<group>";
-		};
-		781873040F05412900381FBC /* Categories */ = {
-			isa = PBXGroup;
-			children = (
-				7818730F0F05424300381FBC /* NSArrayAdditions.h */,
-				781873100F05424300381FBC /* NSArrayAdditions.m */,
-				78CDE9EE0F0FF1EF00FB61C7 /* NSDictionary+BSJSONAdditions.h */,
-				78CDE9EF0F0FF1EF00FB61C7 /* NSDictionary+BSJSONAdditions.m */,
-				781873120F0543D900381FBC /* NSImageAdditions.h */,
-				781873130F0543D900381FBC /* NSImageAdditions.m */,
-				78CDE9F10F0FF1FE00FB61C7 /* NSScanner+BSJSONAdditions.h */,
-				78CDE9F20F0FF1FE00FB61C7 /* NSScanner+BSJSONAdditions.m */,
-			);
-			name = Categories;
 			sourceTree = "<group>";
 		};
 		781EF1050F0FB5D600EB97E8 /* Xibs */ = {
@@ -550,39 +430,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		78AAFE980FC4461D005FC339 /* Imaging */ = {
-			isa = PBXGroup;
-			children = (
-				78AAFEB30FC4463C005FC339 /* ImageProcessor.m */,
-				78AAFEB40FC4463C005FC339 /* ImageProcessor.h */,
-			);
-			name = Imaging;
-			sourceTree = "<group>";
-		};
-		78CDC4E70EF5755500EC2A16 /* Preferences */ = {
-			isa = PBXGroup;
-			children = (
-				78CDC4ED0EF5756A00EC2A16 /* DBPrefsWindowController.h */,
-				78CDC4EE0EF5756A00EC2A16 /* DBPrefsWindowController.m */,
-				78CDC4F00EF5759400EC2A16 /* PreferencesController.h */,
-				78CDC4F10EF5759400EC2A16 /* PreferencesController.m */,
-				786283F80EF320DF0056FEAD /* Preferences.h */,
-				786283F90EF320DF0056FEAD /* Preferences.m */,
-			);
-			name = Preferences;
-			sourceTree = "<group>";
-		};
-		78D5B92B0EFA7DBF0020A6F7 /* UI Components */ = {
-			isa = PBXGroup;
-			children = (
-				788D1D8B1DB557BF00C83396 /* WelcomeViewController.h */,
-				788D1D891DB557B400C83396 /* WelcomeViewController.m */,
-				78D5B92D0EFA7DD30020A6F7 /* SegmentedToolbarItem.h */,
-				78D5B92E0EFA7DD30020A6F7 /* SegmentedToolbarItem.m */,
-			);
-			name = "UI Components";
-			sourceTree = "<group>";
-		};
 		78F312DD0EF3607B0041EA99 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
@@ -591,16 +438,169 @@
 			name = Icons;
 			sourceTree = "<group>";
 		};
-		78FF25500F13A2C700B825F1 /* Zip */ = {
+		A70000000000000000000001 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				78FF25550F13A30F00B825F1 /* crypt.h */,
-				78FF25510F13A2E100B825F1 /* ioapi.c */,
-				78FF25520F13A2E100B825F1 /* ioapi.h */,
+				29B97316FDCFA39411CA2CEA /* main.m */,
+				32CA4F630368D1EE00C91783 /* Crossbow_Prefix.pch */,
+				7800B6C70EF1743500882915 /* AppController.h */,
+				7800B6C80EF1743500882915 /* AppController.m */,
+				7830412D0EF40AB200A3BC6D /* Util.h */,
+				7830412E0EF40AB200A3BC6D /* Util.m */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		A70000000000000000000002 /* Browser */ = {
+			isa = PBXGroup;
+			children = (
+				7800B6CA0EF1757400882915 /* Browser.h */,
+				7800B6CB0EF1757400882915 /* Browser.m */,
+				7800B7800EF1A0A300882915 /* BrowserTree.h */,
+				7800B7810EF1A0A300882915 /* BrowserTree.m */,
+				7800B7830EF1A0B500882915 /* BrowserList.h */,
+				7800B7840EF1A0B500882915 /* BrowserList.m */,
+				78948D3F0EF94CB000356919 /* FileListItem.h */,
+				78948D400EF94CB000356919 /* FileListItem.m */,
+				78AB4DB10EF2B237004ABF79 /* History.h */,
+				78AB4DB20EF2B237004ABF79 /* History.m */,
+				7830411F0EF3FEDE00A3BC6D /* Selection.h */,
+				783041200EF3FEDE00A3BC6D /* Selection.m */,
+				78FBF03F0EF37B480005A150 /* Bookmarks.h */,
+				78FBF0400EF37B480005A150 /* Bookmarks.m */,
+				783B7E750EFFE75600AF19FC /* ImagePreview.h */,
+				783B7E760EFFE75600AF19FC /* ImagePreview.m */,
+				788D1D8B1DB557BF00C83396 /* WelcomeViewController.h */,
+				788D1D891DB557B400C83396 /* WelcomeViewController.m */,
+				7815382C0F0DA45200EE7C17 /* ThumbnailBuilder.h */,
+				7815382D0F0DA45200EE7C17 /* ThumbnailBuilder.m */,
+				780C17670F34C99900FE29C4 /* ProgressSheet.h */,
+				780C17660F34C99900FE29C4 /* ProgressSheet.m */,
+			);
+			path = Browser;
+			sourceTree = "<group>";
+		};
+		A70000000000000000000003 /* Viewer */ = {
+			isa = PBXGroup;
+			children = (
+				7800B8420EF1E99C00882915 /* Viewer.h */,
+				7800B8430EF1E99C00882915 /* Viewer.m */,
+				78774EB30F0BB9A000BAD9E2 /* ImageView.h */,
+				78774EB40F0BB9A000BAD9E2 /* ImageView.m */,
+				78774EB60F0BB9B300BAD9E2 /* ImageClip.h */,
+				78774EB70F0BB9B300BAD9E2 /* ImageClip.m */,
+				787752C10F0D459500BAD9E2 /* ImageCache.h */,
+				787752C20F0D459500BAD9E2 /* ImageCache.m */,
+				7820A02F1A39E9AE004DABA3 /* ActivityFaker.h */,
+				7820A0301A39E9AE004DABA3 /* ActivityFaker.m */,
+			);
+			path = Viewer;
+			sourceTree = "<group>";
+		};
+		A70000000000000000000004 /* Editor */ = {
+			isa = PBXGroup;
+			children = (
+				A60000000000000000000001 /* ImageEdit.h */,
+				A60000000000000000000002 /* ImageEdit.m */,
+				78AAFEB40FC4463C005FC339 /* ImageProcessor.h */,
+				78AAFEB30FC4463C005FC339 /* ImageProcessor.m */,
+			);
+			path = Editor;
+			sourceTree = "<group>";
+		};
+		A70000000000000000000005 /* Files */ = {
+			isa = PBXGroup;
+			children = (
+				7800B6EB0EF1808200882915 /* DirEntry.h */,
+				7800B6EC0EF1808200882915 /* DirEntry.m */,
+				780C18BB0F34DCBC00FE29C4 /* DirEntryFileOps.h */,
+				780C18BC0F34DCBC00FE29C4 /* DirEntryFileOps.m */,
+				788D1D831DB547C600C83396 /* FileAccess.h */,
+				788D1D841DB547C600C83396 /* FileAccess.m */,
+				78948BC60EF8963600356919 /* SCEvent.h */,
+				78948BC70EF8963600356919 /* SCEvent.m */,
+				78948BC80EF8963600356919 /* SCEventListenerProtocol.h */,
+				78948BC90EF8963600356919 /* SCEvents.h */,
+				78948BCA0EF8963600356919 /* SCEvents.m */,
+				78FF254B0F13A15500B825F1 /* ZipWriter.h */,
+				78FF254C0F13A15500B825F1 /* ZipWriter.m */,
+			);
+			path = Files;
+			sourceTree = "<group>";
+		};
+		A70000000000000000000006 /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				786283F80EF320DF0056FEAD /* Preferences.h */,
+				786283F90EF320DF0056FEAD /* Preferences.m */,
+				78CDC4F00EF5759400EC2A16 /* PreferencesController.h */,
+				78CDC4F10EF5759400EC2A16 /* PreferencesController.m */,
+				78CDC4ED0EF5756A00EC2A16 /* DBPrefsWindowController.h */,
+				78CDC4EE0EF5756A00EC2A16 /* DBPrefsWindowController.m */,
+			);
+			path = Preferences;
+			sourceTree = "<group>";
+		};
+		A70000000000000000000007 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				78D5B92D0EFA7DD30020A6F7 /* SegmentedToolbarItem.h */,
+				78D5B92E0EFA7DD30020A6F7 /* SegmentedToolbarItem.m */,
+				789373490F07E409001D48A0 /* Metadata.h */,
+				7893734A0F07E409001D48A0 /* Metadata.m */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		A70000000000000000000008 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				7818730F0F05424300381FBC /* NSArrayAdditions.h */,
+				781873100F05424300381FBC /* NSArrayAdditions.m */,
+				781873120F0543D900381FBC /* NSImageAdditions.h */,
+				781873130F0543D900381FBC /* NSImageAdditions.m */,
+				78CDE9EE0F0FF1EF00FB61C7 /* NSDictionary+BSJSONAdditions.h */,
+				78CDE9EF0F0FF1EF00FB61C7 /* NSDictionary+BSJSONAdditions.m */,
+				78CDE9F10F0FF1FE00FB61C7 /* NSScanner+BSJSONAdditions.h */,
+				78CDE9F20F0FF1FE00FB61C7 /* NSScanner+BSJSONAdditions.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		A70000000000000000000009 /* minizip */ = {
+			isa = PBXGroup;
+			children = (
 				78FF25480F13A13700B825F1 /* zip.c */,
 				78FF25490F13A13700B825F1 /* zip.h */,
+				78FF25510F13A2E100B825F1 /* ioapi.c */,
+				78FF25520F13A2E100B825F1 /* ioapi.h */,
+				78FF25550F13A30F00B825F1 /* crypt.h */,
 			);
-			name = Zip;
+			path = minizip;
+			sourceTree = "<group>";
+		};
+		A7000000000000000000000A /* ThirdParty */ = {
+			isa = PBXGroup;
+			children = (
+				A70000000000000000000009 /* minizip */,
+			);
+			path = ThirdParty;
+			sourceTree = "<group>";
+		};
+		A7000000000000000000000B /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				A70000000000000000000001 /* App */,
+				A70000000000000000000002 /* Browser */,
+				A70000000000000000000003 /* Viewer */,
+				A70000000000000000000004 /* Editor */,
+				A70000000000000000000005 /* Files */,
+				A70000000000000000000006 /* Preferences */,
+				A70000000000000000000007 /* UI */,
+				A70000000000000000000008 /* Categories */,
+				A7000000000000000000000A /* ThirdParty */,
+			);
+			path = Source;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -883,7 +883,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_ENTITLEMENTS = CrossbowAppStore.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Resources/CrossbowAppStore.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
@@ -897,9 +897,9 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Crossbow_Prefix.pch;
+				GCC_PREFIX_HEADER = Source/App/Crossbow_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "APPSTORE=1";
-				INFOPLIST_FILE = Info.plist;
+				INFOPLIST_FILE = Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 1.3;
@@ -920,7 +920,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_ENTITLEMENTS = CrossbowAppStore.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Resources/CrossbowAppStore.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 6;
@@ -932,9 +932,9 @@
 					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Crossbow_Prefix.pch;
+				GCC_PREFIX_HEADER = Source/App/Crossbow_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "APPSTORE=1";
-				INFOPLIST_FILE = Info.plist;
+				INFOPLIST_FILE = Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 1.3;
@@ -955,7 +955,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_ENTITLEMENTS = Crossbow.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Resources/Crossbow.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
@@ -970,8 +970,8 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Crossbow_Prefix.pch;
-				INFOPLIST_FILE = Info.plist;
+				GCC_PREFIX_HEADER = Source/App/Crossbow_Prefix.pch;
+				INFOPLIST_FILE = Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 1.3;
@@ -992,7 +992,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_ENTITLEMENTS = Crossbow.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Resources/Crossbow.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 6;
@@ -1005,8 +1005,8 @@
 					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Crossbow_Prefix.pch;
-				INFOPLIST_FILE = Info.plist;
+				GCC_PREFIX_HEADER = Source/App/Crossbow_Prefix.pch;
+				INFOPLIST_FILE = Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 1.3;
