@@ -133,10 +133,12 @@ static id readArchive(NSString* path)
 
 - (BOOL)isEqual:(id)anObject
 {
-    NSString* s1 = [url path];
-    NSString* s2 = [[anObject url] path];
+    if (anObject == self)
+        return YES;
+    if (![anObject isKindOfClass:[DirEntry class]])
+        return NO;
 
-    return [s1 isEqual: s2];
+    return [[url path] isEqual:[[(DirEntry*)anObject url] path]];
 }
 
 - (NSUInteger)hash
