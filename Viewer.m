@@ -280,28 +280,28 @@ int nextImg(int idx, int max)
     SegmentedToolbarItem* tool;
 
     tool = [SegmentedToolbarItem itemWithIdentifier:@"nav" label:@"Navigation" paletteLabel:@"Navigation" segments:4];
-    [tool setSegment:0 imageName:@"TBFirst" longLabel:@"First" target:nil action:@selector(firstImage:)];
-    [tool setSegment:1 imageName:NSImageNameGoLeftTemplate longLabel:@"Previous" target:nil action:@selector(previousImage:)];
-    [tool setSegment:2 imageName:NSImageNameGoRightTemplate longLabel:@"Next" target:nil action:@selector(nextImage:)];
-    [tool setSegment:3 imageName:@"TBLast" longLabel:@"Last" target:nil action:@selector(lastImage:)];
+    [tool setSegment:0 imageName:@"step-backward" longLabel:@"First" target:nil action:@selector(firstImage:)];
+    [tool setSegment:1 imageName:@"arrow-left" longLabel:@"Previous" target:nil action:@selector(previousImage:)];
+    [tool setSegment:2 imageName:@"arrow-right" longLabel:@"Next" target:nil action:@selector(nextImage:)];
+    [tool setSegment:3 imageName:@"step-forward" longLabel:@"Last" target:nil action:@selector(lastImage:)];
     [tool setupView];
     [array addObject:tool];
 
     tool = [SegmentedToolbarItem itemWithIdentifier:@"zoom" label:@"Zoom" paletteLabel:@"Zoom" segments:4];
-    [tool setSegment:0 imageName:@"TBZoomIn" longLabel:@"Zoom In" target:self action:@selector(zoomIn:)];
-    [tool setSegment:1 imageName:@"TBZoomOut" longLabel:@"Zoom Out" target:self action:@selector(zoomOut:)];
-    [tool setSegment:2 imageName:@"TBZoomFit" longLabel:@"Zoom Fit" target:self action:@selector(zoomFit:)];
-    [tool setSegment:3 imageName:@"TBZoomActual" longLabel:@"Zoom Actual Size" target:self action:@selector(zoomActual:)];
+    [tool setSegment:0 imageName:@"search-plus" longLabel:@"Zoom In" target:self action:@selector(zoomIn:)];
+    [tool setSegment:1 imageName:@"search-minus" longLabel:@"Zoom Out" target:self action:@selector(zoomOut:)];
+    [tool setSegment:2 imageName:@"expand" longLabel:@"Zoom Fit" target:self action:@selector(zoomFit:)];
+    [tool setSegment:3 imageName:@"compress" longLabel:@"Zoom Actual Size" target:self action:@selector(zoomActual:)];
     [tool setupView];
     [array addObject:tool];
 
     tool = [SegmentedToolbarItem itemWithIdentifier:@"rotate" label:@"Rotate" paletteLabel:@"Rotate" segments:2];
-    [tool setSegment:0 imageName:@"TBCw" longLabel:@"Rotate CW" target:self action:@selector(rotateCw:)];
-    [tool setSegment:1 imageName:@"TBCcw" longLabel:@"Rotate CCW" target:self action:@selector(rotateCcw:)];
+    [tool setSegment:0 imageName:@"redo-alt" longLabel:@"Rotate CW" target:self action:@selector(rotateCw:)];
+    [tool setSegment:1 imageName:@"undo-alt" longLabel:@"Rotate CCW" target:self action:@selector(rotateCcw:)];
     [tool setupView];
     [array addObject:tool];
 
-    tool = [ToolItem itemWithIdentifier:@"slideshow" label:@"Slideshow" paletteLabel:@"Slideshow" imageName:NSImageNameSlideshowTemplate
+    tool = [ToolItem itemWithIdentifier:@"slideshow" label:@"Slideshow" paletteLabel:@"Slideshow" imageName:@"play"
                               longLabel:@"Slideshow" action:@selector(slideshow:) activeSelector:@selector(slideshowRunning) target:self];
     [array addObject:tool];
 

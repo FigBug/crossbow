@@ -38,8 +38,6 @@
 		788D1D8A1DB557B400C83396 /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 788D1D891DB557B400C83396 /* WelcomeViewController.m */; };
 		788D1D951DB557FA00C83396 /* Malus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 788D1D921DB557F300C83396 /* Malus.framework */; };
 		788D1D961DB557FA00C83396 /* Malus.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 788D1D921DB557F300C83396 /* Malus.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		7893714D0F073E5F001D48A0 /* TBCw.png in Resources */ = {isa = PBXBuildFile; fileRef = 7893714B0F073E5F001D48A0 /* TBCw.png */; };
-		7893714E0F073E5F001D48A0 /* TBCcw.png in Resources */ = {isa = PBXBuildFile; fileRef = 7893714C0F073E5F001D48A0 /* TBCcw.png */; };
 		7893734B0F07E409001D48A0 /* Metadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 7893734A0F07E409001D48A0 /* Metadata.m */; };
 		78948BCB0EF8963600356919 /* SCEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 78948BC70EF8963600356919 /* SCEvent.m */; };
 		78948BCC0EF8963600356919 /* SCEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 78948BCA0EF8963600356919 /* SCEvents.m */; };
@@ -55,13 +53,6 @@
 		78CDE9F00F0FF1EF00FB61C7 /* NSDictionary+BSJSONAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 78CDE9EF0F0FF1EF00FB61C7 /* NSDictionary+BSJSONAdditions.m */; };
 		78CDE9F30F0FF1FE00FB61C7 /* NSScanner+BSJSONAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 78CDE9F20F0FF1FE00FB61C7 /* NSScanner+BSJSONAdditions.m */; };
 		78D5B92F0EFA7DD30020A6F7 /* SegmentedToolbarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 78D5B92E0EFA7DD30020A6F7 /* SegmentedToolbarItem.m */; };
-		78D5B9FC0EFA9C130020A6F7 /* TBZoomIn.png in Resources */ = {isa = PBXBuildFile; fileRef = 78D5B9F50EFA9C130020A6F7 /* TBZoomIn.png */; };
-		78D5B9FD0EFA9C130020A6F7 /* TBZoomFit.png in Resources */ = {isa = PBXBuildFile; fileRef = 78D5B9F60EFA9C130020A6F7 /* TBZoomFit.png */; };
-		78D5B9FE0EFA9C130020A6F7 /* TBLast.png in Resources */ = {isa = PBXBuildFile; fileRef = 78D5B9F70EFA9C130020A6F7 /* TBLast.png */; };
-		78D5B9FF0EFA9C130020A6F7 /* TBZoomActual.png in Resources */ = {isa = PBXBuildFile; fileRef = 78D5B9F80EFA9C130020A6F7 /* TBZoomActual.png */; };
-		78D5BA000EFA9C130020A6F7 /* TBZoomOut.png in Resources */ = {isa = PBXBuildFile; fileRef = 78D5B9F90EFA9C130020A6F7 /* TBZoomOut.png */; };
-		78D5BA010EFA9C130020A6F7 /* TBFirst.png in Resources */ = {isa = PBXBuildFile; fileRef = 78D5B9FA0EFA9C130020A6F7 /* TBFirst.png */; };
-		78D5BA020EFA9C130020A6F7 /* TBGoUp.png in Resources */ = {isa = PBXBuildFile; fileRef = 78D5B9FB0EFA9C130020A6F7 /* TBGoUp.png */; };
 		78E389450EF0726D00703EA0 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78E389440EF0726D00703EA0 /* Quartz.framework */; };
 		78EAD0220F09A618002D2588 /* App.icns in Resources */ = {isa = PBXBuildFile; fileRef = 78EAD0200F09A618002D2588 /* App.icns */; };
 		78EAD0230F09A618002D2588 /* Doc.icns in Resources */ = {isa = PBXBuildFile; fileRef = 78EAD0210F09A618002D2588 /* Doc.icns */; };
@@ -80,17 +71,8 @@
 		A50000000000000000000005 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 78CDC52D0EF57AE000EC2A16 /* Preferences.xib */; };
 		A50000000000000000000006 /* WelcomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 788D1D871DB557A800C83396 /* WelcomeViewController.xib */; };
 		A50000000000000000000007 /* trans.png in Resources */ = {isa = PBXBuildFile; fileRef = 78CDC6A40EF5B6A800EC2A16 /* trans.png */; };
-		A50000000000000000000008 /* TBZoomIn.png in Resources */ = {isa = PBXBuildFile; fileRef = 78D5B9F50EFA9C130020A6F7 /* TBZoomIn.png */; };
 		A50000000000000000000009 /* Metadata.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7820A0341A39F35C004DABA3 /* Metadata.xib */; };
-		A5000000000000000000000A /* TBZoomFit.png in Resources */ = {isa = PBXBuildFile; fileRef = 78D5B9F60EFA9C130020A6F7 /* TBZoomFit.png */; };
 		A5000000000000000000000B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7838C5511DB29EB800209C1A /* Images.xcassets */; };
-		A5000000000000000000000C /* TBLast.png in Resources */ = {isa = PBXBuildFile; fileRef = 78D5B9F70EFA9C130020A6F7 /* TBLast.png */; };
-		A5000000000000000000000D /* TBZoomActual.png in Resources */ = {isa = PBXBuildFile; fileRef = 78D5B9F80EFA9C130020A6F7 /* TBZoomActual.png */; };
-		A5000000000000000000000E /* TBZoomOut.png in Resources */ = {isa = PBXBuildFile; fileRef = 78D5B9F90EFA9C130020A6F7 /* TBZoomOut.png */; };
-		A5000000000000000000000F /* TBFirst.png in Resources */ = {isa = PBXBuildFile; fileRef = 78D5B9FA0EFA9C130020A6F7 /* TBFirst.png */; };
-		A50000000000000000000010 /* TBGoUp.png in Resources */ = {isa = PBXBuildFile; fileRef = 78D5B9FB0EFA9C130020A6F7 /* TBGoUp.png */; };
-		A50000000000000000000011 /* TBCw.png in Resources */ = {isa = PBXBuildFile; fileRef = 7893714B0F073E5F001D48A0 /* TBCw.png */; };
-		A50000000000000000000012 /* TBCcw.png in Resources */ = {isa = PBXBuildFile; fileRef = 7893714C0F073E5F001D48A0 /* TBCcw.png */; };
 		A50000000000000000000013 /* App.icns in Resources */ = {isa = PBXBuildFile; fileRef = 78EAD0200F09A618002D2588 /* App.icns */; };
 		A50000000000000000000014 /* Doc.icns in Resources */ = {isa = PBXBuildFile; fileRef = 78EAD0210F09A618002D2588 /* Doc.icns */; };
 		A50000000000000000000015 /* ThumbnailBuilder.xib in Resources */ = {isa = PBXBuildFile; fileRef = 781538270F0DA2CA00EE7C17 /* ThumbnailBuilder.xib */; };
@@ -266,8 +248,6 @@
 		788D1D891DB557B400C83396 /* WelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeViewController.m; sourceTree = "<group>"; };
 		788D1D8B1DB557BF00C83396 /* WelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeViewController.h; sourceTree = "<group>"; };
 		788D1D8C1DB557F300C83396 /* Malus.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Malus.xcodeproj; path = modules/Malus/Malus.xcodeproj; sourceTree = "<group>"; };
-		7893714B0F073E5F001D48A0 /* TBCw.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TBCw.png; sourceTree = "<group>"; };
-		7893714C0F073E5F001D48A0 /* TBCcw.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TBCcw.png; sourceTree = "<group>"; };
 		789373490F07E409001D48A0 /* Metadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Metadata.h; sourceTree = "<group>"; };
 		7893734A0F07E409001D48A0 /* Metadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Metadata.m; sourceTree = "<group>"; };
 		78948BC60EF8963600356919 /* SCEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCEvent.h; sourceTree = "<group>"; };
@@ -296,13 +276,6 @@
 		78CDE9F20F0FF1FE00FB61C7 /* NSScanner+BSJSONAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSScanner+BSJSONAdditions.m"; sourceTree = "<group>"; };
 		78D5B92D0EFA7DD30020A6F7 /* SegmentedToolbarItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SegmentedToolbarItem.h; sourceTree = "<group>"; };
 		78D5B92E0EFA7DD30020A6F7 /* SegmentedToolbarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SegmentedToolbarItem.m; sourceTree = "<group>"; };
-		78D5B9F50EFA9C130020A6F7 /* TBZoomIn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TBZoomIn.png; sourceTree = "<group>"; };
-		78D5B9F60EFA9C130020A6F7 /* TBZoomFit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TBZoomFit.png; sourceTree = "<group>"; };
-		78D5B9F70EFA9C130020A6F7 /* TBLast.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TBLast.png; sourceTree = "<group>"; };
-		78D5B9F80EFA9C130020A6F7 /* TBZoomActual.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TBZoomActual.png; sourceTree = "<group>"; };
-		78D5B9F90EFA9C130020A6F7 /* TBZoomOut.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TBZoomOut.png; sourceTree = "<group>"; };
-		78D5B9FA0EFA9C130020A6F7 /* TBFirst.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TBFirst.png; sourceTree = "<group>"; };
-		78D5B9FB0EFA9C130020A6F7 /* TBGoUp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TBGoUp.png; sourceTree = "<group>"; };
 		78E389440EF0726D00703EA0 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = /System/Library/Frameworks/Quartz.framework; sourceTree = "<absolute>"; };
 		78EAD0200F09A618002D2588 /* App.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = App.icns; sourceTree = "<group>"; };
 		78EAD0210F09A618002D2588 /* Doc.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Doc.icns; sourceTree = "<group>"; };
@@ -607,15 +580,6 @@
 		78F312DD0EF3607B0041EA99 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
-				7893714B0F073E5F001D48A0 /* TBCw.png */,
-				7893714C0F073E5F001D48A0 /* TBCcw.png */,
-				78D5B9FA0EFA9C130020A6F7 /* TBFirst.png */,
-				78D5B9FB0EFA9C130020A6F7 /* TBGoUp.png */,
-				78D5B9F70EFA9C130020A6F7 /* TBLast.png */,
-				78D5B9F80EFA9C130020A6F7 /* TBZoomActual.png */,
-				78D5B9F60EFA9C130020A6F7 /* TBZoomFit.png */,
-				78D5B9F50EFA9C130020A6F7 /* TBZoomIn.png */,
-				78D5B9F90EFA9C130020A6F7 /* TBZoomOut.png */,
 				78CDC6A40EF5B6A800EC2A16 /* trans.png */,
 			);
 			name = Icons;
@@ -750,17 +714,8 @@
 				78CDC52E0EF57AE000EC2A16 /* Preferences.xib in Resources */,
 				788D1D881DB557A800C83396 /* WelcomeViewController.xib in Resources */,
 				78CDC6A50EF5B6A800EC2A16 /* trans.png in Resources */,
-				78D5B9FC0EFA9C130020A6F7 /* TBZoomIn.png in Resources */,
 				7820A0351A39F35C004DABA3 /* Metadata.xib in Resources */,
-				78D5B9FD0EFA9C130020A6F7 /* TBZoomFit.png in Resources */,
 				7838C5521DB29EB800209C1A /* Images.xcassets in Resources */,
-				78D5B9FE0EFA9C130020A6F7 /* TBLast.png in Resources */,
-				78D5B9FF0EFA9C130020A6F7 /* TBZoomActual.png in Resources */,
-				78D5BA000EFA9C130020A6F7 /* TBZoomOut.png in Resources */,
-				78D5BA010EFA9C130020A6F7 /* TBFirst.png in Resources */,
-				78D5BA020EFA9C130020A6F7 /* TBGoUp.png in Resources */,
-				7893714D0F073E5F001D48A0 /* TBCw.png in Resources */,
-				7893714E0F073E5F001D48A0 /* TBCcw.png in Resources */,
 				78EAD0220F09A618002D2588 /* App.icns in Resources */,
 				78EAD0230F09A618002D2588 /* Doc.icns in Resources */,
 				781538280F0DA2CA00EE7C17 /* ThumbnailBuilder.xib in Resources */,
@@ -779,17 +734,8 @@
 				A50000000000000000000005 /* Preferences.xib in Resources */,
 				A50000000000000000000006 /* WelcomeViewController.xib in Resources */,
 				A50000000000000000000007 /* trans.png in Resources */,
-				A50000000000000000000008 /* TBZoomIn.png in Resources */,
 				A50000000000000000000009 /* Metadata.xib in Resources */,
-				A5000000000000000000000A /* TBZoomFit.png in Resources */,
 				A5000000000000000000000B /* Images.xcassets in Resources */,
-				A5000000000000000000000C /* TBLast.png in Resources */,
-				A5000000000000000000000D /* TBZoomActual.png in Resources */,
-				A5000000000000000000000E /* TBZoomOut.png in Resources */,
-				A5000000000000000000000F /* TBFirst.png in Resources */,
-				A50000000000000000000010 /* TBGoUp.png in Resources */,
-				A50000000000000000000011 /* TBCw.png in Resources */,
-				A50000000000000000000012 /* TBCcw.png in Resources */,
 				A50000000000000000000013 /* App.icns in Resources */,
 				A50000000000000000000014 /* Doc.icns in Resources */,
 				A50000000000000000000015 /* ThumbnailBuilder.xib in Resources */,

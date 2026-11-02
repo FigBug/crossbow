@@ -495,27 +495,27 @@ int nextBrowserId = 1;
     SegmentedToolbarItem* tool;
 
     tool = [SegmentedToolbarItem itemWithIdentifier:@"fol" label:@"Folders" paletteLabel:@"Folders" segments:2];
-    [tool setSegment:0 imageName:NSImageNameAddTemplate longLabel:@"Add Folder" target:nil action:@selector(addFolder:)];
-    [tool setSegment:1 imageName:NSImageNameRemoveTemplate longLabel:@"Remove Folder" target:nil action:@selector(removeFolder:)];
+    [tool setSegment:0 imageName:@"plus" longLabel:@"Add Folder" target:nil action:@selector(addFolder:)];
+    [tool setSegment:1 imageName:@"minus" longLabel:@"Remove Folder" target:nil action:@selector(removeFolder:)];
     [tool setupView];
     [array addObject:tool];
 
     popupFocus = tool.control;
 
     tool = [SegmentedToolbarItem itemWithIdentifier:@"nav" label:@"Navigation" paletteLabel:@"Navigation" segments:3];
-    [tool setSegment:0 imageName:NSImageNameGoLeftTemplate longLabel:@"Previous" target:nil action:@selector(back:)];
-    [tool setSegment:1 imageName:@"TBGoUp" longLabel:@"Up" target:nil action:@selector(up:)];
-    [tool setSegment:2 imageName:NSImageNameGoRightTemplate longLabel:@"Next" target:nil action:@selector(forward:)];
+    [tool setSegment:0 imageName:@"arrow-left" longLabel:@"Previous" target:nil action:@selector(back:)];
+    [tool setSegment:1 imageName:@"level-up-alt" longLabel:@"Up" target:nil action:@selector(up:)];
+    [tool setSegment:2 imageName:@"arrow-right" longLabel:@"Next" target:nil action:@selector(forward:)];
     [tool setupView];
     [array addObject:tool];
 
     tool = [SegmentedToolbarItem itemWithIdentifier:@"slideshow" label:@"Slideshow" paletteLabel:@"Slideshow" segments:1];
-    [tool setSegment:0 imageName:NSImageNameSlideshowTemplate longLabel:@"Slideshow" target:nil action:@selector(slideshow:)];
+    [tool setSegment:0 imageName:@"play" longLabel:@"Slideshow" target:nil action:@selector(slideshow:)];
     [tool setupView];
     [array addObject:tool];
 
     tool = [SegmentedToolbarItem itemWithIdentifier:@"reload" label:@"Reload" paletteLabel:@"Reload" segments:1];
-    [tool setSegment:0 imageName:NSImageNameRefreshTemplate longLabel:@"Reload" target:nil action:@selector(reload:)];
+    [tool setSegment:0 imageName:@"sync-alt" longLabel:@"Reload" target:nil action:@selector(reload:)];
     [tool setupView];
     [array addObject:tool];
 
