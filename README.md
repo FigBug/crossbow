@@ -18,3 +18,11 @@ Screenshots:
 
 ![alt tag](http://www.socalabs.com/screen2.png)
 
+Building
+--------
+
+Open `Crossbow.xcodeproj` (clone with `--recurse-submodules`, Malus is a submodule). There are two targets:
+
+* **Crossbow** - direct download build. Browses every mounted volume, not sandboxed. This is what CI signs, notarizes and publishes.
+* **Crossbow App Store** - sandboxed build (`APPSTORE=1`) that only browses folders the user has added.
+

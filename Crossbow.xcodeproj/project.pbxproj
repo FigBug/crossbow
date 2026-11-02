@@ -73,6 +73,72 @@
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		A50000000000000000000001 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
+		A50000000000000000000002 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
+		A50000000000000000000003 /* Browser.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7800B6C20EF16DCF00882915 /* Browser.xib */; };
+		A50000000000000000000004 /* Viewer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7800B83F0EF1E8EF00882915 /* Viewer.xib */; };
+		A50000000000000000000005 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 78CDC52D0EF57AE000EC2A16 /* Preferences.xib */; };
+		A50000000000000000000006 /* WelcomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 788D1D871DB557A800C83396 /* WelcomeViewController.xib */; };
+		A50000000000000000000007 /* trans.png in Resources */ = {isa = PBXBuildFile; fileRef = 78CDC6A40EF5B6A800EC2A16 /* trans.png */; };
+		A50000000000000000000008 /* TBZoomIn.png in Resources */ = {isa = PBXBuildFile; fileRef = 78D5B9F50EFA9C130020A6F7 /* TBZoomIn.png */; };
+		A50000000000000000000009 /* Metadata.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7820A0341A39F35C004DABA3 /* Metadata.xib */; };
+		A5000000000000000000000A /* TBZoomFit.png in Resources */ = {isa = PBXBuildFile; fileRef = 78D5B9F60EFA9C130020A6F7 /* TBZoomFit.png */; };
+		A5000000000000000000000B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7838C5511DB29EB800209C1A /* Images.xcassets */; };
+		A5000000000000000000000C /* TBLast.png in Resources */ = {isa = PBXBuildFile; fileRef = 78D5B9F70EFA9C130020A6F7 /* TBLast.png */; };
+		A5000000000000000000000D /* TBZoomActual.png in Resources */ = {isa = PBXBuildFile; fileRef = 78D5B9F80EFA9C130020A6F7 /* TBZoomActual.png */; };
+		A5000000000000000000000E /* TBZoomOut.png in Resources */ = {isa = PBXBuildFile; fileRef = 78D5B9F90EFA9C130020A6F7 /* TBZoomOut.png */; };
+		A5000000000000000000000F /* TBFirst.png in Resources */ = {isa = PBXBuildFile; fileRef = 78D5B9FA0EFA9C130020A6F7 /* TBFirst.png */; };
+		A50000000000000000000010 /* TBGoUp.png in Resources */ = {isa = PBXBuildFile; fileRef = 78D5B9FB0EFA9C130020A6F7 /* TBGoUp.png */; };
+		A50000000000000000000011 /* TBCw.png in Resources */ = {isa = PBXBuildFile; fileRef = 7893714B0F073E5F001D48A0 /* TBCw.png */; };
+		A50000000000000000000012 /* TBCcw.png in Resources */ = {isa = PBXBuildFile; fileRef = 7893714C0F073E5F001D48A0 /* TBCcw.png */; };
+		A50000000000000000000013 /* App.icns in Resources */ = {isa = PBXBuildFile; fileRef = 78EAD0200F09A618002D2588 /* App.icns */; };
+		A50000000000000000000014 /* Doc.icns in Resources */ = {isa = PBXBuildFile; fileRef = 78EAD0210F09A618002D2588 /* Doc.icns */; };
+		A50000000000000000000015 /* ThumbnailBuilder.xib in Resources */ = {isa = PBXBuildFile; fileRef = 781538270F0DA2CA00EE7C17 /* ThumbnailBuilder.xib */; };
+		A50000000000000000000016 /* ProgressSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 780C180E0F34CFBB00FE29C4 /* ProgressSheet.xib */; };
+		A50000000000000000000017 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
+		A50000000000000000000018 /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7800B6C80EF1743500882915 /* AppController.m */; };
+		A50000000000000000000019 /* Browser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7800B6CB0EF1757400882915 /* Browser.m */; };
+		A5000000000000000000001A /* DirEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 7800B6EC0EF1808200882915 /* DirEntry.m */; };
+		A5000000000000000000001B /* BrowserTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 7800B7810EF1A0A300882915 /* BrowserTree.m */; };
+		A5000000000000000000001C /* BrowserList.m in Sources */ = {isa = PBXBuildFile; fileRef = 7800B7840EF1A0B500882915 /* BrowserList.m */; };
+		A5000000000000000000001D /* Viewer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7800B8430EF1E99C00882915 /* Viewer.m */; };
+		A5000000000000000000001E /* History.m in Sources */ = {isa = PBXBuildFile; fileRef = 78AB4DB20EF2B237004ABF79 /* History.m */; };
+		A5000000000000000000001F /* Preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 786283F90EF320DF0056FEAD /* Preferences.m */; };
+		A50000000000000000000020 /* Bookmarks.m in Sources */ = {isa = PBXBuildFile; fileRef = 78FBF0400EF37B480005A150 /* Bookmarks.m */; };
+		A50000000000000000000021 /* ActivityFaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 7820A0301A39E9AE004DABA3 /* ActivityFaker.m */; };
+		A50000000000000000000022 /* Selection.m in Sources */ = {isa = PBXBuildFile; fileRef = 783041200EF3FEDE00A3BC6D /* Selection.m */; };
+		A50000000000000000000023 /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 7830412E0EF40AB200A3BC6D /* Util.m */; };
+		A50000000000000000000024 /* DBPrefsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78CDC4EE0EF5756A00EC2A16 /* DBPrefsWindowController.m */; };
+		A50000000000000000000025 /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78CDC4F10EF5759400EC2A16 /* PreferencesController.m */; };
+		A50000000000000000000026 /* SCEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 78948BC70EF8963600356919 /* SCEvent.m */; };
+		A50000000000000000000027 /* SCEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 78948BCA0EF8963600356919 /* SCEvents.m */; };
+		A50000000000000000000028 /* FileListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 78948D400EF94CB000356919 /* FileListItem.m */; };
+		A50000000000000000000029 /* SegmentedToolbarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 78D5B92E0EFA7DD30020A6F7 /* SegmentedToolbarItem.m */; };
+		A5000000000000000000002A /* ImagePreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 783B7E760EFFE75600AF19FC /* ImagePreview.m */; };
+		A5000000000000000000002B /* FileAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 788D1D841DB547C600C83396 /* FileAccess.m */; };
+		A5000000000000000000002C /* NSArrayAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 781873100F05424300381FBC /* NSArrayAdditions.m */; };
+		A5000000000000000000002D /* NSImageAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 781873130F0543D900381FBC /* NSImageAdditions.m */; };
+		A5000000000000000000002E /* Metadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 7893734A0F07E409001D48A0 /* Metadata.m */; };
+		A5000000000000000000002F /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 788D1D891DB557B400C83396 /* WelcomeViewController.m */; };
+		A50000000000000000000030 /* ImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 78774EB40F0BB9A000BAD9E2 /* ImageView.m */; };
+		A50000000000000000000031 /* ImageClip.m in Sources */ = {isa = PBXBuildFile; fileRef = 78774EB70F0BB9B300BAD9E2 /* ImageClip.m */; };
+		A50000000000000000000032 /* ImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 787752C20F0D459500BAD9E2 /* ImageCache.m */; };
+		A50000000000000000000033 /* ThumbnailBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7815382D0F0DA45200EE7C17 /* ThumbnailBuilder.m */; };
+		A50000000000000000000034 /* NSDictionary+BSJSONAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 78CDE9EF0F0FF1EF00FB61C7 /* NSDictionary+BSJSONAdditions.m */; };
+		A50000000000000000000035 /* NSScanner+BSJSONAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 78CDE9F20F0FF1FE00FB61C7 /* NSScanner+BSJSONAdditions.m */; };
+		A50000000000000000000036 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 78FF25480F13A13700B825F1 /* zip.c */; };
+		A50000000000000000000037 /* ZipWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 78FF254C0F13A15500B825F1 /* ZipWriter.m */; };
+		A50000000000000000000038 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 78FF25510F13A2E100B825F1 /* ioapi.c */; };
+		A50000000000000000000039 /* ProgressSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 780C17660F34C99900FE29C4 /* ProgressSheet.m */; };
+		A5000000000000000000003A /* DirEntryFileOps.m in Sources */ = {isa = PBXBuildFile; fileRef = 780C18BC0F34DCBC00FE29C4 /* DirEntryFileOps.m */; };
+		A5000000000000000000003B /* ImageProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 78AAFEB30FC4463C005FC339 /* ImageProcessor.m */; };
+		A5000000000000000000003C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		A5000000000000000000003D /* Malus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 788D1D921DB557F300C83396 /* Malus.framework */; };
+		A5000000000000000000003E /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78E389440EF0726D00703EA0 /* Quartz.framework */; };
+		A5000000000000000000003F /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78B728B40F069309000CD71E /* Carbon.framework */; };
+		A50000000000000000000040 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78B728BE0F06933A000CD71E /* IOKit.framework */; };
+		A50000000000000000000041 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 78FF25570F13A37600B825F1 /* libz.dylib */; };
+		A50000000000000000000042 /* Malus.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 788D1D921DB557F300C83396 /* Malus.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +157,13 @@
 			remoteInfo = Malus_iOS;
 		};
 		788D1D971DB557FA00C83396 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 788D1D8C1DB557F300C83396 /* Malus.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 787498281C555A9300E403FC;
+			remoteInfo = Malus;
+		};
+		A50000000000000000000047 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 788D1D8C1DB557F300C83396 /* Malus.xcodeproj */;
 			proxyType = 1;
@@ -116,6 +189,17 @@
 			dstSubfolderSpec = 10;
 			files = (
 				788D1D961DB557FA00C83396 /* Malus.framework in Copy Frameworks */,
+			);
+			name = "Copy Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A50000000000000000000046 /* Copy Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				A50000000000000000000042 /* Malus.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -234,6 +318,8 @@
 		78FF25570F13A37600B825F1 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = /usr/lib/libz.dylib; sourceTree = "<absolute>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Crossbow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Crossbow.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A50000000000000000000049 /* Crossbow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Crossbow.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A5000000000000000000004E /* CrossbowAppStore.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CrossbowAppStore.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -247,6 +333,19 @@
 				78B728B50F069309000CD71E /* Carbon.framework in Frameworks */,
 				78B728BF0F06933A000CD71E /* IOKit.framework in Frameworks */,
 				78FF25580F13A37600B825F1 /* libz.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A50000000000000000000045 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A5000000000000000000003C /* Cocoa.framework in Frameworks */,
+				A5000000000000000000003D /* Malus.framework in Frameworks */,
+				A5000000000000000000003E /* Quartz.framework in Frameworks */,
+				A5000000000000000000003F /* Carbon.framework in Frameworks */,
+				A50000000000000000000040 /* IOKit.framework in Frameworks */,
+				A50000000000000000000041 /* libz.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,6 +394,7 @@
 			isa = PBXGroup;
 			children = (
 				8D1107320486CEB800E47090 /* Crossbow.app */,
+				A50000000000000000000049 /* Crossbow.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -304,6 +404,7 @@
 			children = (
 				788D1D8C1DB557F300C83396 /* Malus.xcodeproj */,
 				784E0710176251A200C243C6 /* Crossbow.entitlements */,
+				A5000000000000000000004E /* CrossbowAppStore.entitlements */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -556,6 +657,26 @@
 			productReference = 8D1107320486CEB800E47090 /* Crossbow.app */;
 			productType = "com.apple.product-type.application";
 		};
+		A5000000000000000000004D /* Crossbow App Store */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A5000000000000000000004C /* Build configuration list for PBXNativeTarget "Crossbow App Store" */;
+			buildPhases = (
+				A50000000000000000000043 /* Resources */,
+				A50000000000000000000044 /* Sources */,
+				A50000000000000000000045 /* Frameworks */,
+				A50000000000000000000046 /* Copy Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A50000000000000000000048 /* PBXTargetDependency */,
+			);
+			name = "Crossbow App Store";
+			productInstallPath = "$(HOME)/Applications";
+			productName = Crossbow;
+			productReference = A50000000000000000000049 /* Crossbow.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -565,6 +686,9 @@
 				LastUpgradeCheck = 1250;
 				TargetAttributes = {
 					8D1107260486CEB800E47090 = {
+						DevelopmentTeam = 3FS7DJDG38;
+					};
+					A5000000000000000000004D = {
 						DevelopmentTeam = 3FS7DJDG38;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
@@ -592,6 +716,7 @@
 			projectRoot = "";
 			targets = (
 				8D1107260486CEB800E47090 /* Crossbow */,
+				A5000000000000000000004D /* Crossbow App Store */,
 			);
 		};
 /* End PBXProject section */
@@ -643,6 +768,35 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A50000000000000000000043 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A50000000000000000000001 /* InfoPlist.strings in Resources */,
+				A50000000000000000000002 /* MainMenu.xib in Resources */,
+				A50000000000000000000003 /* Browser.xib in Resources */,
+				A50000000000000000000004 /* Viewer.xib in Resources */,
+				A50000000000000000000005 /* Preferences.xib in Resources */,
+				A50000000000000000000006 /* WelcomeViewController.xib in Resources */,
+				A50000000000000000000007 /* trans.png in Resources */,
+				A50000000000000000000008 /* TBZoomIn.png in Resources */,
+				A50000000000000000000009 /* Metadata.xib in Resources */,
+				A5000000000000000000000A /* TBZoomFit.png in Resources */,
+				A5000000000000000000000B /* Images.xcassets in Resources */,
+				A5000000000000000000000C /* TBLast.png in Resources */,
+				A5000000000000000000000D /* TBZoomActual.png in Resources */,
+				A5000000000000000000000E /* TBZoomOut.png in Resources */,
+				A5000000000000000000000F /* TBFirst.png in Resources */,
+				A50000000000000000000010 /* TBGoUp.png in Resources */,
+				A50000000000000000000011 /* TBCw.png in Resources */,
+				A50000000000000000000012 /* TBCcw.png in Resources */,
+				A50000000000000000000013 /* App.icns in Resources */,
+				A50000000000000000000014 /* Doc.icns in Resources */,
+				A50000000000000000000015 /* ThumbnailBuilder.xib in Resources */,
+				A50000000000000000000016 /* ProgressSheet.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -690,6 +844,50 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A50000000000000000000044 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A50000000000000000000017 /* main.m in Sources */,
+				A50000000000000000000018 /* AppController.m in Sources */,
+				A50000000000000000000019 /* Browser.m in Sources */,
+				A5000000000000000000001A /* DirEntry.m in Sources */,
+				A5000000000000000000001B /* BrowserTree.m in Sources */,
+				A5000000000000000000001C /* BrowserList.m in Sources */,
+				A5000000000000000000001D /* Viewer.m in Sources */,
+				A5000000000000000000001E /* History.m in Sources */,
+				A5000000000000000000001F /* Preferences.m in Sources */,
+				A50000000000000000000020 /* Bookmarks.m in Sources */,
+				A50000000000000000000021 /* ActivityFaker.m in Sources */,
+				A50000000000000000000022 /* Selection.m in Sources */,
+				A50000000000000000000023 /* Util.m in Sources */,
+				A50000000000000000000024 /* DBPrefsWindowController.m in Sources */,
+				A50000000000000000000025 /* PreferencesController.m in Sources */,
+				A50000000000000000000026 /* SCEvent.m in Sources */,
+				A50000000000000000000027 /* SCEvents.m in Sources */,
+				A50000000000000000000028 /* FileListItem.m in Sources */,
+				A50000000000000000000029 /* SegmentedToolbarItem.m in Sources */,
+				A5000000000000000000002A /* ImagePreview.m in Sources */,
+				A5000000000000000000002B /* FileAccess.m in Sources */,
+				A5000000000000000000002C /* NSArrayAdditions.m in Sources */,
+				A5000000000000000000002D /* NSImageAdditions.m in Sources */,
+				A5000000000000000000002E /* Metadata.m in Sources */,
+				A5000000000000000000002F /* WelcomeViewController.m in Sources */,
+				A50000000000000000000030 /* ImageView.m in Sources */,
+				A50000000000000000000031 /* ImageClip.m in Sources */,
+				A50000000000000000000032 /* ImageCache.m in Sources */,
+				A50000000000000000000033 /* ThumbnailBuilder.m in Sources */,
+				A50000000000000000000034 /* NSDictionary+BSJSONAdditions.m in Sources */,
+				A50000000000000000000035 /* NSScanner+BSJSONAdditions.m in Sources */,
+				A50000000000000000000036 /* zip.c in Sources */,
+				A50000000000000000000037 /* ZipWriter.m in Sources */,
+				A50000000000000000000038 /* ioapi.c in Sources */,
+				A50000000000000000000039 /* ProgressSheet.m in Sources */,
+				A5000000000000000000003A /* DirEntryFileOps.m in Sources */,
+				A5000000000000000000003B /* ImageProcessor.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -697,6 +895,11 @@
 			isa = PBXTargetDependency;
 			name = Malus;
 			targetProxy = 788D1D971DB557FA00C83396 /* PBXContainerItemProxy */;
+		};
+		A50000000000000000000048 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Malus;
+			targetProxy = A50000000000000000000047 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -741,7 +944,6 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Crossbow_Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = "APPSTORE=1";
 				INFOPLIST_FILE = Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
@@ -776,7 +978,6 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Crossbow_Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = "APPSTORE=1";
 				INFOPLIST_FILE = Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
@@ -865,6 +1066,78 @@
 			};
 			name = Release;
 		};
+		A5000000000000000000004A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = CrossbowAppStore.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 6;
+				ENABLE_HARDENED_RUNTIME = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)",
+					"$(PROJECT_DIR)",
+				);
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Crossbow_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = "APPSTORE=1";
+				INFOPLIST_FILE = Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.3;
+				OTHER_LDFLAGS = (
+					"-Wl,-rpath,@loader_path/../Frameworks",
+					"-framework",
+					UniformTypeIdentifiers,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.rabiensoftware.crossbow;
+				PRODUCT_NAME = Crossbow;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		A5000000000000000000004B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = CrossbowAppStore.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 6;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_HARDENED_RUNTIME = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)",
+					"$(PROJECT_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Crossbow_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = "APPSTORE=1";
+				INFOPLIST_FILE = Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.3;
+				OTHER_LDFLAGS = (
+					"-Wl,-rpath,@loader_path/../Frameworks",
+					"-framework",
+					UniformTypeIdentifiers,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.rabiensoftware.crossbow;
+				PRODUCT_NAME = Crossbow;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -882,6 +1155,15 @@
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
 				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A5000000000000000000004C /* Build configuration list for PBXNativeTarget "Crossbow App Store" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A5000000000000000000004A /* Debug */,
+				A5000000000000000000004B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
