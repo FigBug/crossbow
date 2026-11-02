@@ -68,6 +68,11 @@
 
     NSThread* thumbnailThread;
 
+    // folder listing in flight; results older than this are dropped
+    NSUInteger listingGeneration;
+    DirEntry* listedFolder;
+    DirEntry* pendingSelection;
+
     // toolbar
     NSDictionary *toolbaritems;
     NSArray *toolbaridentifiers;
@@ -101,6 +106,7 @@
 
 - (void)browseToFolder:(DirEntry*)folder sender:(id)sender;
 - (void)refreshLocation;
+- (void)showFolderContents:(NSArray*)items;
 - (DirEntry*)currentLocation;
 - (NSArray*)allFiles;
 

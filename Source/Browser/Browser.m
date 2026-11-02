@@ -217,7 +217,14 @@ int nextBrowserId = 1;
 
 - (void)selectionChanged
 {
-    NSIndexSet* indexes = [fileList selectionIndexes];
+    // The list view can still report a selection from a folder that has since been
+    // replaced, so never index past the current contents
+    NSMutableIndexSet* indexes = [[fileList selectionIndexes] mutableCopy];
+    NSUInteger count = [self.folderContents count];
+    if (count == 0)
+        [indexes removeAllIndexes];
+    else
+        [indexes removeIndexesInRange:NSMakeRange(count, NSNotFound - count)];
     self.selection = [Selection selectionWith: [self.folderContents objectsAtIndexes: indexes]];
 
     if ([[self selection] countFiles] >= 1)
@@ -239,6 +246,11 @@ int nextBrowserId = 1;
     {
         [fileList scrollIndexToVisible:idx];
         [fileList setSelectionIndexes:[NSIndexSet indexSetWithIndex:idx] byExtendingSelection:NO];
+    }
+    else
+    {
+        // The folder is still being listed; select it once the listing lands
+        pendingSelection = de;
     }
 }
 
@@ -276,20 +288,60 @@ int nextBrowserId = 1;
     return arr;
 }
 
+// Lists the current folder on a background queue and shows it when it arrives.
+// Listing a slow share used to block the whole window; now the window stays
+// responsive and a newer click simply supersedes an older listing.
 - (void)refreshLocation
 {
     DirEntry* folder = [history current];
-
-    self.folderContents = [[folder getSubItems] sortedArrayUsingFunction:sortFunc context:(void*)(NSInteger)sort];
-
     [browserWindow setTitleWithRepresentedFilename: [folder path]];
-
-    [fileList reloadData];
-
-    [self selectionChanged];
 
     [browserTree cancelArrowThread];
     [self cancelThumbnailThread];
+
+    // Moving to a different folder: clear the old one right away so the click registers
+    if (![folder isEqual:listedFolder])
+    {
+        listedFolder = folder;
+        [fileList setSelectionIndexes:[NSIndexSet indexSet] byExtendingSelection:NO];
+        self.folderContents = @[];
+        [fileList reloadData];
+        [self selectionChanged];
+    }
+
+    [thumbProgress setIndeterminate:YES];
+    [thumbProgress startAnimation:nil];
+    [thumbProgress setHidden:NO];
+
+    NSUInteger generation = ++listingGeneration;
+    int sortMode = sort;
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+        NSArray* items = [[folder getSubItems] sortedArrayUsingFunction:sortFunc context:(void*)(NSInteger)sortMode];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (generation == self->listingGeneration)
+                [self showFolderContents:items ?: @[]];
+        });
+    });
+}
+
+- (void)showFolderContents:(NSArray*)items
+{
+    self.folderContents = items;
+
+    [thumbProgress stopAnimation:nil];
+    [thumbProgress setIndeterminate:NO];
+    [thumbProgress setHidden:YES];
+
+    [fileList reloadData];
+
+    if (pendingSelection)
+    {
+        DirEntry* de = pendingSelection;
+        pendingSelection = nil;
+        [self selectDirEntry:de];
+    }
+    [self selectionChanged];
+
     thumbnailThread = [[NSThread alloc] initWithTarget:self selector:@selector(thumbnailProc:) object:self.folderContents];
     [thumbnailThread start];
 

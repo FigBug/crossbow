@@ -34,9 +34,11 @@
     NSDate* creationDate;
     NSDate* modificationDate;
     long long fileSize;
+    NSString* fileType;      // UTI, cached from the directory listing
 }
 
 + (DirEntry*)dirEntryWithURL:(NSURL*)url;
++ (DirEntry*)dirEntryWithURL:(NSURL*)url properties:(NSDictionary*)properties;   // from a bulk directory listing, no extra I/O
 + (DirEntry*)dirEntryWithPath:(NSString*)path;
 - (id)initWithURL:(NSURL*)url;
 - (void)dealloc;
@@ -55,6 +57,7 @@
 - (NSString*)filetypeDescription;
 
 - (void)refresh;
+- (void)applyProperties:(NSDictionary*)properties;
 
 - (NSDate*)created;
 - (NSDate*)modified;

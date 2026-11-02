@@ -37,6 +37,38 @@ static BOOL writeArchive(id object, NSString* path)
     return data && [data writeToFile:path atomically:YES];
 }
 
+// Builds a thumbnail with ImageIO. When the file carries an embedded preview,
+// as camera JPEGs do, only the header is read instead of the whole image,
+// which is what makes browsing a network share bearable. Orientation is applied.
+static NSImage* thumbnailWithImageIO(NSURL* url)
+{
+    NSDictionary* srcOpts = @{(id)kCGImageSourceShouldCache: @NO};
+    CGImageSourceRef src = CGImageSourceCreateWithURL((__bridge CFURLRef)url, (__bridge CFDictionaryRef)srcOpts);
+    if (!src)
+        return nil;
+
+    NSMutableDictionary* opts = [@{(id)kCGImageSourceCreateThumbnailFromImageIfAbsent: @YES,
+                                   (id)kCGImageSourceCreateThumbnailWithTransform: @YES,
+                                   (id)kCGImageSourceThumbnailMaxPixelSize: @256} mutableCopy];
+    CGImageRef cg = CGImageSourceCreateThumbnailAtIndex(src, 0, (__bridge CFDictionaryRef)opts);
+
+    // An embedded preview smaller than the cell is not worth keeping; decode instead
+    if (cg && MAX(CGImageGetWidth(cg), CGImageGetHeight(cg)) < 128)
+    {
+        CGImageRelease(cg);
+        [opts removeObjectForKey:(id)kCGImageSourceCreateThumbnailFromImageIfAbsent];
+        [opts setObject:@YES forKey:(id)kCGImageSourceCreateThumbnailFromImageAlways];
+        cg = CGImageSourceCreateThumbnailAtIndex(src, 0, (__bridge CFDictionaryRef)opts);
+    }
+    CFRelease(src);
+    if (!cg)
+        return nil;
+
+    NSImage* image = [[NSImage alloc] initWithCGImage:cg size:NSZeroSize];
+    CGImageRelease(cg);
+    return image;
+}
+
 static id readArchive(NSString* path)
 {
     NSData* data = [NSData dataWithContentsOfFile:path];
@@ -67,29 +99,76 @@ static id readArchive(NSString* path)
         }
     }
 
-    NSValue* dew = [dirEntryCache objectForKey: [url_ path]];
-    if (!dew)
+    DirEntry* de = nil;
+    @synchronized (dirEntryCache)
     {
-        DirEntry* de = [[DirEntry alloc] initWithURL: url_];
+        de = [[dirEntryCache objectForKey:[url_ path]] nonretainedObjectValue];
+    }
+    if (!de)
+    {
+        de = [[DirEntry alloc] initWithURL: url_];
         if (de)
         {
-            dew = [NSValue valueWithNonretainedObject: de];
-            [dirEntryCache setObject:dew forKey:[url_ path]];
-            return de;
+            @synchronized (dirEntryCache)
+            {
+                [dirEntryCache setObject:[NSValue valueWithNonretainedObject:de] forKey:[url_ path]];
+            }
         }
-        else
-        {
-            return nil;
-        }
+        return de;
     }
-    else
+
+    [de refresh];
+    return [de isInvalid] ? nil : de;
+}
+
+// The keys a directory listing fetches for every entry in one go, so that no
+// per file calls are needed afterwards. On a network share each of those calls
+// is a round trip.
++ (NSArray*)listingKeys
+{
+    return @[NSURLIsDirectoryKey, NSURLIsSymbolicLinkKey, NSURLIsVolumeKey, NSURLContentTypeKey,
+             NSURLContentModificationDateKey, NSURLCreationDateKey, NSURLFileSizeKey, NSURLLocalizedNameKey];
+}
+
++ (DirEntry*)dirEntryWithURL:(NSURL*)url_ properties:(NSDictionary*)properties
+{
+    if (!dirEntryCache)
+        [DirEntry dirEntryWithPath:@"/"];    // sets the cache up
+
+    DirEntry* de = nil;
+    @synchronized (dirEntryCache)
     {
-        DirEntry* de = [dew nonretainedObjectValue];
-        [de refresh];
-        if ([de isInvalid])
-            return nil;
+        de = [[dirEntryCache objectForKey:[url_ path]] nonretainedObjectValue];
     }
-    return [dew nonretainedObjectValue];
+    if (!de)
+    {
+        de = [[DirEntry alloc] init];
+        de->url = [url_ copy];
+        de->subFolders = MAYBE;
+        @synchronized (dirEntryCache)
+        {
+            [dirEntryCache setObject:[NSValue valueWithNonretainedObject:de] forKey:[url_ path]];
+        }
+    }
+    [de applyProperties:properties];
+    return de;
+}
+
+- (void)applyProperties:(NSDictionary*)properties
+{
+    UTType* type = [properties objectForKey:NSURLContentTypeKey];
+    @synchronized (self)
+    {
+        folder           = [[properties objectForKey:NSURLIsDirectoryKey] boolValue];
+        link             = [[properties objectForKey:NSURLIsSymbolicLinkKey] boolValue];
+        fileType         = [type identifier];
+        image            = !folder && fileType && [[DirEntry imageUTIs] containsObject:fileType];
+        displayName      = [properties objectForKey:NSURLLocalizedNameKey] ?: [[url path] lastPathComponent];
+        creationDate     = [properties objectForKey:NSURLCreationDateKey];
+        modificationDate = [properties objectForKey:NSURLContentModificationDateKey];
+        fileSize         = folder ? 0 : [[properties objectForKey:NSURLFileSizeKey] longLongValue];
+        invalid          = NO;
+    }
 }
 
 + (DirEntry*)dirEntryWithPath:(NSString*)path
@@ -181,7 +260,20 @@ static id readArchive(NSString* path)
 
 - (NSString*)filetype
 {
-    return fileUTI([self path]);
+    NSString* type = nil;
+    @synchronized (self)
+    {
+        type = fileType;
+    }
+    if (!type)
+    {
+        type = fileUTI([self path]);
+        @synchronized (self)
+        {
+            fileType = type;
+        }
+    }
+    return type;
 }
 
 - (NSString*)filetypeDescription
@@ -196,10 +288,8 @@ static id readArchive(NSString* path)
     NSFileManager* fm = [NSFileManager defaultManager];
     if ([fm fileExistsAtPath: [url path] isDirectory: &folder])
     {
-        if (!folder)
-            image = [[DirEntry imageUTIs] containsObject: [self filetype]];
-        else
-            image = NO;
+        fileType = folder ? nil : fileUTI([self path]);
+        image = fileType && [[DirEntry imageUTIs] containsObject:fileType];
 
         NSError* err;
         NSDictionary* attr = [fm attributesOfItemAtPath: [url path] error: &err];
@@ -246,8 +336,12 @@ static id readArchive(NSString* path)
     NSString* thumb = [self thumbnailPath];
     if ([fm fileExistsAtPath:thumb])
     {
-        NSDictionary* fileAttr = [fm attributesOfItemAtPath:[self path] error:nil];
-        NSDate* fileDate = [fileAttr objectForKey: NSFileModificationDate];
+        NSDate* fileDate = [self modified];
+        if (!fileDate)
+        {
+            NSDictionary* fileAttr = [fm attributesOfItemAtPath:[self path] error:nil];
+            fileDate = [fileAttr objectForKey: NSFileModificationDate];
+        }
 
         NSDictionary* thumAttr = [fm attributesOfItemAtPath:[self thumbnailPath] error:nil];
         NSDate* thumDate = [thumAttr objectForKey: NSFileModificationDate];
@@ -279,12 +373,17 @@ static id readArchive(NSString* path)
     }
     else
     {
-        NSImage* orig = [[NSImage alloc] initByReferencingURL: url];
-        if (!orig)
-            return nil;
+        thum = thumbnailWithImageIO(url);
+        if (!thum)
+        {
+            // Not something ImageIO reads (PDF for one): decode it the slow way
+            NSImage* orig = [[NSImage alloc] initByReferencingURL: url];
+            if (!orig)
+                return nil;
 
-        BOOL pdf = [[self filetype] isEqual:@"com.adobe.pdf"];
-        thum = [orig imageByScalingProportionallyToSize: NSMakeSize(128, 128) background: pdf ? [NSColor whiteColor] : [NSColor clearColor] ];
+            BOOL pdf = [[self filetype] isEqual:@"com.adobe.pdf"];
+            thum = [orig imageByScalingProportionallyToSize: NSMakeSize(128, 128) background: pdf ? [NSColor whiteColor] : [NSColor clearColor] ];
+        }
     }
 
     if (thum)
@@ -326,7 +425,8 @@ static id readArchive(NSString* path)
     {
         NSMutableDictionary* dict = [NSMutableDictionary dictionaryWithCapacity:2];
 
-        [self refresh];
+        if (![self modified])
+            [self refresh];
 
         NSMutableDictionary* file = [NSMutableDictionary dictionaryWithCapacity:10];
         [file setObject:[self displayName] forKey:@"Name"];
@@ -452,19 +552,19 @@ static id readArchive(NSString* path)
     if (allowMaybe || subFolders != MAYBE)
         return subFolders;
 
-    NSDirectoryEnumerator* de = [[NSFileManager defaultManager] enumeratorAtPath:[url path]];
-
-    NSString* filename;
-    while (filename = [de nextObject])
+    // One shallow listing with the directory flag prefetched
+    NSArray* contents = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:url includingPropertiesForKeys:@[NSURLIsDirectoryKey]
+                                                                         options:NSDirectoryEnumerationSkipsHiddenFiles error:nil];
+    subFolders = NO;
+    for (NSURL* item in contents)
     {
-        NSDictionary* attr = [de fileAttributes];
-        if ([[attr objectForKey:NSFileType] isEqual:NSFileTypeDirectory])
+        NSNumber* isDir = nil;
+        if ([item getResourceValue:&isDir forKey:NSURLIsDirectoryKey error:nil] && [isDir boolValue])
         {
             subFolders = YES;
-            return subFolders;
+            break;
         }
     }
-    subFolders = NO;
     return subFolders;
 }
 
@@ -514,32 +614,48 @@ static id readArchive(NSString* path)
     return res;
 }
 
+// Lists the folder with every attribute the entries need fetched in the same
+// call, so a folder costs a couple of round trips rather than several per file.
+- (NSArray*)listContents:(BOOL)foldersOnly
+{
+    NSArray* keys = [DirEntry listingKeys];
+    NSArray* contents = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:url includingPropertiesForKeys:keys
+                                                                         options:NSDirectoryEnumerationSkipsHiddenFiles error:nil];
+    NSMutableArray* res = [NSMutableArray arrayWithCapacity:[contents count]];
+    for (NSURL* item in contents)
+    {
+        NSDictionary* props = [item resourceValuesForKeys:keys error:nil];   // already fetched, no I/O
+        DirEntry* de = nil;
+
+        if ([[props objectForKey:NSURLIsSymbolicLinkKey] boolValue])
+        {
+            // Links are rare: resolve them the thorough way so a link to a folder behaves as one
+            if (isVisiblePath([item path]))
+                de = [DirEntry dirEntryWithPath:[item path]];
+        }
+        else if (![[props objectForKey:NSURLIsVolumeKey] boolValue] && ![[item path] isEqualToString:@"/dev"])
+        {
+            de = [DirEntry dirEntryWithURL:item properties:props];
+        }
+
+        if (de && (foldersOnly ? [de isFolder] : ([de isFolder] || [de isImage])))
+            [res addObject:de];
+    }
+    return res;
+}
+
 - (NSArray*)getSubItems
 {
     if (!folder)
         return nil;
 
-    NSFileManager* fm = [NSFileManager defaultManager];
-    NSArray* contents = [fm contentsOfDirectoryAtPath: [url path] error:nil];
-
+    NSArray* res = [self listContents:NO];
     BOOL sawSubFolders = NO;
-    NSMutableArray* res = [NSMutableArray arrayWithCapacity: [contents count]];
-    for (NSString* path in contents)
-    {
-        NSString* fullPath = [[url path] stringByAppendingPathComponent: path];
-        if (isVisiblePath(fullPath))
-        {
-            DirEntry* de = [DirEntry dirEntryWithPath: fullPath];
-            if (de && ([de isFolder] || [de isImage]))
-            {
-                [res addObject: de];
-                if ([de isFolder])
-                    sawSubFolders = YES;
-            }
-        }
-    }
+    for (DirEntry* de in res)
+        if ([de isFolder])
+            sawSubFolders = YES;
     subFolders = sawSubFolders;
-    return [NSArray arrayWithArray: res];
+    return [NSArray arrayWithArray:res];
 }
 
 - (NSArray*)deepGetSubItems
@@ -580,24 +696,9 @@ static id readArchive(NSString* path)
     if (!folder)
         return nil;
 
-    NSFileManager* fm = [NSFileManager defaultManager];
-    NSArray* contents = [fm contentsOfDirectoryAtPath: [url path] error:nil];
-
-    NSMutableArray* res = [NSMutableArray arrayWithCapacity: [contents count]];
-    for (NSString* path in contents)
-    {
-        BOOL f;
-        NSString* fullPath = [[url path] stringByAppendingPathComponent: path];
-
-        if (isVisiblePath(fullPath) && [fm fileExistsAtPath:fullPath isDirectory:&f] && f)
-        {
-            DirEntry* de = [DirEntry dirEntryWithPath: fullPath];
-            if (de)
-                [res addObject: de];
-        }
-    }
+    NSArray* res = [self listContents:YES];
     subFolders = [res count] > 0;
-    return [NSArray arrayWithArray: res];
+    return [NSArray arrayWithArray:res];
 }
 
 + (NSArray*)getRootItems
