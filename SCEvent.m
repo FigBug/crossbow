@@ -16,7 +16,7 @@
  *
  *  The above copyright notice and this permission notice shall be
  *  included in all copies or substantial portions of the Software.
- * 
+ *
  *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  *  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
  *  OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -34,7 +34,7 @@
 // -------------------------------------------------------------------------------
 // eventWithEventId:eventPath:eventFlag:
 //
-// Returns an initialized instance of SCEvent using the supplied event ID, path 
+// Returns an initialized instance of SCEvent using the supplied event ID, path
 // and flag.
 // -------------------------------------------------------------------------------
 + (SCEvent *)eventWithEventId:(NSUInteger)eventId eventDate:(NSDate *)date eventPath:(NSString *)eventPath eventFlag:(FSEventStreamEventFlags)eventFlag
@@ -55,7 +55,7 @@
         [self setEventPath:eventPath];
         [self setEventFlag:eventFlag];
     }
-    
+
     return self;
 }
 
@@ -139,7 +139,7 @@
 // -------------------------------------------------------------------------------
 // setEventFlag:
 //
-// Sets the event flag of this event to the supplied flag. Must be one of the 
+// Sets the event flag of this event to the supplied flag. Must be one of the
 // FSEventStreamEventFlags constants defined in FSEvents.h.
 // -------------------------------------------------------------------------------
 - (void)setEventFlag:(FSEventStreamEventFlags)eventFlag

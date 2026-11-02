@@ -24,7 +24,7 @@ typedef enum {
 - (NSImage*)imageCroppedToFitSize:(NSSize)size;
 - (NSImage*)imageScaledToFitSize:(NSSize)size;
 
-- (NSImageRep*)largestRepresentation; 
+- (NSImageRep*)largestRepresentation;
 - (NSSize)sizeLargestRepresentation;
 
 - (NSImage*)rotated:(int)angle;

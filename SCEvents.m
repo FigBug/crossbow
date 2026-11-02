@@ -16,7 +16,7 @@
  *
  *  The above copyright notice and this permission notice shall be
  *  included in all copies or substantial portions of the Software.
- * 
+ *
  *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  *  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
  *  OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -54,7 +54,7 @@ static SCEvents *_sharedPathWatcher = nil;
             (void)[[self alloc] init];
         }
     }
-    
+
     return _sharedPathWatcher;
 }
 
@@ -66,11 +66,11 @@ static SCEvents *_sharedPathWatcher = nil;
     @synchronized(self) {
         if (_sharedPathWatcher == nil) {
             _sharedPathWatcher = [super allocWithZone:zone];
-            
+
             return _sharedPathWatcher;
         }
     }
-    
+
     return nil; // On subsequent allocation attempts return nil
 }
 
@@ -83,11 +83,11 @@ static SCEvents *_sharedPathWatcher = nil;
 {
     if ((self = [super init])) {
         _isWatchingPaths = NO;
-        
+
         [self setNotificationLatency:3.0];
-        [self setIgnoreEeventsFromSubDirs:YES]; 
+        [self setIgnoreEeventsFromSubDirs:YES];
     }
-    
+
     return self;
 }
 
@@ -109,7 +109,7 @@ static SCEvents *_sharedPathWatcher = nil;
 // -------------------------------------------------------------------------------
 // setDelegate:
 //
-// Sets SCEvents' delegate to the supplied object. This object should conform to 
+// Sets SCEvents' delegate to the supplied object. This object should conform to
 // the protocol SCEventListernerProtocol.
 // -------------------------------------------------------------------------------
 - (void)setDelegate:(id)delgate
@@ -120,7 +120,7 @@ static SCEvents *_sharedPathWatcher = nil;
 // -------------------------------------------------------------------------------
 // isWatchingPaths
 //
-// Returns a boolean value indicating whether or not the set paths are currently 
+// Returns a boolean value indicating whether or not the set paths are currently
 // being watched (i.e. the event stream is currently running).
 // -------------------------------------------------------------------------------
 - (BOOL)isWatchingPaths
@@ -142,7 +142,7 @@ static SCEvents *_sharedPathWatcher = nil;
 // -------------------------------------------------------------------------------
 // setIgnoreEeventsFromSubDirs:
 //
-// Sets whether or not events from sub-directories of the registered paths to 
+// Sets whether or not events from sub-directories of the registered paths to
 // exclude should also be ignored based on the supplied values.
 // -------------------------------------------------------------------------------
 - (void)setIgnoreEeventsFromSubDirs:(BOOL)ignore
@@ -246,7 +246,7 @@ static SCEvents *_sharedPathWatcher = nil;
 // -------------------------------------------------------------------------------
 // flushEventStreamSync
 //
-// Flushes the event stream synchronously by sending events that have already 
+// Flushes the event stream synchronously by sending events that have already
 // occurred but not yet delivered.
 // -------------------------------------------------------------------------------
 - (BOOL)flushEventStreamSync
@@ -254,16 +254,16 @@ static SCEvents *_sharedPathWatcher = nil;
     if (!_isWatchingPaths) {
         return NO;
     }
-    
+
     FSEventStreamFlushSync(_eventStream);
-    
+
     return YES;
 }
 
 // -------------------------------------------------------------------------------
 // flushEventStreamAsync
 //
-// Flushes the event stream asynchronously by sending events that have already 
+// Flushes the event stream asynchronously by sending events that have already
 // occurred but not yet delivered.
 // -------------------------------------------------------------------------------
 - (BOOL)flushEventStreamAsync
@@ -271,9 +271,9 @@ static SCEvents *_sharedPathWatcher = nil;
     if (!_isWatchingPaths) {
         return NO;
     }
-    
+
     FSEventStreamFlushAsync(_eventStream);
-    
+
     return YES;
 }
 
@@ -291,7 +291,7 @@ static SCEvents *_sharedPathWatcher = nil;
 // startWatchingPaths:onRunLoop:
 //
 // Starts watching the supplied array of paths for events on the supplied run loop.
-// A boolean value is returned to indicate the success of starting the stream. If 
+// A boolean value is returned to indicate the success of starting the stream. If
 // there are no paths to watch or the stream is already running then false is
 // returned.
 // -------------------------------------------------------------------------------
@@ -299,19 +299,19 @@ static SCEvents *_sharedPathWatcher = nil;
 {
     if (([paths count] == 0) || (_isWatchingPaths)) {
         return NO;
-    } 
-    
+    }
+
     [self setWatchedPaths:paths];
     [self _setupEventsStream];
-    
+
     // Schedule the event stream on the supplied run loop
     FSEventStreamScheduleWithRunLoop(_eventStream, [runLoop getCFRunLoop], kCFRunLoopDefaultMode);
-    
+
     // Start the event stream
     FSEventStreamStart(_eventStream);
-    
+
     _isWatchingPaths = YES;
-    
+
     return YES;
 }
 
@@ -319,7 +319,7 @@ static SCEvents *_sharedPathWatcher = nil;
 // stopWatchingPaths
 //
 // Stops the event stream from watching the set paths. A boolean value is returned
-// to indicate the success of stopping the stream. False is return if this method 
+// to indicate the success of stopping the stream. False is return if this method
 // is called when the stream is not running.
 // -------------------------------------------------------------------------------
 - (BOOL)stopWatchingPaths
@@ -327,12 +327,12 @@ static SCEvents *_sharedPathWatcher = nil;
     if (!_isWatchingPaths) {
         return NO;
     }
-    
+
     FSEventStreamStop(_eventStream);
     FSEventStreamInvalidate(_eventStream);
-    
+
     _isWatchingPaths = NO;
-    
+
     return YES;
 }
 
@@ -353,12 +353,12 @@ static SCEvents *_sharedPathWatcher = nil;
 - (void)dealloc
 {
     _delegate = nil;
-    
+
     FSEventStreamRelease(_eventStream);
-    
+
     _watchedPaths = nil;
     _excludedPaths = nil;
-    
+
 }
 
 @end
@@ -373,7 +373,7 @@ static SCEvents *_sharedPathWatcher = nil;
 - (void)_setupEventsStream
 {
     void *callbackInfo = NULL;
-    
+
     _eventStream = FSEventStreamCreate(kCFAllocatorDefault, &_SCEventsCallBack, callbackInfo, (__bridge CFArrayRef)_watchedPaths, kFSEventStreamEventIdSinceNow, _notificationLatency, kFSEventStreamCreateFlagUseCFTypes | kFSEventStreamCreateFlagWatchRoot);
 }
 
@@ -390,30 +390,30 @@ static void _SCEventsCallBack(ConstFSEventStreamRef streamRef, void *clientCallB
 {
     int i;
     BOOL shouldIgnore = NO;
-    
+
     SCEvents *pathWatcher = [SCEvents sharedPathWatcher];
-    
+
     for (i = 0; i < numEvents; i++) {
-        
-        /* Please note that we are providing the date for when the event occurred 
+
+        /* Please note that we are providing the date for when the event occurred
          * because the FSEvents API does not provide us with it. This date however
-         * should not be taken as the date the event actually occurred and more 
+         * should not be taken as the date the event actually occurred and more
          * appropriatly the date for when it was delivered to this callback function.
          * Depending on what the notification latency is set to, this means that some
-         * events may have very close event dates because this callback is only called 
+         * events may have very close event dates because this callback is only called
          * once with events that occurred within the latency time.
          *
-         * To get a more accurate date for when events occur, you could decrease the 
-         * notification latency from its default value. This means that this callback 
+         * To get a more accurate date for when events occur, you could decrease the
+         * notification latency from its default value. This means that this callback
          * will be called more frequently for events that just occur and reduces the
          * number of events that are subsequntly delivered during one of these calls.
          * The drawback to this approach however, is the increased resources required
          * calling this callback more frequently.
          */
-        
+
         NSString *eventPath = [(__bridge NSArray *)eventPaths objectAtIndex:i];
         NSMutableArray *excludedPaths = [pathWatcher excludedPaths];
-        
+
         // Check to see if the event should be ignored if the event path is in the exclude list
         if ([excludedPaths containsObject:eventPath]) {
             shouldIgnore = YES;
@@ -430,16 +430,16 @@ static void _SCEventsCallBack(ConstFSEventStreamRef streamRef, void *clientCallB
                 }
             }
         }
-    
+
         if (!shouldIgnore) {
             NSString *eventPath = [[(__bridge NSArray *)eventPaths objectAtIndex:i] substringToIndex:([[(__bridge NSArray *)eventPaths objectAtIndex:i] length] - 1)];
-            
+
             SCEvent *event = [SCEvent eventWithEventId:eventIds[i] eventDate:[NSDate date] eventPath:eventPath eventFlag:eventFlags[i]];
-                
+
             if ([[pathWatcher delegate] conformsToProtocol:@protocol(SCEventListenerProtocol)]) {
                 [[pathWatcher delegate] pathWatcher:pathWatcher eventOccurred:event];
             }
-                
+
             if (i == (numEvents - 1)) {
                 [pathWatcher setLastEvent:event];
             }

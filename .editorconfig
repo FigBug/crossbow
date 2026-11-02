@@ -1,0 +1,24 @@
+# Top-most EditorConfig file
+root = true
+
+[*]
+indent_style = space
+indent_size = 4
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+# Xcode writes project files with tabs
+[*.pbxproj]
+indent_style = tab
+
+[*.{yaml,yml,json}]
+indent_size = 2
+
+[*.md]
+trim_trailing_whitespace = false
+
+# Xcode writes this file as UTF-16
+[*.strings]
+charset = utf-16le

@@ -24,7 +24,7 @@
                  weakSelf.closeBlock();
          }];
     }
-    
+
     return self;
 }
 

@@ -34,10 +34,10 @@
 - (void)load
 {
     urls = [prefsGet(PrefSavedUrls) mutableCopy];
-    
+
     if (urls == nil)
         urls = [NSMutableArray array];
-    
+
     for (NSData* bookmark in urls)
     {
         NSError* err;
@@ -56,17 +56,17 @@
 - (void)saveAccessTo:(NSString*)path
 {
     NSURL* fileUrl = [NSURL fileURLWithPath:path];
-    
+
     NSError* err;
     BOOL isStale;
-    
+
     NSData* bookmark  = [fileUrl bookmarkDataWithOptions:NSURLBookmarkCreationWithSecurityScope includingResourceValuesForKeys:nil relativeToURL:nil error:&err];
     NSURL* bookmarkUrl = [NSURL URLByResolvingBookmarkData:bookmark options:NSURLBookmarkResolutionWithSecurityScope relativeToURL:nil bookmarkDataIsStale:&isStale error:&err];
-    
+
     [bookmarkUrl startAccessingSecurityScopedResource];
-    
+
     [urls addObject:bookmark];
-    
+
     [self save];
 }
 

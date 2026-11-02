@@ -31,7 +31,7 @@
     if (assertionID)
     {
         CFStringRef reasonForActivity = (__bridge CFStringRef)name;
-        
+
         IOPMAssertionCreateWithName(kIOPMAssertionTypeNoDisplaySleep, kIOPMAssertionLevelOn, reasonForActivity, &assertionID);
     }
 }

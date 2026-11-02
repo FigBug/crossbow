@@ -1,0 +1,28 @@
+# Normalise line endings to LF in the repository
+* text=auto eol=lf
+
+# Source and project files
+*.m          text diff=objc
+*.h          text diff=objc
+*.c          text
+*.pch        text
+*.sh         text
+*.md         text diff=markdown
+*.yaml       text
+*.json       text
+*.xib        text
+*.plist      text
+*.svg        text
+*.pbxproj    text
+*.entitlements text
+
+# Xcode writes .strings as UTF-16; keep git from touching them
+*.strings    -text
+
+# Binary assets
+*.png        binary
+*.icns       binary
+*.jpg        binary
+*.jpeg       binary
+*.gif        binary
+*.tiff       binary
