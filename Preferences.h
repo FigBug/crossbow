@@ -40,6 +40,7 @@ extern NSString* PrefSmugmugUser;
 extern NSString* PrefSmugmugPass;
 
 extern NSString* PrefRootPaths;
+extern NSString* PrefConfirmEdits;
 extern NSString* PrefSavedUrls;
 
 id prefsGet(NSString* key);

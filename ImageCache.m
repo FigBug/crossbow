@@ -57,6 +57,14 @@
     return img;
 }
 
+- (void)removeImageForDirEntry:(DirEntry*)de
+{
+    @synchronized (self)
+    {
+        [cache removeObjectForKey:[de path]];
+    }
+}
+
 - (void)cancelThread
 {
     if (decodeThread)

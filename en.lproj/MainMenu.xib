@@ -238,6 +238,68 @@ CA
                         </items>
                     </menu>
                 </menuItem>
+                <menuItem title="Image" id="img-menu-item">
+                    <menu key="submenu" title="Image" id="img-menu">
+                        <items>
+                            <menuItem title="Rotate Left" keyEquivalent="l" id="img-rotl">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="rotateLeft:" target="-1" id="img-rotl-a"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Rotate Right" keyEquivalent="r" id="img-rotr">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="rotateRight:" target="-1" id="img-rotr-a"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Rotate 180°" id="img-rot180">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="rotate180:" target="-1" id="img-rot180-a"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="img-sep1"/>
+                            <menuItem title="Flip Horizontal" id="img-fliph">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="flipHorizontal:" target="-1" id="img-fliph-a"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Flip Vertical" id="img-flipv">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="flipVertical:" target="-1" id="img-flipv-a"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="img-sep2"/>
+                            <menuItem title="Resize…" keyEquivalent="s" id="img-resize">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="resizeImage:" target="-1" id="img-resize-a"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Crop" keyEquivalent="k" id="img-crop">
+                                <connections>
+                                    <action selector="cropImage:" target="-1" id="img-crop-a"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Apply Crop" id="img-applycrop">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="applyCrop:" target="-1" id="img-applycrop-a"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="img-sep3"/>
+                            <menuItem title="Convert Format…" keyEquivalent="c" id="img-convert">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="convertImage:" target="-1" id="img-convert-a"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
                 <menuItem title="Go" id="502">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Go" id="503">

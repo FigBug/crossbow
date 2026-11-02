@@ -28,6 +28,9 @@
     int angle;
     double zoom;
     BOOL opaque;
+
+    BOOL cropping;
+    NSRect cropRect;      // view coordinates
 }
 
 - (NSSize)originalSize;
@@ -36,6 +39,11 @@
 - (int)angle;
 - (void)setAngle:(int)angle;
 - (void)setOpaque:(BOOL)val;
+
+- (void)setCropping:(BOOL)on;
+- (BOOL)cropping;
+- (void)setCropRect:(NSRect)rect;
+- (NSRect)pixelCropRect;   // pixels, origin top left, empty when nothing is selected
 
 - (void)updateSize;
 - (NSAffineTransform*)transformWithRotationInDegrees:(int)val;

@@ -24,6 +24,17 @@
 @class Browser;
 @class DirEntry;
 
+// Pasteboard type used to reorder the user's folders at the top of the tree
+extern NSString* const BrowserTreeRootFolderDragType;
+
+// Placeholder root item drawn as a thin line between the user's folders and the volumes
+@interface BrowserTreeSeparator : NSObject
++ (instancetype)shared;
+@end
+
+@interface SeparatorCell : NSCell
+@end
+
 @interface BrowserTree : NSObject<NSOutlineViewDelegate, NSOutlineViewDataSource> {
     Browser* browser;
     NSArray* rootItems;
@@ -32,6 +43,7 @@
     NSMutableDictionary* deSubItems;
 
     NSThread* arrowThread;
+    BOOL reloading;
 }
 
 - (id)init:(Browser*)browser;
@@ -41,6 +53,7 @@
 - (void)devicesChanged:(id)param;
 - (NSArray*)getSubFolders:(DirEntry*)de;
 - (void)refresh;
+- (void)reloadTree;
 - (void)refreshCurrent;
 
 - (void)runArrowThread;

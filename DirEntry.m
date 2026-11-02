@@ -614,20 +614,52 @@ static id readArchive(NSString* path)
     return [NSArray arrayWithArray: res];
 }
 
++ (NSArray*)getUserRootItems
+{
+    NSMutableArray* roots = [NSMutableArray array];
+    for (NSString* path in prefsGet(PrefRootPaths))
+    {
+        DirEntry* de = [DirEntry dirEntryWithPath:path];
+        if (de && ![de isInvalid])
+            [roots addObject:de];
+    }
+    return roots;
+}
+
 + (NSArray*)getDisplayRootItems
 {
 #ifdef APPSTORE
-    NSArray* paths = prefsGet(PrefRootPaths);
-    NSMutableArray* roots = [NSMutableArray array];
-
-    if (paths)
-        for (NSString* path in paths)
-            [roots addObject:[DirEntry dirEntryWithPath:path]];
-
-    return roots;
+    return [DirEntry getUserRootItems];
 #else
-    return [DirEntry getRootItems];
+    // The folders the user added first, then every mounted volume
+    NSMutableArray* roots = [[DirEntry getUserRootItems] mutableCopy];
+    for (DirEntry* de in [DirEntry getRootItems])
+        if (![roots containsObject:de])
+            [roots addObject:de];
+    return roots;
 #endif
+}
+
++ (void)moveDisplayRootItems:(NSArray*)moved toIndex:(NSInteger)index
+{
+    NSMutableArray* paths = [prefsGet(PrefRootPaths) mutableCopy];
+    if (!paths)
+        paths = [NSMutableArray array];
+
+    index = MIN(MAX(index, 0), (NSInteger)[paths count]);
+    for (NSString* path in moved)
+    {
+        NSUInteger i = [paths indexOfObject:path];
+        if (i != NSNotFound)
+        {
+            [paths removeObjectAtIndex:i];
+            if ((NSInteger)i < index)
+                index--;
+        }
+    }
+    [paths insertObjects:moved atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(index, [moved count])]];
+
+    prefsSet(PrefRootPaths, paths);
 }
 
 + (void)addDisplayRootItem:(NSString*)path

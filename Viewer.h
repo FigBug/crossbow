@@ -134,8 +134,18 @@ enum Zoom
 
 - (IBAction)sort:(id)sender;
 
-- (IBAction)rotateCw:(id)sender;
-- (IBAction)rotateCcw:(id)sender;
+// image editing
+- (void)reloadCurrentImage;
+- (IBAction)rotateLeft:(id)sender;
+- (IBAction)rotateRight:(id)sender;
+- (IBAction)rotate180:(id)sender;
+- (IBAction)flipHorizontal:(id)sender;
+- (IBAction)flipVertical:(id)sender;
+- (IBAction)resizeImage:(id)sender;
+- (IBAction)cropImage:(id)sender;
+- (IBAction)applyCrop:(id)sender;
+- (IBAction)cancelCrop:(id)sender;
+- (IBAction)convertImage:(id)sender;
 
 - (IBAction)showMetadata:(id)sender;
 
@@ -165,6 +175,9 @@ enum Zoom
 - (void)imageClipClose:(id)param;
 - (void)imageClipPrevious:(id)param;
 - (void)imageClipNext:(id)param;
+- (void)imageClipApplyCrop:(id)param;
+- (void)imageClipShowContextMenu:(NSEvent*)event;
+- (void)imageClipCancelCrop:(id)param;
 
 @end
 

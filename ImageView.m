@@ -57,6 +57,55 @@
     {
         [image drawInRect:[self bounds] fromRect:NSZeroRect operation:NSCompositingOperationSourceOver fraction:1.0];
     }
+
+    if (cropping)
+    {
+        // Dim everything outside the selection and outline it
+        NSBezierPath* dim = [NSBezierPath bezierPathWithRect:[self bounds]];
+        if (!NSIsEmptyRect(cropRect))
+            [dim appendBezierPathWithRect:cropRect];
+        [dim setWindingRule:NSWindingRuleEvenOdd];
+        [[NSColor colorWithCalibratedWhite:0 alpha:0.5] set];
+        [dim fill];
+
+        if (!NSIsEmptyRect(cropRect))
+        {
+            [[NSColor whiteColor] set];
+            [NSBezierPath setDefaultLineWidth:1.0];
+            [NSBezierPath strokeRect:NSInsetRect(cropRect, 0.5, 0.5)];
+        }
+    }
+}
+
+- (void)setCropping:(BOOL)on
+{
+    cropping = on;
+    cropRect = NSZeroRect;
+    [self setNeedsDisplay:YES];
+}
+
+- (BOOL)cropping
+{
+    return cropping;
+}
+
+- (void)setCropRect:(NSRect)rect
+{
+    cropRect = NSIntersectionRect(rect, [self bounds]);
+    [self setNeedsDisplay:YES];
+}
+
+- (NSRect)pixelCropRect
+{
+    if (!cropping || NSIsEmptyRect(cropRect) || zoom <= 0)
+        return NSZeroRect;
+
+    NSRect b = [self bounds];
+    double s = 1.0 / zoom;
+    return NSMakeRect(floor(cropRect.origin.x * s),
+                      floor((NSMaxY(b) - NSMaxY(cropRect)) * s),
+                      round(cropRect.size.width * s),
+                      round(cropRect.size.height * s));
 }
 
 - (void)setOpaque:(BOOL)val
@@ -79,6 +128,8 @@
     originalSize = [image sizeLargestRepresentation];
 
     angle = angle_;
+    cropping = NO;
+    cropRect = NSZeroRect;
 
     [self updateSize];
     [self setNeedsDisplay:YES];

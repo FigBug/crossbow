@@ -20,6 +20,7 @@
 
 
 #import "ImageClip.h"
+#import "ImageView.h"
 #import "Viewer.h"
 
 @interface NSEvent (DeviceDelta)
@@ -106,8 +107,55 @@
     return NO;
 }
 
+// The image view while it is in crop mode, otherwise nil
+- (ImageView*)cropView
+{
+    if ([document isKindOfClass:[ImageView class]] && [(ImageView*)document cropping])
+        return (ImageView*)document;
+    return nil;
+}
+
+static NSPoint clampToBounds(NSPoint p, NSRect b)
+{
+    p.x = MIN(MAX(p.x, NSMinX(b)), NSMaxX(b));
+    p.y = MIN(MAX(p.y, NSMinY(b)), NSMaxY(b));
+    return p;
+}
+
+- (BOOL)acceptsFirstResponder
+{
+    return YES;
+}
+
+- (void)keyDown:(NSEvent*)event
+{
+    if ([self cropView])
+    {
+        unsigned short key = [event keyCode];
+        if (key == 36 || key == 76)         // Return, Enter
+        {
+            [delegate imageClipApplyCrop:self];
+            return;
+        }
+        if (key == 53)                      // Escape
+        {
+            [delegate imageClipCancelCrop:self];
+            return;
+        }
+    }
+    [super keyDown:event];
+}
+
 - (void)mouseDown:(NSEvent*)event
 {
+    ImageView* crop = [self cropView];
+    if (crop)
+    {
+        cropStart = clampToBounds([crop convertPoint:[event locationInWindow] fromView:nil], [crop bounds]);
+        [crop setCropRect:NSZeroRect];
+        return;
+    }
+
     if ([event clickCount] == 2)
     {
         [delegate imageClipClose:self];
@@ -135,8 +183,22 @@
     [self update];
 }
 
+- (void)rightMouseDown:(NSEvent*)event
+{
+    if ([delegate respondsToSelector:@selector(imageClipShowContextMenu:)])
+        [delegate imageClipShowContextMenu:event];
+}
+
 - (void)mouseDragged:(NSEvent*)event
 {
+    ImageView* crop = [self cropView];
+    if (crop)
+    {
+        NSPoint p = clampToBounds([crop convertPoint:[event locationInWindow] fromView:nil], [crop bounds]);
+        [crop setCropRect:NSMakeRect(MIN(p.x, cropStart.x), MIN(p.y, cropStart.y), fabs(p.x - cropStart.x), fabs(p.y - cropStart.y))];
+        return;
+    }
+
     NSPoint dragNow = [event locationInWindow];
 
     NSRect rc = [document frame];

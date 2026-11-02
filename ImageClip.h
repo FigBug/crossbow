@@ -29,6 +29,7 @@
     NSPoint dragCenter;
 
     NSPoint dragStart;
+    NSPoint cropStart;
 
     IBOutlet id delegate;
 

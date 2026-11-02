@@ -20,6 +20,7 @@
 
 
 #import "Browser.h"
+#import "ImageEdit.h"
 #import "DirEntry.h"
 #import "DirEntryFileOps.h"
 #import "BrowserTree.h"
@@ -101,6 +102,11 @@ int nextBrowserId = 1;
 
 - (void)awakeFromNib
 {
+    // Editing commands at the end of the file list's right click menu
+    [fileListContext addItem:[NSMenuItem separatorItem]];
+    for (NSMenuItem* item in [ImageEdit menuItemsIncludingCrop:NO])
+        [fileListContext addItem:item];
+
     NSTableColumn* col = [folderTree outlineTableColumn];
     [col setDataCell: [[NSBrowserCell alloc] init]];
 
@@ -137,6 +143,8 @@ int nextBrowserId = 1;
 
     [folderTree setDataSource: browserTree];
     [folderTree setDelegate: browserTree];
+    [folderTree registerForDraggedTypes:@[BrowserTreeRootFolderDragType, NSPasteboardTypeFileURL]];
+    [folderTree setDraggingSourceOperationMask:NSDragOperationMove forLocal:YES];
 
     [folderTree reloadData];
     [self browseToFolder: [DirEntry dirEntryWithPath: prefsGet(PrefStartupFolder)] sender:self];
@@ -667,14 +675,21 @@ int nextBrowserId = 1;
     {
         return [self.selection count] >= 1;
     }
+    if (sel == @selector(rotateLeft:) || sel == @selector(rotateRight:) || sel == @selector(rotate180:) ||
+        sel == @selector(flipHorizontal:) || sel == @selector(flipVertical:) ||
+        sel == @selector(resizeImage:) || sel == @selector(convertImage:))
+    {
+        return [[self editableSelection] count] >= 1;
+    }
+    if (sel == @selector(cropImage:) || sel == @selector(applyCrop:) || sel == @selector(cancelCrop:))
+    {
+        return NO;
+    }
     if (sel == @selector(removeFolder:))
     {
-        DirEntry* selectedDE = browserTree.selectedDirEntry;
-
-        for (DirEntry* de in [DirEntry getDisplayRootItems])
-            if ([de isEqual:selectedDE])
-                return YES;
-        return NO;
+        // Only folders the user added can be removed, not volumes
+        NSString* selectedPath = browserTree.selectedDirEntry.path;
+        return selectedPath && [prefsGet(PrefRootPaths) containsObject:selectedPath];
     }
     return YES;
 }
@@ -916,6 +931,83 @@ int nextBrowserId = 1;
     (void)[prog initWithThread:[ZipWriter createZippingThread:[self currentLocation] with:[selection deepExpandSelection:sort] forSheet:prog]];
     NSWindow* sheet = [prog window];
     [browserWindow beginSheet:sheet completionHandler:^(NSModalResponse code) { [self sheetDidEnd:sheet returnCode:(int)code contextInfo:nil]; }];
+}
+
+//==============================================================================
+// Image editing
+
+- (NSArray*)editableSelection
+{
+    NSMutableArray* files = [NSMutableArray array];
+    for (DirEntry* de in [self.selection selectedFiles])
+        if ([de isImage])
+            [files addObject:de];
+    return files;
+}
+
+// Runs an edit over every selected image, then refreshes the thumbnails
+- (void)editSelection:(BOOL (^)(NSString* path, NSError** error))edit
+{
+    NSMutableArray* errors = [NSMutableArray array];
+    for (DirEntry* de in [self editableSelection])
+    {
+        NSError* err = nil;
+        if (!edit([de path], &err) && err)
+            [errors addObject:err];
+        [de refresh];
+    }
+    [self thumbnailsDeleted:nil];
+    [ImageEdit showErrors:errors onWindow:browserWindow];
+}
+
+- (void)applyOp:(ImageEditOp)op
+{
+    [self editSelection:^BOOL(NSString* path, NSError** error) {
+        return [ImageEdit applyOp:op toFile:path error:error];
+    }];
+}
+
+- (IBAction)rotateLeft:(id)sender      { [self applyOp:ImageEditRotateLeft]; }
+- (IBAction)rotateRight:(id)sender     { [self applyOp:ImageEditRotateRight]; }
+- (IBAction)rotate180:(id)sender       { [self applyOp:ImageEditRotate180]; }
+- (IBAction)flipHorizontal:(id)sender  { [self applyOp:ImageEditFlipHorizontal]; }
+- (IBAction)flipVertical:(id)sender    { [self applyOp:ImageEditFlipVertical]; }
+
+- (IBAction)resizeImage:(id)sender
+{
+    NSArray* files = [self editableSelection];
+    if ([files count] == 0)
+        return;
+
+    BOOL multiple = [files count] > 1;
+    NSSize size = multiple ? NSMakeSize(1920, 1920) : [ImageEdit pixelSizeOfFile:[[files objectAtIndex:0] path]];
+
+    [ImageEdit askResizeOnWindow:browserWindow size:size multiple:multiple completion:^(BOOL ok, NSSize newSize) {
+        if (!ok)
+            return;
+        NSString* msg = multiple ? [NSString stringWithFormat:@"Resize %d images?", (int)[files count]] : @"Resize this image?";
+        [ImageEdit confirmEditOnWindow:self->browserWindow message:msg completion:^(BOOL confirmed) {
+            if (!confirmed)
+                return;
+            [self editSelection:^BOOL(NSString* path, NSError** error) {
+                return [ImageEdit resizeFile:path toSize:newSize fit:multiple error:error];
+            }];
+        }];
+    }];
+}
+
+- (IBAction)convertImage:(id)sender
+{
+    if ([[self editableSelection] count] == 0)
+        return;
+
+    [ImageEdit askConvertOnWindow:browserWindow completion:^(BOOL ok, UTType* type, double quality) {
+        if (!ok)
+            return;
+        [self editSelection:^BOOL(NSString* path, NSError** error) {
+            return [ImageEdit convertFile:path toType:type quality:quality error:error] != nil;
+        }];
+    }];
 }
 
 - (IBAction)moveToTrash:(id)sender

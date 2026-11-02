@@ -154,6 +154,16 @@
 - (IBAction)createArchive:(id)sender;
 - (IBAction)moveToTrash:(id)sender;
 
+// image editing, applied to the selected files
+- (NSArray*)editableSelection;
+- (IBAction)rotateLeft:(id)sender;
+- (IBAction)rotateRight:(id)sender;
+- (IBAction)rotate180:(id)sender;
+- (IBAction)flipHorizontal:(id)sender;
+- (IBAction)flipVertical:(id)sender;
+- (IBAction)resizeImage:(id)sender;
+- (IBAction)convertImage:(id)sender;
+
 @end
 
 #pragma clang diagnostic pop

@@ -76,6 +76,7 @@
 - (BOOL)isInvalid;
 - (BOOL)isFolder;
 - (BOOL)isFile;
+- (BOOL)isImage;
 - (BOOL)isLink;
 - (NSString*)displayName;
 - (BOOL)isFilesystemRoot;
@@ -91,8 +92,10 @@
 - (NSArray*)getSubFiles;
 - (NSArray*)getSubFolders;
 + (NSArray*)getRootItems;
-+ (NSArray*)getDisplayRootItems;
++ (NSArray*)getDisplayRootItems;      // everything shown at the top level of the tree
++ (NSArray*)getUserRootItems;         // folders the user added, in their order
 + (void)addDisplayRootItem:(NSString*)path;
++ (void)moveDisplayRootItems:(NSArray*)paths toIndex:(NSInteger)index;
 + (void)removeDisplayRootItem:(NSString*)path;
 
 + (DirEntry*)getDesktop;

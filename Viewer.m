@@ -20,6 +20,7 @@
 
 
 #import "Viewer.h"
+#import "ImageEdit.h"
 #import "ImageClip.h"
 #import "ImageView.h"
 #import "DirEntry.h"
@@ -296,8 +297,8 @@ int nextImg(int idx, int max)
     [array addObject:tool];
 
     tool = [SegmentedToolbarItem itemWithIdentifier:@"rotate" label:@"Rotate" paletteLabel:@"Rotate" segments:2];
-    [tool setSegment:0 imageName:@"redo-alt" longLabel:@"Rotate CW" target:self action:@selector(rotateCw:)];
-    [tool setSegment:1 imageName:@"undo-alt" longLabel:@"Rotate CCW" target:self action:@selector(rotateCcw:)];
+    [tool setSegment:0 imageName:@"redo-alt" longLabel:@"Rotate CW" target:self action:@selector(rotateRight:)];
+    [tool setSegment:1 imageName:@"undo-alt" longLabel:@"Rotate CCW" target:self action:@selector(rotateLeft:)];
     [tool setupView];
     [array addObject:tool];
 
@@ -397,6 +398,14 @@ int nextImg(int idx, int max)
         sel == @selector(openRecent:))
     {
         return YES;
+    }
+    if (sel == @selector(applyCrop:) || sel == @selector(cancelCrop:))
+    {
+        return [imageView cropping];
+    }
+    if (sel == @selector(cropImage:) && [(id)item isKindOfClass:[NSMenuItem class]])
+    {
+        [(NSMenuItem*)item setTitle:[imageView cropping] ? @"Cancel Crop" : @"Crop"];
     }
 
     return images && [images count] > 0;
@@ -606,36 +615,147 @@ int nextImg(int idx, int max)
     [self viewImage:(int)[self.images indexOfObject:de]];
 }
 
-- (IBAction)rotateCw:(id)sender
-{
-    int or = [imageView angle];
-    switch (or)
-    {
-        case 0  : or = 270; break;
-        case 90 : or = 0;   break;
-        case 180: or = 90;  break;
-        case 270: or = 180; break;
-    }
-    [imageView setAngle:or];
+//==============================================================================
+// Image editing
 
-    [self updateZoom];
+- (DirEntry*)currentDirEntry
+{
+    return (images && curImage >= 0 && curImage < (int)[images count]) ? [images objectAtIndex:curImage] : nil;
+}
+
+- (void)reloadCurrentImage
+{
+    DirEntry* de = [self currentDirEntry];
+    if (!de)
+        return;
+
+    [de refresh];
+    [imageCache removeImageForDirEntry:de];
+
+    int idx = curImage;
+    curImage = -1;
+    [self viewImage:idx];
+}
+
+// Runs an edit on the current file, then shows the result
+- (void)editCurrentImage:(BOOL (^)(NSString* path, NSError** error))edit
+{
+    DirEntry* de = [self currentDirEntry];
+    if (!de)
+        return;
+
+    NSError* err = nil;
+    if (!edit([de path], &err) && err)
+        [ImageEdit showErrors:@[err] onWindow:viewerWindow];
+
+    [self reloadCurrentImage];
+}
+
+- (void)applyOp:(ImageEditOp)op
+{
+    [self editCurrentImage:^BOOL(NSString* path, NSError** error) {
+        return [ImageEdit applyOp:op toFile:path error:error];
+    }];
+}
+
+- (IBAction)rotateLeft:(id)sender      { [self applyOp:ImageEditRotateLeft]; }
+- (IBAction)rotateRight:(id)sender     { [self applyOp:ImageEditRotateRight]; }
+- (IBAction)rotate180:(id)sender       { [self applyOp:ImageEditRotate180]; }
+- (IBAction)flipHorizontal:(id)sender  { [self applyOp:ImageEditFlipHorizontal]; }
+- (IBAction)flipVertical:(id)sender    { [self applyOp:ImageEditFlipVertical]; }
+
+- (IBAction)resizeImage:(id)sender
+{
+    DirEntry* de = [self currentDirEntry];
+    if (!de)
+        return;
+
+    [ImageEdit askResizeOnWindow:viewerWindow size:[ImageEdit pixelSizeOfFile:[de path]] multiple:NO completion:^(BOOL ok, NSSize size) {
+        if (!ok)
+            return;
+        [ImageEdit confirmEditOnWindow:self->viewerWindow message:@"Resize this image?" completion:^(BOOL confirmed) {
+            if (!confirmed)
+                return;
+            [self editCurrentImage:^BOOL(NSString* path, NSError** error) {
+                return [ImageEdit resizeFile:path toSize:size fit:NO error:error];
+            }];
+        }];
+    }];
+}
+
+- (IBAction)cropImage:(id)sender
+{
+    if ([imageView cropping])
+    {
+        [self cancelCrop:sender];
+        return;
+    }
+    if (![self currentDirEntry])
+        return;
+
+    [imageView setCropping:YES];
+    [viewerWindow makeFirstResponder:imageClip];
+    [statusBar setStringValue:@"Drag to select the area to keep, then press Return to crop or Escape to cancel."];
+}
+
+- (IBAction)applyCrop:(id)sender
+{
+    NSRect px = [imageView pixelCropRect];
+    if (px.size.width < 1 || px.size.height < 1)
+    {
+        NSBeep();
+        return;
+    }
+
+    [imageView setCropping:NO];
+    [self updateStatusBar];
+
+    [ImageEdit confirmEditOnWindow:viewerWindow message:@"Crop this image?" completion:^(BOOL confirmed) {
+        if (!confirmed)
+            return;
+        [self editCurrentImage:^BOOL(NSString* path, NSError** error) {
+            return [ImageEdit cropFile:path toRect:px error:error];
+        }];
+    }];
+}
+
+- (IBAction)cancelCrop:(id)sender
+{
+    [imageView setCropping:NO];
     [self updateStatusBar];
 }
 
-- (IBAction)rotateCcw:(id)sender
+- (void)imageClipApplyCrop:(id)param
 {
-    int or = [imageView angle];
-    switch (or)
-    {
-        case 0  : or = 90;  break;
-        case 90 : or = 180; break;
-        case 180: or = 270; break;
-        case 270: or = 0;   break;
-    }
-    [imageView setAngle:or];
+    [self applyCrop:param];
+}
 
-    [self updateZoom];
-    [self updateStatusBar];
+- (void)imageClipShowContextMenu:(NSEvent*)event
+{
+    NSMenu* menu = [[NSMenu alloc] initWithTitle:@"Image"];
+    for (NSMenuItem* item in [ImageEdit menuItemsIncludingCrop:YES])
+        [menu addItem:item];
+    [NSMenu popUpContextMenu:menu withEvent:event forView:imageClip];
+}
+
+- (void)imageClipCancelCrop:(id)param
+{
+    [self cancelCrop:param];
+}
+
+- (IBAction)convertImage:(id)sender
+{
+    DirEntry* de = [self currentDirEntry];
+    if (!de)
+        return;
+
+    [ImageEdit askConvertOnWindow:viewerWindow completion:^(BOOL ok, UTType* type, double quality) {
+        if (!ok)
+            return;
+        NSError* err = nil;
+        if (![ImageEdit convertFile:[de path] toType:type quality:quality error:&err] && err)
+            [ImageEdit showErrors:@[err] onWindow:self->viewerWindow];
+    }];
 }
 
 - (IBAction)showMetadata:(id)sender

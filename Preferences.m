@@ -37,6 +37,7 @@ NSString* PrefShareTab       = @"PrefShareTab";
 NSString* PrefSmugmugUser    = @"PrefSmugmugUser";
 NSString* PrefSmugmugPass    = @"PrefSmugmugPass";
 NSString* PrefRootPaths      = @"PrefRootPaths";
+NSString* PrefConfirmEdits   = @"PrefConfirmEdits";
 NSString* PrefSavedUrls      = @"PrefSavedUrls";
 
 id prefsGet(NSString* key)
@@ -63,6 +64,7 @@ void prefsSet(NSString* key, id val)
         [defaultValues setObject: @"" forKey:PrefSmugmugUser];
         [defaultValues setObject: @"" forKey:PrefSmugmugPass];
         [defaultValues setObject: [NSNumber numberWithBool:NO] forKey:PrefRebuildThumbs];
+        [defaultValues setObject: [NSNumber numberWithBool:YES] forKey:PrefConfirmEdits];
         [defaultValues setObject: [NSNumber numberWithDouble:0.309133] forKey: PrefThumbnailSize];
         [defaultValues setObject: [NSNumber numberWithInt:0] forKey: PrefZoomMode];
         [defaultValues setObject: @"" forKey: PrefGotoFolder];

@@ -29,6 +29,7 @@
 }
 
 - (NSImage*)imageForDirEntry:(DirEntry*)de;
+- (void)removeImageForDirEntry:(DirEntry*)de;
 - (void)cacheDirEntries:(NSArray*)list;
 - (void)cancelThread;
 - (void)decodeProc:(id)todo;

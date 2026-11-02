@@ -121,6 +121,8 @@
 		A50000000000000000000040 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78B728BE0F06933A000CD71E /* IOKit.framework */; };
 		A50000000000000000000041 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 78FF25570F13A37600B825F1 /* libz.dylib */; };
 		A50000000000000000000042 /* Malus.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 788D1D921DB557F300C83396 /* Malus.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A60000000000000000000003 /* ImageEdit.m in Sources */ = {isa = PBXBuildFile; fileRef = A60000000000000000000002 /* ImageEdit.m */; };
+		A60000000000000000000004 /* ImageEdit.m in Sources */ = {isa = PBXBuildFile; fileRef = A60000000000000000000002 /* ImageEdit.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -293,6 +295,8 @@
 		8D1107320486CEB800E47090 /* Crossbow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Crossbow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A50000000000000000000049 /* Crossbow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Crossbow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5000000000000000000004E /* CrossbowAppStore.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CrossbowAppStore.entitlements; sourceTree = "<group>"; };
+		A60000000000000000000001 /* ImageEdit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageEdit.h; sourceTree = "<group>"; };
+		A60000000000000000000002 /* ImageEdit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageEdit.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -474,6 +478,8 @@
 				78948BC80EF8963600356919 /* SCEventListenerProtocol.h */,
 				78948BC90EF8963600356919 /* SCEvents.h */,
 				78948BCA0EF8963600356919 /* SCEvents.m */,
+				A60000000000000000000001 /* ImageEdit.h */,
+				A60000000000000000000002 /* ImageEdit.m */,
 				7830412D0EF40AB200A3BC6D /* Util.h */,
 				7830412E0EF40AB200A3BC6D /* Util.m */,
 				78FF25500F13A2C700B825F1 /* Zip */,
@@ -763,6 +769,7 @@
 				7820A0311A39E9AE004DABA3 /* ActivityFaker.m in Sources */,
 				783041210EF3FEDE00A3BC6D /* Selection.m in Sources */,
 				7830412F0EF40AB200A3BC6D /* Util.m in Sources */,
+				A60000000000000000000003 /* ImageEdit.m in Sources */,
 				78CDC4EF0EF5756A00EC2A16 /* DBPrefsWindowController.m in Sources */,
 				78CDC4F20EF5759400EC2A16 /* PreferencesController.m in Sources */,
 				78948BCB0EF8963600356919 /* SCEvent.m in Sources */,
@@ -807,6 +814,7 @@
 				A50000000000000000000021 /* ActivityFaker.m in Sources */,
 				A50000000000000000000022 /* Selection.m in Sources */,
 				A50000000000000000000023 /* Util.m in Sources */,
+				A60000000000000000000004 /* ImageEdit.m in Sources */,
 				A50000000000000000000024 /* DBPrefsWindowController.m in Sources */,
 				A50000000000000000000025 /* PreferencesController.m in Sources */,
 				A50000000000000000000026 /* SCEvent.m in Sources */,
@@ -869,6 +877,78 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		A5000000000000000000004A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = CrossbowAppStore.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 6;
+				ENABLE_HARDENED_RUNTIME = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)",
+					"$(PROJECT_DIR)",
+				);
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Crossbow_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = "APPSTORE=1";
+				INFOPLIST_FILE = Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.3;
+				OTHER_LDFLAGS = (
+					"-Wl,-rpath,@loader_path/../Frameworks",
+					"-framework",
+					UniformTypeIdentifiers,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.rabiensoftware.crossbow;
+				PRODUCT_NAME = Crossbow;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		A5000000000000000000004B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = CrossbowAppStore.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 6;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_HARDENED_RUNTIME = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)",
+					"$(PROJECT_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Crossbow_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = "APPSTORE=1";
+				INFOPLIST_FILE = Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.3;
+				OTHER_LDFLAGS = (
+					"-Wl,-rpath,@loader_path/../Frameworks",
+					"-framework",
+					UniformTypeIdentifiers,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.rabiensoftware.crossbow;
+				PRODUCT_NAME = Crossbow;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
 		C01FCF4B08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -880,6 +960,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 6;
+				DEVELOPMENT_TEAM = 3FS7DJDG38;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -916,6 +997,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 6;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 3FS7DJDG38;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1012,81 +1094,18 @@
 			};
 			name = Release;
 		};
-		A5000000000000000000004A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_ENTITLEMENTS = CrossbowAppStore.entitlements;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 6;
-				ENABLE_HARDENED_RUNTIME = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)",
-					"$(PROJECT_DIR)",
-				);
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Crossbow_Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = "APPSTORE=1";
-				INFOPLIST_FILE = Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.3;
-				OTHER_LDFLAGS = (
-					"-Wl,-rpath,@loader_path/../Frameworks",
-					"-framework",
-					UniformTypeIdentifiers,
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.rabiensoftware.crossbow;
-				PRODUCT_NAME = Crossbow;
-				SDKROOT = macosx;
-			};
-			name = Debug;
-		};
-		A5000000000000000000004B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_ENTITLEMENTS = CrossbowAppStore.entitlements;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 6;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_HARDENED_RUNTIME = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)",
-					"$(PROJECT_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Crossbow_Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = "APPSTORE=1";
-				INFOPLIST_FILE = Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.3;
-				OTHER_LDFLAGS = (
-					"-Wl,-rpath,@loader_path/../Frameworks",
-					"-framework",
-					UniformTypeIdentifiers,
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.rabiensoftware.crossbow;
-				PRODUCT_NAME = Crossbow;
-				SDKROOT = macosx;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		A5000000000000000000004C /* Build configuration list for PBXNativeTarget "Crossbow App Store" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A5000000000000000000004A /* Debug */,
+				A5000000000000000000004B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "Crossbow" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1101,15 +1120,6 @@
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
 				C01FCF5008A954540054247B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		A5000000000000000000004C /* Build configuration list for PBXNativeTarget "Crossbow App Store" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				A5000000000000000000004A /* Debug */,
-				A5000000000000000000004B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

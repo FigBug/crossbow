@@ -345,6 +345,68 @@
                         </items>
                     </menu>
                 </menuItem>
+                <menuItem title="Image" id="vimg-menu-item">
+                    <menu key="submenu" title="Image" id="vimg-menu">
+                        <items>
+                            <menuItem title="Rotate Left" keyEquivalent="l" id="vimg-rotl">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="rotateLeft:" target="-1" id="vimg-rotl-a"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Rotate Right" keyEquivalent="r" id="vimg-rotr">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="rotateRight:" target="-1" id="vimg-rotr-a"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Rotate 180°" id="vimg-rot180">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="rotate180:" target="-1" id="vimg-rot180-a"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="vimg-sep1"/>
+                            <menuItem title="Flip Horizontal" id="vimg-fliph">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="flipHorizontal:" target="-1" id="vimg-fliph-a"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Flip Vertical" id="vimg-flipv">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="flipVertical:" target="-1" id="vimg-flipv-a"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="vimg-sep2"/>
+                            <menuItem title="Resize…" keyEquivalent="s" id="vimg-resize">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="resizeImage:" target="-1" id="vimg-resize-a"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Crop" keyEquivalent="k" id="vimg-crop">
+                                <connections>
+                                    <action selector="cropImage:" target="-1" id="vimg-crop-a"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Apply Crop" id="vimg-applycrop">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="applyCrop:" target="-1" id="vimg-applycrop-a"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="vimg-sep3"/>
+                            <menuItem title="Convert Format…" keyEquivalent="c" id="vimg-convert">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="convertImage:" target="-1" id="vimg-convert-a"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
                 <menuItem title="Window" id="143">
                     <menu key="submenu" title="Window" systemMenu="window" id="144">
                         <items>
