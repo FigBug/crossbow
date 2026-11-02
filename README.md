@@ -12,11 +12,7 @@ Some key features include:
 Download:
 https://github.com/FigBug/crossbow/releases
 
-Screenshots:
-
-![alt tag](http://www.socalabs.com/screen1.png)
-
-![alt tag](http://www.socalabs.com/screen2.png)
+![Crossbow browser window](Docs/browser.png)
 
 Building
 --------
