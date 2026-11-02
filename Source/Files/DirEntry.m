@@ -250,7 +250,11 @@ static id readArchive(NSString* path)
         NSDictionary* thumAttr = [fm attributesOfItemAtPath:[self thumbnailPath] error:nil];
         NSDate* thumDate = [thumAttr objectForKey: NSFileModificationDate];
 
-        if ([fileDate compare:thumDate] == NSOrderedDescending)
+        // The thumbnail is stamped with the image's modification time, but that
+        // write truncates to microseconds while the image may carry nanoseconds,
+        // so an exact comparison sees the image as forever newer. A second of
+        // slack is plenty to tell a real edit from rounding.
+        if ([fileDate timeIntervalSinceDate:thumDate] > 1.0)
             return NO;
 
         return YES;
