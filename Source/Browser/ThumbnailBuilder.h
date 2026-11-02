@@ -2,7 +2,7 @@
 //  ThumbnailBuilder.h
 //  Crossbow
 //
-// Copyright (C) 2009 Roland Rabien
+// Copyright (C) 2009 - 2026 Roland Rabien
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
