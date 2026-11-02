@@ -44,8 +44,7 @@
     if (sender != thread)
         [thread cancel];
 
-    [[self window] orderOut:sender];
-    [NSApp endSheet:[self window] returnCode:1];
+    [[[self window] sheetParent] endSheet:[self window] returnCode:1];
 }
 
 - (void)setProgress:(NSNumber*)pos

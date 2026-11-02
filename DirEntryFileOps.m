@@ -27,16 +27,12 @@
 -(bool)moveToTrash
 {
     NSFileManager* fm = [NSFileManager defaultManager];
-    NSWorkspace* ws = [NSWorkspace sharedWorkspace];
 
     if ([self isFile])
     {
         NSString* thumb = [self thumbnailPath];
 
-        NSInteger tag = 0;
-        [ws performFileOperation:NSWorkspaceRecycleOperation source:[[self getParent] path] destination: @"" files:[NSArray arrayWithObject:[self filename]] tag:&tag];
-
-        if (tag >= 0)
+        if ([fm trashItemAtURL:[NSURL fileURLWithPath:[self path]] resultingItemURL:nil error:nil])
             [fm removeItemAtPath:thumb error:nil];
     }
     else
@@ -48,8 +44,7 @@
             [thumbs addObject: [de thumbnailPath]];
         [thumbs addObject: [self thumbnailPath]];
 
-        NSInteger tag = 0;
-        [ws performFileOperation:NSWorkspaceRecycleOperation source:[[self getParent] path] destination: @"" files:[NSArray arrayWithObject:[self filename]] tag:&tag];
+        [fm trashItemAtURL:[NSURL fileURLWithPath:[self path]] resultingItemURL:nil error:nil];
 
         for (NSString* thumb in thumbs)
             [fm removeItemAtPath:thumb error:nil];

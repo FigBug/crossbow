@@ -42,6 +42,7 @@ void setMenuDelegates(NSMenu* menu, id del, NSArray* menus);
 NSInteger sortFunc(id num1, id num2, void *context);
 
 NSString* md5(NSString* str);
+NSString* fileUTI(NSString* path);
 
 void addAppsToMenu(NSURL* file, NSMenu* menu, SEL sel, BOOL edit);
 void openWithApp(NSURL* file, int idx, BOOL edit);

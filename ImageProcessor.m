@@ -171,7 +171,7 @@
         bitmapBytesPerRow,
         colorSpace,
         //kCGImageAlphaPremultipliedLast
-        kCGImageAlphaNoneSkipLast
+        (CGBitmapInfo) kCGImageAlphaNoneSkipLast
     );
     CGColorSpaceRelease(colorSpace);
 

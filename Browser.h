@@ -23,6 +23,12 @@
 #import <Quartz/Quartz.h>
 #import "Selection.h"
 
+// Crossbow's browser is built on IKImageBrowserView and NSDrawer, both deprecated
+// but still shipped. Replacing them (NSCollectionView / NSSplitViewController)
+// is a UI rewrite, so their deprecation warnings are silenced here.
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
 @class DirEntry;
 @class BrowserTree;
 @class BrowserList;
@@ -149,3 +155,5 @@
 - (IBAction)moveToTrash:(id)sender;
 
 @end
+
+#pragma clang diagnostic pop

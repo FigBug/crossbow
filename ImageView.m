@@ -51,11 +51,11 @@
     if (angle == 90 || angle == 270)
     {
         NSRect bounds = [self bounds];
-        [image drawInRect:NSMakeRect(bounds.origin.y, bounds.origin.x, bounds.size.height, bounds.size.width) fromRect:NSZeroRect operation:NSCompositeCopy fraction:1.0];
+        [image drawInRect:NSMakeRect(bounds.origin.y, bounds.origin.x, bounds.size.height, bounds.size.width) fromRect:NSZeroRect operation:NSCompositingOperationCopy fraction:1.0];
     }
     else
     {
-        [image drawInRect:[self bounds] fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+        [image drawInRect:[self bounds] fromRect:NSZeroRect operation:NSCompositingOperationSourceOver fraction:1.0];
     }
 }
 

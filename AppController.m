@@ -105,8 +105,7 @@ AppController* appController;
         }
         else
         {
-            NSError* error;
-            NSString* filetype = [[NSWorkspace sharedWorkspace] typeOfFile:filename error: &error];
+            NSString* filetype = fileUTI(filename);
 
             return [[DirEntry imageUTIs] containsObject: filetype];
         }
@@ -144,7 +143,7 @@ AppController* appController;
     [open setResolvesAliases: YES];
     [open setAllowsMultipleSelection: YES];
 
-    if ([open runModal] == NSOKButton)
+    if ([open runModal] == NSModalResponseOK)
     {
         NSMutableArray* files = [NSMutableArray arrayWithCapacity: 10];
         NSMutableArray* recent = [NSMutableArray arrayWithCapacity: 10];

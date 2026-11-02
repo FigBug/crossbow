@@ -16,3 +16,7 @@ profile
 *.moved-aside
 DerivedData
 .idea/
+
+# CI output
+ci/bin/
+ci/build/

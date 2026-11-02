@@ -1,0 +1,36 @@
+name: Build
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+
+concurrency:
+  group: build-${{ github.ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build macOS
+    runs-on: macos-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Build, sign and notarize
+        run: ./ci/build.sh
+        shell: bash
+        env:
+          APPLICATION:  ${{ secrets.APPLICATION }}
+          P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
+          APPLE_USER:   ${{ secrets.APPLE_USER }}
+          APPLE_PASS:   ${{ secrets.APPLE_PASS }}
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Binaries
+          path: ci/bin/*.zip
+          retention-days: 7

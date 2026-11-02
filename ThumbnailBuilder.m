@@ -46,7 +46,7 @@
     [rebuild setEnabled:NO];
 
     abort = NO;
-    rebuildThumb = [rebuild state] == NSOnState;
+    rebuildThumb = [rebuild state] == NSControlStateValueOn;
     prefsSet(PrefRebuildThumbs, [NSNumber numberWithBool:rebuildThumb]);
     [NSThread detachNewThreadSelector:@selector(buildProc:) toTarget:self withObject:nil];
 }
@@ -55,7 +55,7 @@
 {
     [lastThumb setEnabled:NO];
 
-    [rebuild setState: [prefsGet(PrefRebuildThumbs) boolValue] ? NSOnState : NSOffState];
+    [rebuild setState: [prefsGet(PrefRebuildThumbs) boolValue] ? NSControlStateValueOn : NSControlStateValueOff];
 }
 
 - (void)buildProc:(id)param
@@ -139,8 +139,7 @@
 - (IBAction)done:(id)sender
 {
     abort = YES;
-    [[self window] orderOut:sender];
-    [NSApp endSheet:[self window] returnCode:99];
+    [[[self window] sheetParent] endSheet:[self window] returnCode:99];
 }
 
 - (void)setItems:(NSArray*)items_

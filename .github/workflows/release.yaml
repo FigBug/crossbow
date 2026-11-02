@@ -1,0 +1,47 @@
+name: Release
+on:
+  push:
+    tags:
+      - '**'
+
+jobs:
+  build:
+    name: Build macOS
+    runs-on: macos-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Build, sign and notarize
+        run: ./ci/build.sh
+        shell: bash
+        env:
+          APPLICATION:  ${{ secrets.APPLICATION }}
+          P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
+          APPLE_USER:   ${{ secrets.APPLE_USER }}
+          APPLE_PASS:   ${{ secrets.APPLE_PASS }}
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Binaries
+          path: ci/bin/*.zip
+          retention-days: 7
+
+  release:
+    name: Release
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v4
+      - name: Create Release
+        run: gh release create "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" --title "Crossbow $GITHUB_REF_NAME" --generate-notes Binaries/*.zip
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}

@@ -170,8 +170,6 @@
 {
     [control sizeToFit];
     [self setView:control];
-    [self setMinSize:[control frame].size];
-    [self setMaxSize:[control frame].size];
 }
 
 -(void)clicked:(id)sender

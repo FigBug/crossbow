@@ -52,7 +52,7 @@
 
         [sourceImage drawInRect: thumbnailRect
                        fromRect: NSZeroRect
-                      operation: NSCompositeSourceOver
+                      operation: NSCompositingOperationSourceOver
                        fraction: 1.0];
 
         [newImage unlockFocus];
@@ -102,7 +102,7 @@
 
         [sourceImage drawInRect: thumbnailRect
                        fromRect: NSZeroRect
-                      operation: NSCompositeSourceOver
+                      operation: NSCompositingOperationSourceOver
                        fraction: 1.0];
 
         [newImage unlockFocus];
@@ -211,7 +211,7 @@
     // Composite image appropriately
     [result lockFocus];
     [[NSGraphicsContext currentContext] setImageInterpolation:NSImageInterpolationHigh];
-    [self drawInRect:NSMakeRect(0,0,size.width,size.height) operation:NSCompositeSourceOver fraction:1.0 method:resizeMethod];
+    [self drawInRect:NSMakeRect(0,0,size.width,size.height) operation:NSCompositingOperationSourceOver fraction:1.0 method:resizeMethod];
     [result unlockFocus];
 
     return result;

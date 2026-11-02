@@ -267,7 +267,6 @@ int nextImg(int idx, int max)
     while (item = [enumerator nextObject])
         [array addObject:[item itemIdentifier]];
 
-    [array addObject:NSToolbarSeparatorItemIdentifier];
     [array addObject:NSToolbarSpaceItemIdentifier];
     [array addObject:NSToolbarFlexibleSpaceItemIdentifier];
 
@@ -328,9 +327,12 @@ int nextImg(int idx, int max)
 {
     if ([[menu title] isEqual:@"View"])
     {
-        [[menu itemWithTitle:@"Slideshow"] setState: [self slideshowRunning] ? NSOnState : NSOffState];
+        [[menu itemWithTitle:@"Slideshow"] setState: [self slideshowRunning] ? NSControlStateValueOn : NSControlStateValueOff];
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
         if ([imageListDrawer state] == NSDrawerOpenState || [imageListDrawer state] == NSDrawerOpeningState)
+#pragma clang diagnostic pop
             [[menu itemWithTitle:@"Show Image List Drawer"] setTitle:@"Hide Image List Drawer"];
         else
             [[menu itemWithTitle:@"Hide Image List Drawer"] setTitle:@"Show Image List Drawer"];
@@ -517,7 +519,7 @@ int nextImg(int idx, int max)
     [open setResolvesAliases: YES];
     [open setAllowsMultipleSelection: YES];
 
-    if ([open runModal] == NSOKButton)
+    if ([open runModal] == NSModalResponseOK)
     {
         NSMutableArray* files  = [NSMutableArray arrayWithCapacity: 10];
         NSMutableArray* recent = [NSMutableArray arrayWithCapacity: 10];
@@ -691,7 +693,9 @@ int nextImg(int idx, int max)
     [fmt setMaximum:[NSNumber numberWithInt:600]];
     [slideshowDelay setFormatter:fmt];
 
-    [NSApp beginSheet: slideshowDelaySheet modalForWindow:viewerWindow modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];
+    NSWindow* sheet = slideshowDelaySheet;
+
+    [viewerWindow beginSheet:sheet completionHandler:^(NSModalResponse code) { [self sheetDidEnd:sheet returnCode:(int)code contextInfo:nil]; }];
 }
 
 - (IBAction)slideshowDelayFinished:(id)sender
@@ -707,8 +711,7 @@ int nextImg(int idx, int max)
         }
     }
 
-    [slideshowDelaySheet orderOut:sender];
-    [NSApp endSheet:slideshowDelaySheet returnCode:[sender tag]];
+    [[slideshowDelaySheet sheetParent] endSheet:slideshowDelaySheet returnCode:[sender tag]];
 }
 
 - (IBAction)slideshowDelayStepped:(id)sender
@@ -733,7 +736,9 @@ int nextImg(int idx, int max)
 
     [gotoImageMax setStringValue:[NSString stringWithFormat:@"of %d.", (int)[images count]]];
 
-    [NSApp beginSheet: gotoImageSheet modalForWindow:viewerWindow modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];
+    NSWindow* sheet = gotoImageSheet;
+
+    [viewerWindow beginSheet:sheet completionHandler:^(NSModalResponse code) { [self sheetDidEnd:sheet returnCode:(int)code contextInfo:nil]; }];
 }
 
 - (IBAction)gotoImageFinished:(id)sender
@@ -742,8 +747,7 @@ int nextImg(int idx, int max)
     {
         [self viewImage: [gotoImageNumber intValue] - 1];
     }
-    [gotoImageSheet orderOut:sender];
-    [NSApp endSheet:gotoImageSheet returnCode:[sender tag]];
+    [[gotoImageSheet sheetParent] endSheet:gotoImageSheet returnCode:[sender tag]];
 }
 
 // image list
@@ -784,7 +788,10 @@ int nextImg(int idx, int max)
     prefsSet(PrefImageListOpen, [NSNumber numberWithBool:NO]);
 }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 - (NSSize)drawerWillResizeContents:(NSDrawer*)sender toSize:(NSSize)contentSize
+#pragma clang diagnostic pop
 {
     prefsSet(PrefImageListWidth, [NSNumber numberWithInt:contentSize.width]);
     return contentSize;

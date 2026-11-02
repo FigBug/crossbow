@@ -24,9 +24,32 @@
 #import "NSImageAdditions.h"
 #import "Preferences.h"
 #import "FileAccess.h"
+#import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 
 NSMutableDictionary* dirEntryCache = nil;
 NSArray* imageTypes = nil;
+
+// Thumbnail cache files are keyed archives of plain Foundation collections; the
+// cache predates secure coding, so it is read and written without it.
+static BOOL writeArchive(id object, NSString* path)
+{
+    NSData* data = [NSKeyedArchiver archivedDataWithRootObject:object requiringSecureCoding:NO error:nil];
+    return data && [data writeToFile:path atomically:YES];
+}
+
+static id readArchive(NSString* path)
+{
+    NSData* data = [NSData dataWithContentsOfFile:path];
+    if (!data)
+        return nil;
+    NSKeyedUnarchiver* unarchiver = [[NSKeyedUnarchiver alloc] initForReadingFromData:data error:nil];
+    if (!unarchiver)
+        return nil;
+    [unarchiver setRequiresSecureCoding:NO];
+    id object = [unarchiver decodeObjectForKey:NSKeyedArchiveRootObjectKey];
+    [unarchiver finishDecoding];
+    return object;
+}
 
 @implementation DirEntry
 
@@ -156,13 +179,14 @@ NSArray* imageTypes = nil;
 
 - (NSString*)filetype
 {
-    NSError* error;
-    return [[NSWorkspace sharedWorkspace] typeOfFile:[self path] error: &error];
+    return fileUTI([self path]);
 }
 
 - (NSString*)filetypeDescription
 {
-    return [[NSWorkspace sharedWorkspace] localizedDescriptionForType: [self filetype]];
+    NSString* uti = [self filetype];
+    NSString* desc = uti ? [[UTType typeWithIdentifier:uti] localizedDescription] : nil;
+    return desc ? desc : uti;
 }
 
 - (void)refresh
@@ -261,11 +285,11 @@ NSArray* imageTypes = nil;
     {
         NSBitmapImageRep *bits = [NSBitmapImageRep imageRepWithData: [thum TIFFRepresentation]];
 
-        NSData *data = [bits representationUsingType: NSPNGFileType properties: [NSDictionary dictionary]];
+        NSData *data = [bits representationUsingType: NSBitmapImageFileTypePNG properties: [NSDictionary dictionary]];
 
         NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys:data, @"thumbnail", [self path], @"path", [self metadata], @"imagemetadata", nil];
 
-        [NSKeyedArchiver archiveRootObject:dict toFile:thumbPath];
+        writeArchive(dict, thumbPath);
 
         NSDictionary* newAttr = [NSDictionary dictionaryWithObjectsAndKeys:[self created], NSFileCreationDate, [self modified], NSFileModificationDate, nil];
         [fm setAttributes:newAttr ofItemAtPath:thumbPath error:nil];
@@ -278,7 +302,7 @@ NSArray* imageTypes = nil;
     if (![self hasThumbnail])
         return [self createThumbnail];
 
-    NSDictionary* dict = [NSKeyedUnarchiver unarchiveObjectWithFile:[self thumbnailPath]];
+    NSDictionary* dict = readArchive([self thumbnailPath]);
     if (dict)
         return [[NSImage alloc] initWithData: [dict objectForKey:@"thumbnail"]];
     else
@@ -289,7 +313,7 @@ NSArray* imageTypes = nil;
 {
     if ([self hasThumbnail])
     {
-        NSDictionary* dict = [NSKeyedUnarchiver unarchiveObjectWithFile:[self thumbnailPath]];
+        NSDictionary* dict = readArchive([self thumbnailPath]);
         return [dict objectForKey:@"imagemetadata"];
     }
     else
@@ -572,7 +596,10 @@ NSArray* imageTypes = nil;
 
 + (NSArray*)getRootItems
 {
-    NSArray* roots = [[NSWorkspace sharedWorkspace] mountedLocalVolumePaths];
+    NSArray* volumes = [[NSFileManager defaultManager] mountedVolumeURLsIncludingResourceValuesForKeys:nil options:NSVolumeEnumerationSkipHiddenVolumes];
+    NSMutableArray* roots = [NSMutableArray arrayWithCapacity:[volumes count]];
+    for (NSURL* url in volumes)
+        [roots addObject:[url path]];
 
     NSMutableArray* res = [NSMutableArray arrayWithCapacity: [roots count]];
     for (NSString* path in roots)

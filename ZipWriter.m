@@ -154,7 +154,7 @@
         zip_fileinfo zipInfo;
 
         NSDate* date = [attr objectForKey:NSFileModificationDate];
-        NSDateComponents* comp = [[NSCalendar currentCalendar] components: NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit fromDate:date];
+        NSDateComponents* comp = [[NSCalendar currentCalendar] components: NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond fromDate:date];
 
         zipInfo.tmz_date.tm_sec  = (uint)[comp second];
         zipInfo.tmz_date.tm_min  = (uint)[comp minute];

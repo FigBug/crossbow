@@ -22,6 +22,7 @@
 #import "Util.h"
 #import "DirEntry.h"
 #import <CommonCrypto/CommonDigest.h>
+#import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 
 NSString* md5(NSString* str)
 {
@@ -29,7 +30,12 @@ NSString* md5(NSString* str)
 
     NSMutableData* digest = [NSMutableData dataWithLength:CC_MD5_DIGEST_LENGTH];
 
-    if (CC_MD5([data bytes], (CC_LONG)[data length], [digest mutableBytes]))
+    // MD5 only names thumbnail cache files; it is not used in a security context.
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+    BOOL ok = CC_MD5([data bytes], (CC_LONG)[data length], [digest mutableBytes]) != NULL;
+#pragma clang diagnostic pop
+    if (ok)
     {
         NSMutableString* ms = [NSMutableString string];
         unsigned char* bytes = (unsigned char*)[digest bytes];
@@ -41,20 +47,42 @@ NSString* md5(NSString* str)
     return @"";
 }
 
+// Reads the hidden / volume flags of the item itself (symlinks are not followed).
+static BOOL itemFlags(NSString* path, BOOL* hidden, BOOL* volume)
+{
+    NSURL* url = [NSURL fileURLWithPath:path];
+    NSNumber* h = nil;
+    NSNumber* v = nil;
+    if (![url getResourceValue:&h forKey:NSURLIsHiddenKey error:nil])
+        return NO;
+    if (![url getResourceValue:&v forKey:NSURLIsVolumeKey error:nil])
+        return NO;
+    *hidden = [h boolValue];
+    *volume = [v boolValue];
+    return YES;
+}
+
+NSString* fileUTI(NSString* path)
+{
+    UTType* type = nil;
+    if ([[NSURL fileURLWithPath:path] getResourceValue:&type forKey:NSURLContentTypeKey error:nil] && type)
+        return [type identifier];
+    return nil;
+}
+
 BOOL isVisiblePath(NSString* path)
 {
     NSFileManager* fm = [NSFileManager defaultManager];
 
-    LSItemInfoRecord infoRec;
-    OSStatus status = LSCopyItemInfoForURL((__bridge CFURLRef)[NSURL fileURLWithPath:path], kLSRequestBasicFlagsOnly, &infoRec);
-
-    if (status != noErr)
+    BOOL hidden = NO;
+    BOOL volume = NO;
+    if (!itemFlags(path, &hidden, &volume))
         return NO;
 
-    if (infoRec.flags & kLSItemInfoIsInvisible)
+    if (hidden)
         return NO;
 
-    if (infoRec.flags & (/*kLSItemInfoIsPackage |*/ kLSItemInfoIsVolume))
+    if (volume)
         return NO;
 
     if ([path isEqualTo:@"/dev"])
@@ -69,14 +97,14 @@ BOOL isVisiblePath(NSString* path)
 
         do
         {
-            LSItemInfoRecord infoRec2;
-            OSStatus status2 = LSCopyItemInfoForURL((__bridge CFURLRef)[NSURL fileURLWithPath:actualPath], kLSRequestBasicFlagsOnly, &infoRec2);
-            if (status2 != noErr)
+            BOOL hidden2 = NO;
+            BOOL volume2 = NO;
+            if (!itemFlags(actualPath, &hidden2, &volume2))
                 return NO;
 
-            if (infoRec2.flags & kLSItemInfoIsVolume)
+            if (volume2)
                 return YES;
-            if (infoRec2.flags & kLSItemInfoIsInvisible)
+            if (hidden2)
                 return NO;
 
             actualPath = [actualPath stringByDeletingLastPathComponent];
@@ -228,7 +256,7 @@ void openWithApp(NSURL* file, int idx, BOOL edit)
     NSArray* apps = (NSArray*)CFBridgingRelease(LSCopyApplicationURLsForURL((__bridge CFURLRef)file, edit ? kLSRolesEditor : kLSRolesViewer));
     if (apps)
     {
-        [[NSWorkspace sharedWorkspace] openFile:[file path] withApplication:[[apps objectAtIndex:idx] path]];
+        [[NSWorkspace sharedWorkspace] openURLs:@[file] withApplicationAtURL:[apps objectAtIndex:idx] configuration:[NSWorkspaceOpenConfiguration configuration] completionHandler:nil];
     }
 }
 

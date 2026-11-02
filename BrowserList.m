@@ -25,6 +25,9 @@
 #import "Viewer.h"
 #import "FileListItem.h"
 
+// This file is the IKImageBrowserView data source and delegate; see Browser.h.
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
 @implementation BrowserList
 
 - (id)init:(Browser*)browser_

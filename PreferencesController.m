@@ -53,9 +53,9 @@
 
 - (IBAction)startupFolderChanged:(id)sender
 {
-    NSPathComponentCell* cell = [startupFolder clickedPathComponentCell];
+    NSPathControlItem* item = [startupFolder clickedPathItem];
 
-    NSURL* url = cell ? [cell URL] : [startupFolder URL];
+    NSURL* url = item ? [item URL] : [startupFolder URL];
     if ([url isFileURL] && [[DirEntry dirEntryWithURL: url] isFolder])
         prefsSet(PrefStartupFolder, [url path]);
     [startupFolder setURL: [NSURL fileURLWithPath: prefsGet(PrefStartupFolder)]];

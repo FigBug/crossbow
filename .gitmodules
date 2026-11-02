@@ -1,0 +1,3 @@
+[submodule "modules/Malus"]
+	path = modules/Malus
+	url = https://github.com/FigBug/Malus.git

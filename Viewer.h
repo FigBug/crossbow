@@ -22,6 +22,12 @@
 #import <Cocoa/Cocoa.h>
 #import <Quartz/Quartz.h>
 
+// Crossbow's browser is built on IKImageBrowserView and NSDrawer, both deprecated
+// but still shipped. Replacing them (NSCollectionView / NSSplitViewController)
+// is a UI rewrite, so their deprecation warnings are silenced here.
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
 #include "ActivityFaker.h"
 
 enum Zoom
@@ -161,3 +167,5 @@ enum Zoom
 - (void)imageClipNext:(id)param;
 
 @end
+
+#pragma clang diagnostic pop

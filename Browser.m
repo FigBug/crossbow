@@ -40,6 +40,18 @@
 #import "FileAccess.h"
 #import "WelcomeViewController.h"
 
+static NSString* formatDate(NSDate* date)
+{
+    static NSDateFormatter* fmt = nil;
+    static dispatch_once_t once;
+    dispatch_once(&once, ^{
+        fmt = [[NSDateFormatter alloc] init];
+        [fmt setLocale:[NSLocale currentLocale]];
+        [fmt setDateFormat:@"MM/dd/yyyy hh:mm a"];
+    });
+    return [fmt stringFromDate:date];
+}
+
 @implementation Browser
 
 @synthesize folderContents;
@@ -109,7 +121,7 @@ int nextBrowserId = 1;
     [fileList setZoomValue:[prefsGet(PrefThumbnailSize) doubleValue]];
 
     [thumbSize setDoubleValue: [fileList zoomValue]];
-    [[thumbSize cell] setControlSize:NSMiniControlSize];
+    [[thumbSize cell] setControlSize:NSControlSizeMini];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(thumbnailsDeleted:) name:NotThumbnailsDeleted object:nil];
 }
@@ -410,7 +422,7 @@ int nextBrowserId = 1;
     if ([sel countFiles] == 1 && [sel countFolders] == 0)
     {
         DirEntry* de = [[sel selectedFiles] objectAtIndex: 0];
-        seg2 = [NSString stringWithFormat: @"%@, %@  |  %@", stringFromFileSize([de size]), [[de created] descriptionWithCalendarFormat:@"%m/%d/%Y %I:%M %p" timeZone:nil locale:[NSLocale currentLocale]], [de displayName]];
+        seg2 = [NSString stringWithFormat: @"%@, %@  |  %@", stringFromFileSize([de size]), formatDate([de created]), [de displayName]];
     }
     else if ([sel countFolders] == 1 && [sel countFiles] == 0)
     {
@@ -470,7 +482,6 @@ int nextBrowserId = 1;
     while (item = [enumerator nextObject])
         [array addObject:[item itemIdentifier]];
 
-    [array addObject:NSToolbarSeparatorItemIdentifier];
     [array addObject:NSToolbarSpaceItemIdentifier];
     [array addObject:NSToolbarFlexibleSpaceItemIdentifier];
 
@@ -557,7 +568,7 @@ int nextBrowserId = 1;
     {
         for (NSMenuItem* item in [menu itemArray])
         {
-            [item setState: ([item tag] == sort) ? NSOnState : NSOffState];
+            [item setState: ([item tag] == sort) ? NSControlStateValueOn : NSControlStateValueOff];
         }
     }
     if ([[menu title] isEqual:@"Recent"])
@@ -801,7 +812,9 @@ int nextBrowserId = 1;
         [bookmarkList addItemWithTitle:[de displayName]];
     [bookmarkList selectItemAtIndex:0];
 
-    [NSApp beginSheet: deleteBookmarkSheet modalForWindow:browserWindow modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];
+    NSWindow* sheet = deleteBookmarkSheet;
+
+    [browserWindow beginSheet:sheet completionHandler:^(NSModalResponse code) { [self sheetDidEnd:sheet returnCode:(int)code contextInfo:nil]; }];
 }
 
 - (IBAction)deleteBookmarkFinished:(id)sender
@@ -809,8 +822,7 @@ int nextBrowserId = 1;
     if ([sender tag] > 0)
         [bookmarks deleteBookmark:(int)[bookmarkList indexOfSelectedItem]];
 
-    [deleteBookmarkSheet orderOut:sender];
-    [NSApp endSheet:deleteBookmarkSheet returnCode:[sender tag]];
+    [[deleteBookmarkSheet sheetParent] endSheet:deleteBookmarkSheet returnCode:[sender tag]];
 }
 
 - (IBAction)thumbnailsDeleted:(id)param
@@ -828,15 +840,16 @@ int nextBrowserId = 1;
     [gotoFolder setStringValue: prefsGet(PrefGotoFolder)];
     [gotoFolderError setHidden:YES];
 
-    [NSApp beginSheet: gotoFolderSheet modalForWindow:browserWindow modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];
+    NSWindow* sheet = gotoFolderSheet;
+
+    [browserWindow beginSheet:sheet completionHandler:^(NSModalResponse code) { [self sheetDidEnd:sheet returnCode:(int)code contextInfo:nil]; }];
 }
 
 - (IBAction)gotoFolderFinished:(id)sender
 {
     if ([sender tag] == 0)
     {
-        [gotoFolderSheet orderOut:sender];
-        [NSApp endSheet:gotoFolderSheet returnCode:[sender tag]];
+        [[gotoFolderSheet sheetParent] endSheet:gotoFolderSheet returnCode:[sender tag]];
     }
     else
     {
@@ -852,8 +865,7 @@ int nextBrowserId = 1;
             if (de)
                 [self browseToFolder:de sender:self];
 
-            [gotoFolderSheet orderOut:sender];
-            [NSApp endSheet:gotoFolderSheet returnCode:[sender tag]];
+            [[gotoFolderSheet sheetParent] endSheet:gotoFolderSheet returnCode:[sender tag]];
         }
         else
         {
@@ -889,7 +901,8 @@ int nextBrowserId = 1;
 {
     builder = [[ThumbnailBuilder alloc] init];
     [builder setItems:[selection selection]];
-    [NSApp beginSheet: [builder window] modalForWindow:browserWindow modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];
+    NSWindow* sheet = [builder window];
+    [browserWindow beginSheet:sheet completionHandler:^(NSModalResponse code) { [self sheetDidEnd:sheet returnCode:(int)code contextInfo:nil]; }];
 }
 
 - (IBAction)share:(id)sender
@@ -901,7 +914,8 @@ int nextBrowserId = 1;
 {
     ProgressSheet* prog = [ProgressSheet alloc];
     (void)[prog initWithThread:[ZipWriter createZippingThread:[self currentLocation] with:[selection deepExpandSelection:sort] forSheet:prog]];
-    [NSApp beginSheet: [prog window] modalForWindow:browserWindow modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];
+    NSWindow* sheet = [prog window];
+    [browserWindow beginSheet:sheet completionHandler:^(NSModalResponse code) { [self sheetDidEnd:sheet returnCode:(int)code contextInfo:nil]; }];
 }
 
 - (IBAction)moveToTrash:(id)sender
@@ -922,7 +936,7 @@ int nextBrowserId = 1;
 
     __weak BrowserTree* weakTree = browserTree;
     [panel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
-        if (result == NSFileHandlingPanelOKButton)
+        if (result == NSModalResponseOK)
         {
             NSArray* urls = [panel URLs];
             for (NSURL* url in urls)
